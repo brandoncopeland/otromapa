@@ -1,8 +1,8 @@
 (function (window, require, define) {
-	var libsPath = window.location.pathname + 'js/lib'; // use full, rel is to dojo on cdn
+  var libsPath = window.location.pathname + 'js/lib'; // use full, rel is to dojo on cdn
 
-	require({
-		async: true,
+  require({
+    async: true,
     parseOnLoad: true,
     aliases: [['text', 'dojo/text']],
     packages: [
