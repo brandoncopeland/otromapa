@@ -1,22 +1,23 @@
 (function (window) {
-  var libsPath = window.location.pathname + 'js/lib'; // use full, rel is to dojo on cdn
 
   window.require({
     async: true,
     parseOnLoad: true,
-    aliases: [['text', 'dojo/text']],
+    aliases: [
+      ['text', 'dojo/text']
+    ],
     packages: [
       {
         name: 'jquery',
-        location: libsPath,
-        main: 'jquery-1.8.0.min'
+        location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.0',
+        main: 'jquery.min'
       }, {
         name: 'underscore',
-        location: libsPath,
+        location: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3',
         main: 'underscore-min'
       }, {
         name: 'backbone',
-        location: libsPath,
+        location: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2',
         main: 'backbone-min'
       }
     ]
@@ -24,8 +25,7 @@
 
   window.define.amd.jQuery = true;
 
-  // can do something like...
-  // require(['jquery', 'esri', 'esri/geometry'], function ($, esri, geometry))
-  window.require(['jquery'], function ($) {
+  window.require(['jquery', 'dojo/ready'], function ($, ready) {
   });
+  
 }(window));
