@@ -97,3 +97,23 @@ $type-larger: 1.1em;
 @mixin invisible {
 	visibility: hidden;
 }
+
+// Map
+
+$padding-mapcommandspacing: 5px;
+$size-mapcommand: 24px;
+
+@mixin mapcommand {
+	@include imagereplace;
+	border: {
+		top: 0;
+		bottom: 0 !important;
+		left: 0;
+		right: 0;
+	};
+	height: $size-mapcommand;
+	width: $size-mapcommand;
+	&:hover {
+		background-position: left (-1 * $size-mapcommand);
+	}
+}

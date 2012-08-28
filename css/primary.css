@@ -1,5 +1,5 @@
 /* primary.scss */
-
+/* resources.scss */
 html {
   overflow: hidden; }
   html, html body {
@@ -10,12 +10,22 @@ html {
 
 .pagecontent {
   height: 100%;
-  width: 100%;
+  width: 100%; }
+
+.mapbox {
+  height: 100%;
+  margin-left: 34px;
   position: relative;
-  overflow: hidden;
   box-shadow: 0 0 10px #9B8261; }
 
 .map {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   height: 100%;
   width: 100%;
   background-position: center center;

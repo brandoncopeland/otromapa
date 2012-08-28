@@ -1,3 +1,7 @@
+/* primary.scss */
+
+@import "resources.scss";
+
 $color-aerialback: rgba(79, 77, 76, 0.7); // TODO. not full rgba support
 
 html {
@@ -13,19 +17,23 @@ html {
 
 .pagecontent {
 	height: 100%; width: 100%;
-	position: relative;
-	overflow: hidden;
-	box-shadow: 0 0 10px #9B8261; // matches wood background
 }
 
+.mapbox {
+	height: 100%;
+	margin-left: $size-mapcommand + 10px;
+	position: relative;
+	box-shadow: 0 0 10px #9B8261; // matches wood background
+}
 .map {
+	@include noselection;
 	height: 100%; width: 100%;
 	background: {
 		position: center center;
 		repeat: no-repeat;
 	}
 	.esriSimpleSlider, .bingLogo-lg {
-		display: none; // TODO. temporary
+		display: none;
 	}
 
 	border: {
