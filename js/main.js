@@ -1,7 +1,7 @@
-(function (window, require, define) {
+(function (window) {
   var libsPath = window.location.pathname + 'js/lib'; // use full, rel is to dojo on cdn
 
-  require({
+  window.require({
     async: true,
     parseOnLoad: true,
     aliases: [['text', 'dojo/text']],
@@ -22,10 +22,10 @@
     ]
   });
 
-  define.amd.jQuery = true;
+  window.define.amd.jQuery = true;
 
   // can do something like...
   // require(['jquery', 'esri', 'esri/geometry'], function ($, esri, geometry))
-  require(['jquery'], function ($) {
+  window.require(['jquery'], function ($) {
   });
-}(window, require, define));
+}(window));
