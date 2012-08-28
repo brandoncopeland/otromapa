@@ -1,5 +1,7 @@
 (function (window) {
 
+  var localLib = window.location.pathname.replace(/\/[^/]+$/, '') + '/js/lib';
+
   window.require({
     async: true,
     parseOnLoad: true,
@@ -13,19 +15,19 @@
         main: 'jquery.min'
       }, {
         name: 'underscore',
-        location: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3',
-        main: 'underscore-min'
+        location: localLib,
+        main: 'underscore-amd-min'
       }, {
         name: 'backbone',
-        location: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2',
-        main: 'backbone-min'
+        location: localLib,
+        main: 'backbone-amd-min'
       }
     ]
   });
 
   window.define.amd.jQuery = true;
 
-  window.require(['jquery', 'dojo/ready'], function ($, ready) {
+  window.require(['jquery', 'dojo/domReady!'], function ($) {
   });
-  
+
 }(window));
