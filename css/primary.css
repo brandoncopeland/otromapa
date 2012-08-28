@@ -1,3 +1,28 @@
+/* primary.scss */
+
+html {
+  overflow: hidden; }
+  html, html body {
+    height: 100%; }
+  html body {
+    padding: 20px;
+    background: transparent url("../img/retina_wood.png"); }
+
+.pagecontent {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px #9B8261; }
+
 .map {
-  height: 500px;
-  width: 800px; }
+  height: 100%;
+  width: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(79, 77, 76, 0.7);
+  background-color: rgba(79, 77, 76, 0.7); }
+  .map .esriSimpleSlider, .map .bingLogo-lg {
+    display: none; }

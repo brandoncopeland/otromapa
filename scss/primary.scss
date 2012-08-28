@@ -1,4 +1,37 @@
+$color-aerialback: rgba(79, 77, 76, 0.7); // TODO. not full rgba support
+
+html {
+	overflow: hidden;
+	&, body {
+		height: 100%;
+	}
+	body {
+		padding: 20px;
+		background: transparent url('../img/retina_wood.png');
+	}
+}
+
+.pagecontent {
+	height: 100%; width: 100%;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0 10px #9B8261; // matches wood background
+}
+
 .map {
-	height: 500px;
-	width: 800px;
+	height: 100%; width: 100%;
+	background: {
+		position: center center;
+		repeat: no-repeat;
+	}
+	.esriSimpleSlider, .bingLogo-lg {
+		display: none; // TODO. temporary
+	}
+
+	border: {
+		style: solid;
+		width: 1px;
+		color: $color-aerialback;
+	}
+	background-color: $color-aerialback;
 }
