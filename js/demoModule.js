@@ -5,7 +5,7 @@ define('app/demoModule', ['underscore'], function(_) {
 
 	return {
 		doIt: function () {
-			doSomething();
+			return doSomething();
 		}
 	}
 });
