@@ -1,6 +1,7 @@
 (function (window) {
 
-  var localLib = window.location.pathname.replace(/\/[^/]+$/, '') + '/js/lib';
+  var localJs = window.location.pathname.replace(/\/[^/]+$/, '') + '/js';
+  var localLib = localJs + '/lib';
 
   window.require({
     async: true,
@@ -21,6 +22,9 @@
         name: 'backbone',
         location: localLib,
         main: 'backbone-amd-min'
+      }, {
+        name: 'app',
+        location: localJs
       }
     ]
   });
