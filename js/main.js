@@ -1,7 +1,9 @@
 (function (window) {
 
-  var localJs = window.location.pathname.replace(/\/[^/]+$/, '') + '/js';
+  var local = window.location.pathname.replace(/\/[^/]+$/, '');
+  var localJs = local + '/js';
   var localLib = localJs + '/lib';
+  var localTemplates = local + '/templates';
 
   window.require({
     async: true,
@@ -25,13 +27,17 @@
       }, {
         name: 'app',
         location: localJs
+      }, {
+        name: 'templates',
+        location: localTemplates
       }
     ]
   });
 
   window.define.amd.jQuery = true;
 
-  window.require(['jquery', 'dojo/domReady!'], function ($) {
+  window.require(['jquery', 'app/app'], function ($, application) {
+    application.initialize();
   });
 
 }(window));
