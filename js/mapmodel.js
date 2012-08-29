@@ -1,4 +1,4 @@
-define('app/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry'], function ($, dojo, _, Backbone, esri, esriGeometry) {
+define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry'], function ($, dojo, _, Backbone, esri, esriGeometry) {
 
 	var gWkid = '4326';
 	var mWkid = '3857';

@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'app/mapmodel', 'app/themap'], function ($, esri, esriGeometry, MapModel, theMap) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'views/maptoolsview'], function ($, esri, esriGeometry, MapModel, MapToolsView) {
 
 	var defaultExtent = new esriGeometry.Extent({
 		xmin: -10739056,
@@ -10,7 +10,12 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'app/mapmodel', 'app/thema
 
 	var init = function () {
 		// a couple options for app specific config... can just create custom app.js for each project (current winner) or load from some config.json
-		theMap.setTheMap(new MapModel({ fullExtent: defaultExtent }));
+		var map = new MapModel({ fullExtent: defaultExtent });
+
+		var toolsView = new MapToolsView({
+			el: $('#toolbox'),
+			model: map
+		});
 	};
 
 	return {

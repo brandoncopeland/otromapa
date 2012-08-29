@@ -28,6 +28,12 @@
         name: 'app',
         location: localJs
       }, {
+        name: 'views',
+        location: localJs
+      }, {
+        name: 'models',
+        location: localJs
+      }, {
         name: 'templates',
         location: localTemplates
       }
