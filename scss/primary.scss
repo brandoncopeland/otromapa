@@ -3,6 +3,7 @@
 @import "resources.scss";
 
 $color-aerialback: rgba(79, 77, 76, 0.7); // TODO. not full rgba support
+$color-aerialborder: darken($color-aerialback, 30%);
 
 html {
 	overflow: hidden;
@@ -16,30 +17,82 @@ html {
 }
 
 .pagecontent {
+	position: relative;
 	height: 100%; width: 100%;
 }
+
+$width-toolbox: $size-mapcommand + 8px; // 8 padding right
+$height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 
 .mapbox {
 	height: 100%;
-	margin-left: $size-mapcommand + 20px; // area for tools later
+	margin-left: $width-toolbox;
 	position: relative;
-	box-shadow: 0 0 10px #9B8261; // matches wood background
-}
-.map {
-	@include noselection;
-	height: 100%; width: 100%;
-	background: {
-		position: center center;
-		repeat: no-repeat;
-	}
-	.esriSimpleSlider, .bingLogo-lg {
-		display: none;
-	}
-
-	border: {
-		style: solid;
-		width: 1px;
-		color: $color-aerialback;
-	}
 	background-color: $color-aerialback;
+	box-shadow: 0 0 10px #9B8261; // matches wood background
+
+	.map {
+		@include noselection;
+		height: 100%; width: 100%;
+		background: {
+			position: center center;
+			repeat: no-repeat;
+		}
+		.esriSimpleSlider, .bingLogo-lg {
+			display: none;
+		}
+
+		border: {
+			style: solid;
+			width: 1px;
+			color: $color-aerialborder;
+		}
+	}
+}
+
+.toolbox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%; width: $width-toolbox;
+
+	.tools {
+		height: 100%; width: 100%;
+
+		ul {
+			@include list-unpadded;
+			li {
+				height: $height-toolbox;
+				width: 100%;
+				margin-top: 0;
+			}
+		}
+
+		input.tool {
+			@include imagereplace;
+			height: 100%; width: 100%;
+			opacity: 0.6; filter:alpha(opacity=60);
+			background: {
+				color: transparent;
+				position: left center;
+				repeat: no-repeat;
+			}
+			&:hover {
+				opacity: 0.8; filter:alpha(opacity=80);
+			}
+			&:active {
+				opacity: 1; filter:alpha(opacity=100);
+			}
+		}
+
+		.zoomout {
+			background-image: url('../img/zoomout.png');
+		}
+		.zoomin {
+			background-image: url('../img/zoomin.png');
+		}
+		.zoominitial {
+			background-image: url('../img/location.png'); // TODO. better icon
+		}
+	}
 }

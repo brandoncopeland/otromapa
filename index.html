@@ -27,9 +27,18 @@
 </head>
 <body>
   <div role="main" class="pagecontent">
-    <div class="mapbox">
+    <section class="mapbox">
       <div id="map" class="map"></div>
-    </div>
+    </section>
+    <section class="toolbox">
+      <div class="tools">
+        <ul>
+          <li><input type="button" class="tool zoomin" value="Zoom In"></li>
+          <li><input type="button" class="tool zoomout" value="Zoom Out"></li>
+          <li><input type="button" class="tool zoominitial" value="Zoom to Initial Extent"></li>
+        </ul>
+      </div>
+    </section>
   </div>
 
   <script src='http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.1compact' type='text/javascript'></script>
