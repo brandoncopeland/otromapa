@@ -41,5 +41,6 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 			this.model.zoomToFullExtent();
 		}
 	});
+	
 	return MapToolsView;
 });

@@ -4,10 +4,10 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 	var mWkid = '3857';
 
 	var scales = { // use later
-		'house': 16,
-		'subdivision': 13,
-		'city': 11,
-		'county': 8
+		house: 16,
+		subdivision: 13,
+		city: 11,
+		county: 8
 	};
 
 	// navigation...
