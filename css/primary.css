@@ -6,7 +6,7 @@ html {
     height: 100%; }
   html body {
     padding: 20px;
-    background: transparent url("../img/retina_wood.png"); }
+    background: transparent url("../img/bright_squares.png"); }
 
 .pagecontent {
   position: relative;
@@ -17,8 +17,8 @@ html {
   height: 100%;
   margin-left: 32px;
   position: relative;
-  background-color: rgba(79, 77, 76, 0.7);
-  box-shadow: 0 0 10px #9B8261; }
+  background-color: rgba(187, 187, 187, 0.5);
+  box-shadow: 0 0 15px -2px #333333; }
   .mapbox .map {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -30,10 +30,7 @@ html {
     height: 100%;
     width: 100%;
     background-position: center center;
-    background-repeat: no-repeat;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(1, 1, 1, 0.7); }
+    background-repeat: no-repeat; }
     .mapbox .map .esriSimpleSlider, .mapbox .map .bingLogo-lg {
       display: none; }
 
@@ -65,16 +62,16 @@ html {
       direction: ltr;
       height: 100%;
       width: 100%;
-      opacity: 0.6;
-      filter: alpha(opacity=60);
+      opacity: 0.4;
+      filter: alpha(opacity=40);
       background-color: transparent;
       background-position: left center;
       background-repeat: no-repeat; }
       .toolbox .tools input.tool br {
         display: none; }
       .toolbox .tools input.tool:hover {
-        opacity: 0.8;
-        filter: alpha(opacity=80); }
+        opacity: 0.7;
+        filter: alpha(opacity=70); }
       .toolbox .tools input.tool:active {
         opacity: 1;
         filter: alpha(opacity=100); }
@@ -83,4 +80,4 @@ html {
     .toolbox .tools .zoomin {
       background-image: url("../img/zoomin.png"); }
     .toolbox .tools .zoominitial {
-      background-image: url("../img/location.png"); }
+      background-image: url("../img/blanktool.png"); }

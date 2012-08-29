@@ -2,8 +2,8 @@
 
 @import "resources.scss";
 
-$color-aerialback: rgba(79, 77, 76, 0.7); // TODO. not full rgba support
-$color-aerialborder: darken($color-aerialback, 30%);
+$color-aerialback: rgba(187, 187, 187, 0.5); // TODO. not full rgba support
+$color-aerialborder: darken($color-aerialback, 40%);
 
 html {
 	overflow: hidden;
@@ -12,7 +12,7 @@ html {
 	}
 	body {
 		padding: 20px;
-		background: transparent url('../img/retina_wood.png');
+		background: transparent url('../img/bright_squares.png');
 	}
 }
 
@@ -29,7 +29,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	margin-left: $width-toolbox;
 	position: relative;
 	background-color: $color-aerialback;
-	box-shadow: 0 0 10px #9B8261; // matches wood background
+	box-shadow: 0 0 15px -2px #333;
 
 	.map {
 		@include noselection;
@@ -40,12 +40,6 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		}
 		.esriSimpleSlider, .bingLogo-lg {
 			display: none;
-		}
-
-		border: {
-			style: solid;
-			width: 1px;
-			color: $color-aerialborder;
 		}
 	}
 }
@@ -71,14 +65,14 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		input.tool {
 			@include imagereplace;
 			height: 100%; width: 100%;
-			opacity: 0.6; filter:alpha(opacity=60);
+			opacity: 0.4; filter:alpha(opacity=40);
 			background: {
 				color: transparent;
 				position: left center;
 				repeat: no-repeat;
 			}
 			&:hover {
-				opacity: 0.8; filter:alpha(opacity=80);
+				opacity: 0.7; filter:alpha(opacity=70);
 			}
 			&:active {
 				opacity: 1; filter:alpha(opacity=100);
@@ -92,7 +86,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			background-image: url('../img/zoomin.png');
 		}
 		.zoominitial {
-			background-image: url('../img/location.png'); // TODO. better icon
+			background-image: url('../img/blanktool.png'); // TODO
 		}
 	}
 }
