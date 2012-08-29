@@ -21,7 +21,7 @@ html {
 
 .mapbox {
 	height: 100%;
-	margin-left: $size-mapcommand + 10px;
+	margin-left: $size-mapcommand + 20px; // area for tools later
 	position: relative;
 	box-shadow: 0 0 10px #9B8261; // matches wood background
 }
