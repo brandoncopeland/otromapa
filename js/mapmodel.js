@@ -95,6 +95,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			mercatorWkid: mWkid,
 			fullExtent: defaultExtent
 		},
+		_widget: undefined,
 		initialize: function () {
 			var self = this;
 
@@ -108,33 +109,33 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			};
 
 			var map = new esri.Map(self.get('domId'), mapSettings);
-			self.set('_widget', map);
+			self._widget = map;
 
 			layers.on('add', function (layer, collection, options) {
-			  addMapLayer(self.get('_widget'), layer.get('esriLayer'), options.index);
+			  addMapLayer(self._widget, layer.get('esriLayer'), options.index);
 			});
 			layers.on('remove', function (layer) {
-				removeMapLayer(self.get('_widget'), layer.get('esriLayer'));
+				removeMapLayer(self._widget, layer.get('esriLayer'));
 			});
 			layers.on('reset', function (collection) {
-				resetMapLayers(self.get('_widget'), collection);
+				resetMapLayers(self._widget, collection);
 			});
 		},
 		zoomInOne: function () {
-			zoomMapInOne(this.get('_widget'));
+			zoomMapInOne(this._widget);
 		},
 		zoomOutOne: function () {
-			zoomMapOutOne(this.get('_widget'));
+			zoomMapOutOne(this._widget);
 		},
 		zoomToExtent: function (xmin, xmax, ymin, ymax, wkid) {
-			zoomMapToExtent(this.get('_widget'), xmin, xmax, ymin, ymax, wkid);
+			zoomMapToExtent(this._widget, xmin, xmax, ymin, ymax, wkid);
 		},
 		zoomToFullExtent: function () {
 			var extent = this.get('fullExtent');
-			zoomMapToExtent(this.get('_widget'), extent.xmin, extent.xmax, extent.ymin, extent.ymax, extent.spatialReference.wkid);
+			zoomMapToExtent(this._widget, extent.xmin, extent.xmax, extent.ymin, extent.ymax, extent.spatialReference.wkid);
 		},
 		zoomToLocation: function (x, y, wkid, scaleLevel) {
-			zoomMapToLocation(this.get('_widget'), x, y, wkid, scaleLevel);
+			zoomMapToLocation(this._widget, x, y, wkid, scaleLevel);
 		}
 	});
 
