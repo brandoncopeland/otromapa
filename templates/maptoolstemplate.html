@@ -1,8 +1,10 @@
 <div class="tools">
-  <ul>
-  	<% for (var i = 0; i < tools.length; i++) { %>
-  	<% var tool = tools[i]; %>
-    <li><input type="button" class="tool <%= tool.cl %>" value="<%= tool.val %>"></li>
-    <% } %>
-  </ul>
+	<ul>
+		<% for (var i = 0; i < tools.length; i++) { %>
+		<% var tool = tools[i]; %>
+		<li>
+			<input type="button" class="tool <%= tool.cl %>" value="<%= tool.val %>" />
+		</li>
+		<% } %>
+	</ul>
 </div>
