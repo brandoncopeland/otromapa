@@ -22,6 +22,7 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		template: _.template(mapToolsTemplate),
 		render: function () {
 			this.$el.html(this.template({ tools : tools }));
+			return this;
 		},
 		events: function () {
 			var evts = {};
