@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'views/maptoolsview'], function ($, esri, esriGeometry, MapModel, MapToolsView) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'views/maptoolsview'], function ($, esri, esriGeometry, MapModel, LayerModel, MapToolsView) {
 
 	var defaultExtent = new esriGeometry.Extent({
 		xmin: -10739056,
@@ -13,6 +13,12 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'views/
 		var map = new MapModel({
 			fullExtent: defaultExtent
 		});
+
+		var removeLayer = new LayerModel();
+
+		map.layers.add(new LayerModel({
+			esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer')
+		}));
 
 		var toolsView = new MapToolsView({
 			el: $('#toolbox'),
