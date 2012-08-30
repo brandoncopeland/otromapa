@@ -2,7 +2,12 @@ define('models/layermodelcollection', ['jquery', 'underscore', 'backbone', 'mode
 	'use strict';
 
 	var LayerModelCollection = Backbone.Collection.extend({
-		model: LayerModel
+		model: LayerModel,
+		baseMaps: function () {
+			return this.filter(function (layer) {
+				return layer.get('isBasemap');
+			});
+		}
 	});
 
 	return LayerModelCollection;
