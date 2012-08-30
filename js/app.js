@@ -14,8 +14,6 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			fullExtent: defaultExtent
 		});
 
-		var removeLayer = new LayerModel();
-
 		map.layers.add(new LayerModel({
 			esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer')
 		}));
