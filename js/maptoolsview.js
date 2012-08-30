@@ -33,15 +33,21 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 			return evts;
 		},
 		doZoomIn: function () {
-			this.model.zoomInOne();
+			if (this.options.mapModel) {
+				this.options.mapModel.zoomInOne();
+			}
 		},
 		doZoomOut: function () {
-			this.model.zoomOutOne();
+			if (this.options.mapModel) {
+				this.options.mapModel.zoomOutOne();
+			}
 		},
 		doZoomInitial: function () {
-			this.model.zoomToFullExtent();
+			if (this.options.mapModel) {
+				this.options.mapModel.zoomToFullExtent();
+			}
 		}
 	});
-	
+
 	return MapToolsView;
 });

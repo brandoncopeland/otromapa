@@ -56,7 +56,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			fadeOnZoom: true,
 			fitExtent: true,
 			logo: false,
-			baselayers: [
+			layers: [
 				new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer')
 			]
 		},
@@ -73,7 +73,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			var map = new esri.Map(self.get('domId'), mapSettings);
 			self.set('widget', map);
 
-			_.each(self.get('baselayers'), function (layer) {
+			_.each(self.get('layers'), function (layer) {
 				map.addLayer(layer);
 			});
 		},
