@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'views/maptoolsview'], function ($, esri, esriGeometry, MapModel, LayerModel, MapToolsView) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'views/maptoolsview', 'views/basemappickerview'], function ($, esri, esriGeometry, MapModel, LayerModel, MapToolsView, BasemapPickerView) {
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
@@ -15,13 +15,30 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			fullExtent: defaultExtent
 		});
 
-		map.layers.add(new LayerModel({
-			esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer')
-		}));
+		map.layers.add([
+			new LayerModel({
+				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer', {
+					id: 'Canvas Map'
+				}),
+				isBasemap: true
+			}),
+			new LayerModel({
+				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer', {
+					visible: false,
+					id: 'Aerial Map'
+				}),
+				isBasemap: true
+			})
+		]);
 
 		var toolsView = new MapToolsView({
-			el: $('#toolbox'),
+			el: $('#toolbox > .tools'),
 			mapModel: map
+		});
+
+		var basemapPickerView = new BasemapPickerView({
+			el: $('#basemapbox > .basemaps'),
+			collection: map.layers
 		});
 	};
 

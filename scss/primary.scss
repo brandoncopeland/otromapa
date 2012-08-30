@@ -91,3 +91,23 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		}
 	}
 }
+
+.basemapbox {
+	position: absolute;
+	top: 10px;
+	left: $width-toolbox + 10px;
+	.basemaps {
+		ul {
+			@include list-unpadded;
+			li {
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+}
+
+.hidden {
+	@include hidden;
+}

@@ -82,3 +82,18 @@ html {
       background-image: url("../img/zoomin.png"); }
     .toolbox .tools .zoominitial {
       background-image: url("../img/blanktool.png"); }
+
+.basemapbox {
+  position: absolute;
+  top: 10px;
+  left: 42px; }
+  .basemapbox .basemaps ul {
+    list-style: none;
+    list-style-image: none;
+    padding: 0; }
+    .basemapbox .basemaps ul li:first-child {
+      margin-top: 0; }
+
+.hidden {
+  display: none !important;
+  visibility: hidden; }
