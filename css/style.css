@@ -361,7 +361,8 @@ html {
   top: 0;
   left: 0;
   height: 100%;
-  width: 32px; }
+  width: 32px;
+  padding: 10px 0; }
   .toolbox .tools {
     height: 100%;
     width: 100%; }
