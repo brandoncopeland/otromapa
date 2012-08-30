@@ -1,4 +1,5 @@
 define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'views/maptoolsview'], function ($, esri, esriGeometry, MapModel, LayerModel, MapToolsView) {
+	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
 		xmin: -10739056,

@@ -1,9 +1,10 @@
 define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
+	'use strict';
 
 	var gWkid = '4326';
 	var mWkid = '3857';
 
-	var scales = { // use later
+	var scales = { // use later, maybe as alternate to number in zoomToLocation?
 		house: 16,
 		subdivision: 13,
 		city: 11,
@@ -92,10 +93,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			domId: 'map',
 			geographicWkid: gWkid,
 			mercatorWkid: mWkid,
-			fullExtent: defaultExtent,
-			fadeOnZoom: true,
-			fitExtent: true,
-			logo: false
+			fullExtent: defaultExtent
 		},
 		initialize: function () {
 			var self = this;
@@ -103,9 +101,9 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			var layers = self.layers = new LayerModelCollection();
 
 			var mapSettings = {
-				fadeOnZoom: self.get('fadeOnZoom'),
-				fitExtent: self.get('getExtent'),
-				logo: self.get('logo'),
+				fadeOnZoom: true,
+				fitExtent: true,
+				logo: false,
 				extent: self.get('fullExtent')
 			};
 

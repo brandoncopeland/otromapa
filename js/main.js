@@ -1,4 +1,5 @@
 (function (window) {
+  'use strict';
 
   var local = window.location.pathname.replace(/\/[^/]+$/, '');
   var localJs = local + '/js';

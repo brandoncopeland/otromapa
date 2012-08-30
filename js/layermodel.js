@@ -1,4 +1,5 @@
 define('models/layermodel', ['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
+	'use strict';
 
 	var LayerModel = Backbone.Model.extend({
 		defaults: {

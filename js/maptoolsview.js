@@ -1,4 +1,5 @@
 define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html'], function ($, _, Backbone, mapToolsTemplate) {
+	'use strict';
 
 	// TODO. these can be in their own module, so anyone can add to the array
 	var tools = [{
