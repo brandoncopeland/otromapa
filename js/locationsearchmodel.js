@@ -2,7 +2,14 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 	'use strict';
 
 	var layerId = 'LocationSearchGraphics';
-	var defaultPushpin = 'img/pushpin-DD1054.png';
+	var defaultPushpin = 'img/pushpins/pushpin-DD1054.png';
+	var defaultHoverPushpin = 'img/pushpins/pushpin-F9417F.png';
+
+	var getPushpinSymbol = function (imageUrl) {
+		var symbol = new esri.symbol.PictureMarkerSymbol(imageUrl, 28, 32);
+		symbol.setOffset(2, 16);
+		return symbol;
+	};
 
 	var addLayerToMap = function (esriLayer, mapModel) {
 		mapModel.layers.add(new LayerModel({ esriLayer: esriLayer}));
@@ -11,10 +18,11 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 	var LocationSearchModel = Backbone.Model.extend({
 		defaults: {
 			serviceUrl: 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer',
-			resultSymbol: undefined,
+			defaultSymbol: getPushpinSymbol(defaultPushpin),
+			hoverSymbol: getPushpinSymbol(defaultHoverPushpin),
 			mapModel: undefined
 		},
-		_graphics: new esri.layers.GraphicsLayer({ opacity: 0.70, id: layerId }),
+		_graphics: new esri.layers.GraphicsLayer({ opacity: 0.90, id: layerId }),
 		_createLocator: function () {
 			this._locator = new esri.tasks.Locator(this.get('serviceUrl'));
 		},
@@ -24,6 +32,13 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			self._createLocator();
 			self.on('change:serviceUrl', self._createLocator);
 
+			dojo.connect(self._graphics, 'onMouseOver', function (evt) {
+				evt.graphic.setSymbol(self.get('hoverSymbol'));
+			});
+			dojo.connect(self._graphics, 'onMouseOut', function (evt) {
+				evt.graphic.setSymbol(self.get('defaultSymbol'));
+			});
+
 			if (self.get('mapModel')) {
 				addLayerToMap(self._graphics, self.get('mapModel'));
 			}
@@ -31,10 +46,6 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			self.on('change:mapModel', function () {
 				addLayerToMap(self._graphics, self.get('mapModel'));
 			});
-
-			var symbol = new esri.symbol.PictureMarkerSymbol(defaultPushpin, 28, 32);
-			symbol.setOffset(2, 16);
-			self.set('resultSymbol', symbol);
 		},
 		// options: searchExtent
 		locateAddress: function (address, options) {
@@ -59,7 +70,7 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 							geom = esriGeometry.geographicToWebMercator(geom);
 						}
 						var infoTemplate = new esri.InfoTemplate('Location Search Result', '${address}');
-						var graphic = new esri.Graphic(geom, self.get('resultSymbol'), {
+						var graphic = new esri.Graphic(geom, self.get('defaultSymbol'), {
 							address: item.address,
 							score: item.score
 						}, infoTemplate);

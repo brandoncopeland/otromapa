@@ -49,7 +49,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 		});
 
 		var locationSearchModel = new LocationSearchModel({ mapModel: map });
-		locationSearchModel.locateAddress('2929 briarpark, houston, tx 77042');
+		locationSearchModel.locateAddress('2929 Briarpark, Houston, TX');
 	};
 
 	return {
