@@ -119,6 +119,13 @@ html {
         .basemapbox .basemaps ul li.selected input {
           color: #99b3ff; }
 
+.tooltip {
+  font-size: 0.9em;
+  padding: 5px 8px;
+  background-color: #666;
+  color: #ccc;
+  box-shadow: 0 0 5px #999; }
+
 .hidden {
   display: none !important;
   visibility: hidden; }
