@@ -18,14 +18,21 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 		map.layers.add([
 			new LayerModel({
 				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer', {
-					id: 'Canvas Map'
+					id: 'Canvas'
 				}),
 				isBasemap: true
 			}),
 			new LayerModel({
 				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer', {
 					visible: false,
-					id: 'Aerial Map'
+					id: 'Aerial'
+				}),
+				isBasemap: true
+			}),
+			new LayerModel({
+				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer', {
+					visible: false,
+					id: 'Atlas'
 				}),
 				isBasemap: true
 			})

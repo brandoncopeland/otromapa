@@ -100,9 +100,6 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		ul {
 			@include list-unpadded;
 			li {
-				&:first-child {
-					margin-top: 0;
-				}
 				&.selected input {
 					color: lighten($color-base-anchor, 20%);
 				}
