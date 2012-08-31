@@ -42,21 +42,16 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 			self.collection.bind('all', self.render, self); // if the layer collection changes, just redraw everything
 
 			// make sure that 1 and only 1 is visible
-			// TODO. this is pretty clumbsy. refactor to something a little more elegant.
 			var bases = self.collection.baseMaps();
-			var isViz = false;
-			_.each(self.collection.baseMaps(), function (layer) {
-				var esriLayer = layer.get('esriLayer');
-				if (isViz) {
-					esriLayer.hide();
-				} else {
-					if (esriLayer.visible) {
-						isViz = true;
-					}
-				}
+			var visibles = _.filter(bases, function (layer) {
+				return layer.get('esriLayer').visible;
 			});
-			if (!isViz && bases.length > 0) {
+			if (visibles.length === 0) {
 				_.first(bases).get('esriLayer').show();
+			} else  {
+				_.chain(visibles).rest(1).each(function (layer) {
+					layer.get('esriLayer').hide();
+				});	
 			}
 
 			self.render();
