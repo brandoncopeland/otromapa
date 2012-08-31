@@ -166,6 +166,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 
 	.content {
 		@extend .tooltip;
+		font-size: 1em;
 		max-width: 350px;
 		opacity: .90; filter: alpha(opacity=90);
 	}

@@ -153,6 +153,7 @@ html {
   #map_infowindow.simpleInfoWindow .title, #map_infowindow.simpleInfoWindow .close {
     display: none; }
 #map_infowindow .content {
+  font-size: 1em;
   max-width: 350px;
   opacity: .90;
   filter: alpha(opacity=90); }
