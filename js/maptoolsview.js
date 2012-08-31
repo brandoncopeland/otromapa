@@ -7,7 +7,7 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		predelay: 600,
 		opacity: 0.9,
 		position: 'center right',
-		offset: [12, -6],
+		offset: [0, -5],
 		events: {
 			def: 'mouseenter',
 			input: 'mouseenter,click mouseleave',
@@ -20,7 +20,7 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 	var tools = [{
 		cl: 'zoomin',
 		val: 'Zoom In',
-		description: 'Go in one scale level',
+		description: 'Move in one scale level',
 		clickHandler: 'doZoomIn'
 	}, {
 		cl: 'zoomout',
