@@ -415,6 +415,8 @@ html {
     padding: 0; }
     .basemapbox .basemaps ul li:first-child {
       margin-top: 0; }
+    .basemapbox .basemaps ul li.selected input {
+      color: #99b3ff; }
 
 .hidden {
   display: none !important;

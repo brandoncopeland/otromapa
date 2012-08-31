@@ -103,6 +103,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 				&:first-child {
 					margin-top: 0;
 				}
+				&.selected input {
+					color: lighten($color-base-anchor, 20%);
+				}
 			}
 		}
 	}

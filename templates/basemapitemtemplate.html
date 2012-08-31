@@ -1,1 +1,2 @@
-<input type="button" class="basemap" value="<%= basemap.get('esriLayer').id %>" />
+<!-- TODO. the mangled class name seems a little dirty, should really be more about real data (img, etc...) -->
+<input type="button" class="basemap <%= basemap.get('esriLayer').id.replace(' ', '').toLowerCase() %>" value="<%= basemap.get('esriLayer').id %>" />
