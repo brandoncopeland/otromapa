@@ -111,6 +111,16 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			var map = new esri.Map(self.get('domId'), mapSettings);
 			self._widget = map;
 
+			// display infoWindow with a fade in view fadeShow
+			// this is really view type stuff, but ESRI holds the view and this is the simplest spot
+			map.infoWindow.fadeShow = function (location) {
+				map.infoWindow.show(location);
+				var $infoContent = $('#' + self.get('domId') + '_infowindow .content').hide();
+				window.setTimeout(function () { // TODO. clean up this window ref
+					$infoContent.fadeIn(500);
+				}, 600);
+			};
+
 			layers.on('add', function (layer, collection, options) {
 			  addMapLayer(self._widget, layer.get('esriLayer'), options.index);
 			});
@@ -120,6 +130,14 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			layers.on('reset', function (collection) {
 				resetMapLayers(self._widget, collection);
 			});
+		},
+		getInfoWindow: function () {
+			return this._widget.infoWindow;
+		},
+		// get x/y location in screen pixels for mapPoint geometry on the map
+		getScreenPointFromMapPoint: function (mapPoint) {
+			var m = this._widget;
+			return esriGeometry.toScreenGeometry(m.extent, m.width, m.height, mapPoint);
 		},
 		zoomInOne: function () {
 			zoomMapInOne(this._widget);

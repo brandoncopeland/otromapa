@@ -48,10 +48,31 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 			// graphic events
 			dojo.connect(self._graphics, 'onMouseOver', function (evt) {
-				evt.graphic.setSymbol(self.get('hoverSymbol'));
+				var graphic = evt.graphic;
+				graphic.setSymbol(self.get('hoverSymbol'));
+
+				// default behavior is infowindow on click. hover iz better
+				// TODO. factor this out to some util somewhere or plugin updating graphic prototype
+				var map = self.get('mapModel');
+				var content = graphic.getContent();
+				if (map && content) {
+					var infoWindow = map.getInfoWindow();
+					infoWindow.setContent(content);
+					var screenPoint = map.getScreenPointFromMapPoint(graphic.geometry);
+					if (infoWindow.fadeShow) {
+						infoWindow.fadeShow(screenPoint);
+					} else {
+						infoWindow.show(screenPoint);
+					}
+				}
 			});
 			dojo.connect(self._graphics, 'onMouseOut', function (evt) {
 				evt.graphic.setSymbol(self.get('defaultSymbol'));
+
+				var map = self.get('mapModel');
+				if (map) {
+					map.getInfoWindow().hide();
+				}
 			});
 
 			// map layer
