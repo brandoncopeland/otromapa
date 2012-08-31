@@ -61,16 +61,20 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 
 			self.render();
 		},
+		views: [],
 		events: {
 			'click li': 'updateActive'
 		},
 		render: function () {
 			var self = this;
 
+			self.views = [];
+
 			var bases = self.collection.baseMaps();
 
 			if (bases.length > 1) {
 				var $list = $('<ul>');
+
 				_.each(bases, function (layer) {
 					var view = new BaseMapItemView({
 						model: layer,
@@ -78,7 +82,10 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 						tagName: 'li',
 						className: layer.get('esriLayer').visible ? selectedClass : ''
 					});
-					$list.append(view.render().el);
+
+					var element = view.render().el;
+					$list.append(element);
+					self.views.push(element);
 				});
 
 				self.$el.html($list);
@@ -96,7 +103,9 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 			// also handle click here... (in addition to item views)
 			// Item view knows how to interact with the model (draw basemap) for each input click
 			// Picker view knows how to manage all child views (dom elements), that they're 'li's, and their classes
-			this.$el.find('li').removeClass(selectedClass);
+			_.each(this.views, function (element) {
+				$(element).removeClass(selectedClass);
+			});
 			$(evt.currentTarget).addClass(selectedClass);
 		}
 	});
