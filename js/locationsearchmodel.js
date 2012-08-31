@@ -11,9 +11,17 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 		return symbol;
 	};
 
+	var getLocator = function (url) {
+		return new esri.tasks.Locator(url);
+	};
+
 	var addLayerToMap = function (esriLayer, mapModel) {
 		mapModel.layers.add(new LayerModel({ esriLayer: esriLayer}));
 	};
+
+	var isGoodAddress = function (candidate) {
+		return candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
+	}
 
 	var LocationSearchModel = Backbone.Model.extend({
 		defaults: {
@@ -23,15 +31,16 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			mapModel: undefined
 		},
 		_graphics: new esri.layers.GraphicsLayer({ opacity: 0.90, id: layerId }),
-		_createLocator: function () {
-			this._locator = new esri.tasks.Locator(this.get('serviceUrl'));
-		},
 		initialize: function () {
 			var self = this;
 
-			self._createLocator();
-			self.on('change:serviceUrl', self._createLocator);
+			// assign locator
+			this._locator = getLocator(self.get('serviceUrl'));
+			self.on('change:serviceUrl', function (model, value) {
+				this._locator = getLocator(value);
+			});
 
+			// graphic events
 			dojo.connect(self._graphics, 'onMouseOver', function (evt) {
 				evt.graphic.setSymbol(self.get('hoverSymbol'));
 			});
@@ -39,12 +48,13 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 				evt.graphic.setSymbol(self.get('defaultSymbol'));
 			});
 
+			// map layer
 			if (self.get('mapModel')) {
 				addLayerToMap(self._graphics, self.get('mapModel'));
 			}
 			// what if mapModel changes a second time? is it ok to readd graphics layer to another map?
-			self.on('change:mapModel', function () {
-				addLayerToMap(self._graphics, self.get('mapModel'));
+			self.on('change:mapModel', function (model, value) {
+				addLayerToMap(self._graphics, value);
 			});
 		},
 		// options: searchExtent
@@ -56,14 +66,14 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			var a = { 'SingleLine': address };
 			var params = _.extend(options || {}, { address: a, outFields: ['*']});
 
-			//locator.outSpatialReference= map.spatialReference;
+			var map = self.get('mapModel');
+			if (map) {
+				self._locator.outSpatialReference = map.spatialReference;
+			}
 
 			self._locator.addressToLocations(params, function (candidates) {
-				var map = self.get('mapModel');
 				if (map) {
-					var filtered = _.filter(candidates, function (candidate) {
-						return candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
-					});
+					var filtered = _.filter(candidates, isGoodAddress);					
 					_.each(filtered, function (item) {
 						var geom = new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference));
 						if (geom.spatialReference.wkid === map.get('geographicWkid')) {
