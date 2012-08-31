@@ -35,8 +35,7 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 
 	// view representing collection of basemap selector items
 	// collection should be LayerModelCollection, no model
-	// TODO. could probably also handle edge cases...
-	//   what if current basemap is removed? what if new visible basemap added?
+	// TODO. could probably also handle edge cases... what if current basemap is removed? what if new visible basemap added?
 	var BaseMapPickerView = Backbone.View.extend({
 		initialize: function () {
 			var self = this;
