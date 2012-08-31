@@ -5,6 +5,8 @@
 $color-aerialback: rgba(187, 187, 187, 0.5); // TODO. not full rgba support
 $color-aerialborder: darken($color-aerialback, 40%);
 
+$height-header: 32px; // just put things up here absolutely for now
+
 html {
 	overflow: hidden;
 	&, body {
@@ -19,9 +21,10 @@ html {
 .pagecontent {
 	position: relative;
 	height: 100%; width: 100%;
+	padding-top: $height-header;
 }
 
-$width-toolbox: $size-mapcommand + 8px; // 8 padding right
+$width-toolbox: $size-mapcommand + 10px; // 10 padding right
 $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 
 .mapbox {
@@ -49,7 +52,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	top: 0;
 	left: 0;
 	height: 100%; width: $width-toolbox;
-	padding: 10px 0;
+	padding: (10px + $height-header) 0 10px;
 	
 	.tools {
 		height: 100%; width: 100%;
@@ -93,13 +96,24 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 }
 
 .basemapbox {
+	@include clearfix;
 	position: absolute;
-	top: 10px;
+	top: 0;
 	left: $width-toolbox + 10px;
+	h2, .basemaps {
+		float: left;
+		margin: 0;
+	}
 	.basemaps {
+		margin-left: 5px; // 15 total on left, but li adds 10
 		ul {
-			@include list-unpadded;
+			@include list-horizontal;
 			li {
+				line-height: 1.8;
+				margin: {
+					top: 0;
+					left: 10px;
+				}
 				&.selected input {
 					color: lighten($color-base-anchor, 20%);
 				}

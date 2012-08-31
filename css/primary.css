@@ -11,11 +11,12 @@ html {
 .pagecontent {
   position: relative;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  padding-top: 32px; }
 
 .mapbox {
   height: 100%;
-  margin-left: 32px;
+  margin-left: 34px;
   position: relative;
   background-color: rgba(187, 187, 187, 0.5);
   box-shadow: 0 0 15px -2px #333333; }
@@ -39,8 +40,8 @@ html {
   top: 0;
   left: 0;
   height: 100%;
-  width: 32px;
-  padding: 10px 0; }
+  width: 34px;
+  padding: 42px 0 10px; }
   .toolbox .tools {
     height: 100%;
     width: 100%; }
@@ -84,15 +85,39 @@ html {
       background-image: url("../img/blanktool.png"); }
 
 .basemapbox {
+  zoom: 1;
   position: absolute;
-  top: 10px;
-  left: 42px; }
-  .basemapbox .basemaps ul {
-    list-style: none;
-    list-style-image: none;
-    padding: 0; }
-    .basemapbox .basemaps ul li.selected input {
-      color: #99b3ff; }
+  top: 0;
+  left: 44px; }
+  .basemapbox:before, .basemapbox:after {
+    content: "";
+    display: table; }
+  .basemapbox:after {
+    clear: both; }
+  .basemapbox h2, .basemapbox .basemaps {
+    float: left;
+    margin: 0; }
+  .basemapbox .basemaps {
+    margin-left: 5px; }
+    .basemapbox .basemaps ul {
+      list-style: none;
+      list-style-image: none;
+      padding: 0;
+      zoom: 1; }
+      .basemapbox .basemaps ul:before, .basemapbox .basemaps ul:after {
+        content: "";
+        display: table; }
+      .basemapbox .basemaps ul:after {
+        clear: both; }
+      .basemapbox .basemaps ul > li {
+        float: left;
+        margin-top: 0; }
+      .basemapbox .basemaps ul li {
+        line-height: 1.8;
+        margin-top: 0;
+        margin-left: 10px; }
+        .basemapbox .basemaps ul li.selected input {
+          color: #99b3ff; }
 
 .hidden {
   display: none !important;
