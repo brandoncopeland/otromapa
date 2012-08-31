@@ -1,3 +1,8 @@
+// locationsearchmodel.js
+// perform location search and add results to mapModel
+// var locationSearchModel = new LocationSearchModel({ mapModel: map });
+// locationSearchModel.locateAddress('2929 Briarpark, Houston, TX');
+
 define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'esri/tasks/Locator'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel) {
 	'use strict';
 
@@ -5,13 +10,13 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 	var defaultPushpin = 'img/pushpins/pushpin-DD1054.png';
 	var defaultHoverPushpin = 'img/pushpins/pushpin-F9417F.png';
 
-	var getPushpinSymbol = function (imageUrl) {
+	var createPushpinSymbol = function (imageUrl) {
 		var symbol = new esri.symbol.PictureMarkerSymbol(imageUrl, 28, 32);
 		symbol.setOffset(2, 16);
 		return symbol;
 	};
 
-	var getLocator = function (url) {
+	var createLocator = function (url) {
 		return new esri.tasks.Locator(url);
 	};
 
@@ -19,15 +24,16 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 		mapModel.layers.add(new LayerModel({ esriLayer: esriLayer}));
 	};
 
+	// bool if candidate matches good address requirements
 	var isGoodAddress = function (candidate) {
 		return candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
-	}
+	};
 
 	var LocationSearchModel = Backbone.Model.extend({
 		defaults: {
 			serviceUrl: 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer',
-			defaultSymbol: getPushpinSymbol(defaultPushpin),
-			hoverSymbol: getPushpinSymbol(defaultHoverPushpin),
+			defaultSymbol: createPushpinSymbol(defaultPushpin),
+			hoverSymbol: createPushpinSymbol(defaultHoverPushpin),
 			mapModel: undefined
 		},
 		_graphics: new esri.layers.GraphicsLayer({ opacity: 0.90, id: layerId }),
@@ -35,9 +41,9 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			var self = this;
 
 			// assign locator
-			this._locator = getLocator(self.get('serviceUrl'));
+			this._locator = createLocator(self.get('serviceUrl'));
 			self.on('change:serviceUrl', function (model, value) {
-				this._locator = getLocator(value);
+				this._locator = createLocator(value);
 			});
 
 			// graphic events
@@ -73,7 +79,7 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 			self._locator.addressToLocations(params, function (candidates) {
 				if (map) {
-					var filtered = _.filter(candidates, isGoodAddress);					
+					var filtered = _.filter(candidates, isGoodAddress);
 					_.each(filtered, function (item) {
 						var geom = new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference));
 						if (geom.spatialReference.wkid === map.get('geographicWkid')) {
@@ -90,6 +96,9 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 					self._graphics.show();
 				}
 			});
+		},
+		getEsriGraphicsLayer: function () {
+			return this._graphics;
 		}
 	});
 
