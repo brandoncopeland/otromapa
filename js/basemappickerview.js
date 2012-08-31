@@ -39,7 +39,7 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 	var BaseMapPickerView = Backbone.View.extend({
 		initialize: function () {
 			var self = this;
-			self.collection.bind('all', self.render, self); // if the layer collection changes, just redraw everything
+			self.collection.on('all', self.render, self); // if the layer collection changes, just redraw everything
 
 			// make sure that 1 and only 1 is visible
 			var bases = self.collection.baseMaps();

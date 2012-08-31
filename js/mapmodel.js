@@ -1,8 +1,8 @@
 define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
 	'use strict';
 
-	var gWkid = '4326';
-	var mWkid = '3857';
+	var gWkid = 4326;
+	var mWkid = 3857;
 
 	var scales = { // use later, maybe as alternate to number in zoomToLocation?
 		house: 16,
@@ -99,7 +99,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 		initialize: function () {
 			var self = this;
 
-			var layers = self.layers = new LayerModelCollection();
+			var layers = self.layers = new LayerModelCollection(); // this is not on attributes b/c not expected to bet set. may be better to hang on attributes.
 
 			var mapSettings = {
 				fadeOnZoom: true,
