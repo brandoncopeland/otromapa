@@ -1,4 +1,4 @@
-define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
+define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, baseWin, dojoWin, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
 	'use strict';
 
 	var gWkid = 4326;
@@ -18,6 +18,21 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 		ymax: 6889553,
 		spatialReference: { wkid: mWkid }
 	});
+
+	// update map on window resize
+	var wireMapResize = function (map) {
+		var win = dojoWin.get(baseWin.doc);
+		var timer;
+		dojo.connect(map, 'onLoad', function (evt) {
+			dojo.connect(win, 'onresize', function (evt) {
+				win.clearTimeout(timer);
+				timer = win.setTimeout(function () {
+					map.resize();
+					map.reposition();
+				}, 500);
+			});
+		});
+	};
 
 	var addMapLayer = function (map, layer, index) {
 		map.addLayer(layer, index);
@@ -116,13 +131,15 @@ define('models/mapmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', '
 			map.infoWindow.fadeShow = function (location) {
 				map.infoWindow.show(location);
 				var $infoContent = $('#' + self.get('domId') + '_infowindow .content').hide();
-				window.setTimeout(function () { // TODO. clean up this window ref
+				dojoWin.get(baseWin.doc).setTimeout(function () {
 					$infoContent.fadeIn(500);
 				}, 600);
 			};
 
+			wireMapResize(map);
+
 			layers.on('add', function (layer, collection, options) {
-			  addMapLayer(self._widget, layer.get('esriLayer'), options.index);
+				addMapLayer(self._widget, layer.get('esriLayer'), options.index);
 			});
 			layers.on('remove', function (layer) {
 				removeMapLayer(self._widget, layer.get('esriLayer'));
