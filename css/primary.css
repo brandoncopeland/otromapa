@@ -119,6 +119,12 @@ html {
         .basemapbox .basemaps ul li.selected input {
           color: #99b3ff; }
 
+.searchbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 1.8; }
+
 #map_infowindow {
   height: auto !important;
   width: auto !important; }

@@ -122,6 +122,13 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	}
 }
 
+.searchbox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	line-height: 1.8;
+}
+
 // esri overrides
 #map_infowindow {
 	height: auto !important;

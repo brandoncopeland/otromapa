@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView) {
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
@@ -49,7 +49,10 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 		});
 
 		var locationSearchModel = new LocationSearchModel({ mapModel: map });
-		locationSearchModel.locateAddress('2929 Briarpark, Houston, TX');
+		var locationSearchView = new LocationSearchView({
+			el: $('#searchbox'),
+			model: locationSearchModel
+		});
 	};
 
 	return {
