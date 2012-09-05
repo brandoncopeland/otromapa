@@ -38,18 +38,23 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			})
 		]);
 
+		// navigation tools
 		var toolsView = new MapToolsView({
 			el: $('#toolbox > .tools'),
 			mapModel: map
 		});
 
+		// basemap picker
 		var basemapPickerView = new BasemapPickerView({
 			el: $('#basemapbox > .basemaps'),
 			collection: map.get('layers')
 		});
 
+		// location search
 		var locationSymbol = new esri.symbol.PictureMarkerSymbol('img/pushpins/pushpin-DD1054.png', 28, 32);
 		locationSymbol.setOffset(2, 16);
+		var locationHoverSymbol = new esri.symbol.PictureMarkerSymbol('img/pushpins/pushpin-E88289.png', 28, 32);
+		locationHoverSymbol.setOffset(2, 16);
 		var locationSearchModel = new LocationSearchModel();
 		var locationSearchView = new LocationSearchView({
 			el: $('#searchbox'),
@@ -59,6 +64,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			collection: locationSearchModel.get('featureResults'),
 			mapModel: map,
 			symbol: locationSymbol,
+			hoverSymbol: locationHoverSymbol,
 			opacity: 0.9,
 			infoTemplate: new esri.InfoTemplate('Location Search Result', '${name}'),
 			doNorthSouthSort: true

@@ -5,7 +5,9 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 		dojo.connect(graphicsLayer, 'onMouseOver', function (evt) {
 			var graphic = evt.graphic;
 
-			// graphic.setSymbol(self.get('hoverSymbol'));
+			if (graphicsLayer.hoverSymbol) {
+				graphic.setSymbol(graphicsLayer.hoverSymbol);
+			}
 
 			// default behavior is infowindow on click. hover iz better
 			var content = graphic.getContent(); // TODO. no content
@@ -21,7 +23,7 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			}
 		});
 		dojo.connect(graphicsLayer, 'onMouseOut', function (evt) {
-			// evt.graphic.setSymbol(self.get('defaultSymbol'));
+			evt.graphic.setSymbol(undefined);
 
 			if (mapModel) {
 				mapModel.getInfoWindow().hide();
@@ -57,6 +59,9 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			}
 			if ('symbol' in this.options) {
 				this._graphics.setRenderer(new esri.renderer.SimpleRenderer(this.options.symbol));
+			}
+			if ('hoverSymbol' in this.options) {
+				this._graphics.hoverSymbol = this.options.hoverSymbol;
 			}
 			if ('mapModel' in this.options) {
 				this.options.mapModel.get('layers').add(new LayerModel({
