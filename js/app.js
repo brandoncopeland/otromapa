@@ -60,7 +60,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			mapModel: map,
 			symbol: locationSymbol,
 			opacity: 0.9,
-			infoTemplate: new esri.InfoTemplate('Location Search Result', '${address}'),
+			infoTemplate: new esri.InfoTemplate('Location Search Result', '${name}'),
 			doNorthSouthSort: true
 		});
 	};
