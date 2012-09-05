@@ -48,10 +48,10 @@ define('views/basemappickerview', ['jquery', 'underscore', 'backbone', 'text!tem
 			});
 			if (visibles.length === 0) {
 				_.first(bases).get('esriLayer').show();
-			} else  {
+			} else {
 				_.chain(visibles).rest(1).each(function (layer) {
 					layer.get('esriLayer').hide();
-				});	
+				});
 			}
 
 			self.render();
