@@ -127,6 +127,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	top: 0;
 	right: 0;
 	line-height: 1.8;
+	&.searching {
+		opacity: 0.2;
+	}
 }
 
 // esri overrides

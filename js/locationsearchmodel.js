@@ -85,7 +85,7 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			});
 		},
 		// options: searchExtent
-		locateAddress: function (address, options) {
+		locateAddress: function (address, options, successCallback) {
 			var self = this;
 
 			self._graphics.clear();
@@ -115,6 +115,9 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 					});
 
 					self._graphics.show();
+				}
+				if (successCallback) {
+					successCallback(candidates);
 				}
 			});
 		},

@@ -1,6 +1,8 @@
 define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, baseWin, dojoWin, _, Backbone, locationSearchTemplate) {
 	'use strict';
 
+	var searchingClass = 'searching';
+
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
 			this.render();
@@ -15,9 +17,13 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 			'submit form': 'search'
 		},
 		search: function (evt) {
+			var self = this;
 			evt.preventDefault();
-			if (this.model) {
-				this.model.locateAddress(this.input.val());
+			self.$el.addClass(searchingClass);
+			if (self.model) {
+				self.model.locateAddress(self.input.val(), null, function () {
+					self.$el.removeClass(searchingClass);
+				});
 			}
 		}
 	});

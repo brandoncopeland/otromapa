@@ -446,6 +446,8 @@ html {
   top: 0;
   right: 0;
   line-height: 1.8; }
+  .searchbox.searching {
+    opacity: 0.2; }
 
 #map_infowindow {
   height: auto !important;
