@@ -13,6 +13,12 @@
       ['text', 'dojo/text'],
       ['ready', 'dojo/domReady']
     ],
+    paths: {
+      'app': localJs,
+      'views': localJs,
+      'models': localJs,
+      'templates': localTemplates
+    },
     packages: [
       {
         name: 'jquery',
@@ -26,25 +32,13 @@
         name: 'backbone',
         location: localLib,
         main: 'backbone-amd-min'
-      }, {
-        name: 'app',
-        location: localJs
-      }, {
-        name: 'views',
-        location: localJs
-      }, {
-        name: 'models',
-        location: localJs
-      }, {
-        name: 'templates',
-        location: localTemplates
       }
     ]
   });
 
   window.define.amd.jQuery = true;
 
-  window.require(['jquery', 'app/app'], function ($, application) {
+  window.require(['app/app'], function (application) {
     application.initialize();
   });
 
