@@ -10,7 +10,8 @@
     async: true,
     parseOnLoad: true,
     aliases: [
-      ['text', 'dojo/text']
+      ['text', 'dojo/text'],
+      ['ready', 'dojo/domReady']
     ],
     packages: [
       {
