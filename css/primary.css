@@ -144,9 +144,9 @@ html {
 .tooltip, #map_infowindow .content {
   font-size: 0.9em;
   padding: 5px 8px;
-  background-color: #444;
+  background-color: #222;
   color: #ccc;
-  box-shadow: 0 0 5px #999; }
+  box-shadow: 0 0 5px #444; }
 
 #map_infowindow.simpleInfoWindow {
   padding: 0 5px; }

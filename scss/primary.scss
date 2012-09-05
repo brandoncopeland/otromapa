@@ -151,9 +151,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 .tooltip {
 	font-size: $type-smaller;
 	padding: 5px 8px;
-	background-color: #444;
+	background-color: #222;
 	color: #ccc;
-	box-shadow: 0 0 5px #999;
+	box-shadow: 0 0 5px #444;
 }
 
 #map_infowindow {
