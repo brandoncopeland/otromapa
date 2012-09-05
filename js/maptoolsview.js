@@ -1,11 +1,13 @@
-define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html', 'js/plugins/jquery.tools.min.js'], function ($, _, Backbone, mapToolsTemplate) {
+define('views/maptoolsview', ['jquery', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html'], function ($, baseWin, dojoWin, _, Backbone, mapToolsTemplate) {
 	'use strict';
+
+	var win = dojoWin.get(baseWin.doc);
 
 	var toolTipSettings = {
 		effect: 'fade',
 		fadeOutSpeed: 100,
 		predelay: 600,
-		opacity: 0.9,
+		opacity: 0.8,
 		position: 'center right',
 		offset: [0, -5],
 		events: {
@@ -40,17 +42,20 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		},
 		template: _.template(mapToolsTemplate),
 		render: function () {
-			this.$el.html(this.template({ tools : tools }));
+			var self = this;
 
-			$(this.$el.find('[title]')).tooltip(toolTipSettings);
+			self.$el.html(self.template({ tools : tools }));
 
-			return this;
+			win.require(['js/plugins/jquery.tools.min.js'], function () {
+				$(self.$el.find('[title]')).tooltip(toolTipSettings);
+			});
+
+			return self;
 		},
 		events: function () {
 			var evts = {};
 			_.each(tools, function (tool) {
-				var selector = 'click .' + tool.cl;
-				evts[selector] = tool.clickHandler;
+				evts['click .' + tool.cl] = tool.clickHandler;
 			});
 			return evts;
 		},
