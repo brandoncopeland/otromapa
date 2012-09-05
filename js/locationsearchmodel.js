@@ -32,6 +32,7 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 	var LocationSearchModel = Backbone.Model.extend({
 		defaults: {
 			serviceUrl: 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer',
+			isWorking: false,
 			defaultSymbol: createPushpinSymbol(defaultPushpin),
 			hoverSymbol: createPushpinSymbol(defaultHoverPushpin),
 			mapModel: undefined
@@ -85,8 +86,10 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			});
 		},
 		// options: searchExtent
-		locateAddress: function (address, options, successCallback) {
+		locateAddress: function (address, options) {
 			var self = this;
+
+			self.set('isWorking', true);
 
 			self._graphics.clear();
 
@@ -117,9 +120,8 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 					self._graphics.show();
 				}
-				if (successCallback) {
-					successCallback(candidates);
-				}
+
+				self.set('isWorking', false);
 			});
 		},
 		getEsriGraphicsLayer: function () {

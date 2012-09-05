@@ -1,10 +1,11 @@
-define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, baseWin, dojoWin, _, Backbone, locationSearchTemplate) {
+define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, _, Backbone, locationSearchTemplate) {
 	'use strict';
 
 	var searchingClass = 'searching';
 
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
+			this.model.bind('change:isWorking', this.updateSearching, this);
 			this.render();
 		},
 		template: _.template(locationSearchTemplate),
@@ -16,15 +17,13 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 		events: {
 			'submit form': 'search'
 		},
+		updateSearching: function (model, newValue) {
+			this.$el.toggleClass(searchingClass, newValue);
+		},
 		search: function (evt) {
 			var self = this;
 			evt.preventDefault();
-			self.$el.addClass(searchingClass);
-			if (self.model) {
-				self.model.locateAddress(self.input.val(), null, function () {
-					self.$el.removeClass(searchingClass);
-				});
-			}
+			self.model.locateAddress(self.input.val());
 		}
 	});
 
