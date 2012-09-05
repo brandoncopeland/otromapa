@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview', 'views/mapfeaturerenderer'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView, MapFeatureRenderer) {
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
@@ -48,10 +48,20 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			collection: map.get('layers')
 		});
 
-		var locationSearchModel = new LocationSearchModel({ mapModel: map });
+		var locationSymbol = new esri.symbol.PictureMarkerSymbol('img/pushpins/pushpin-DD1054.png', 28, 32);
+		locationSymbol.setOffset(2, 16);
+		var locationSearchModel = new LocationSearchModel();
 		var locationSearchView = new LocationSearchView({
 			el: $('#searchbox'),
 			model: locationSearchModel
+		});
+		var locationRenderer = new MapFeatureRenderer({
+			collection: locationSearchModel.get('featureResults'),
+			mapModel: map,
+			symbol: locationSymbol,
+			opacity: 0.9,
+			infoTemplate: new esri.InfoTemplate('Location Search Result', '${address}'),
+			doNorthSouthSort: true
 		});
 	};
 
