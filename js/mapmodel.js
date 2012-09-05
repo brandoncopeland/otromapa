@@ -1,6 +1,8 @@
 define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, baseWin, dojoWin, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
 	'use strict';
 
+	var win = dojoWin.get(baseWin.doc);
+
 	var gWkid = 4326;
 	var mWkid = 3857;
 
@@ -21,7 +23,6 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 
 	// update map on window resize
 	var wireMapResize = function (map) {
-		var win = dojoWin.get(baseWin.doc);
 		var timer;
 		dojo.connect(map, 'onLoad', function (evt) {
 			dojo.connect(win, 'onresize', function (evt) {
@@ -131,7 +132,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			map.infoWindow.fadeShow = function (location) {
 				map.infoWindow.show(location);
 				var $infoContent = $('#' + self.get('domId') + '_infowindow .content').hide();
-				dojoWin.get(baseWin.doc).setTimeout(function () {
+				win.setTimeout(function () {
 					$infoContent.fadeIn(500);
 				}, 600);
 			};
