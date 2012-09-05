@@ -3,25 +3,13 @@
 // var locationSearchModel = new LocationSearchModel({ mapModel: map });
 // locationSearchModel.locateAddress('2929 Briarpark, Houston, TX');
 
-define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'esri/tasks/Locator'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel) {
+define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'esri/tasks/Locator', 'models/mapfeaturemodel', 'models/mapfeaturemodelcollection'], function ($, dojo, _, Backbone, esri, esriGeometry, esriLocator, MapFeatureModel, MapFeatureModelCollection) {
 	'use strict';
 
-	var layerId = 'LocationSearchGraphics';
-	var defaultPushpin = 'img/pushpins/pushpin-DD1054.png';
-	var defaultHoverPushpin = 'img/pushpins/pushpin-F9417F.png';
-
-	var createPushpinSymbol = function (imageUrl) {
-		var symbol = new esri.symbol.PictureMarkerSymbol(imageUrl, 28, 32);
-		symbol.setOffset(2, 16);
-		return symbol;
-	};
+	var outputWkid = 3857;
 
 	var createLocator = function (url) {
 		return new esri.tasks.Locator(url);
-	};
-
-	var addLayerToMap = function (esriLayer, mapModel) {
-		mapModel.layers.add(new LayerModel({ esriLayer: esriLayer}));
 	};
 
 	// bool if candidate matches good address requirements
@@ -33,56 +21,12 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 		defaults: {
 			serviceUrl: 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer',
 			isWorking: false,
-			defaultSymbol: createPushpinSymbol(defaultPushpin),
-			hoverSymbol: createPushpinSymbol(defaultHoverPushpin),
-			mapModel: undefined
+			featureResults: new MapFeatureModelCollection()
 		},
-		_graphics: new esri.layers.GraphicsLayer({ opacity: 0.90, id: layerId }),
 		initialize: function () {
-			var self = this;
-
-			// assign locator
-			this._locator = createLocator(self.get('serviceUrl'));
-			self.on('change:serviceUrl', function (model, value) {
+			this._locator = createLocator(this.get('serviceUrl'));
+			this.on('change:serviceUrl', function (model, value) {
 				this._locator = createLocator(value);
-			});
-
-			// graphic events
-			dojo.connect(self._graphics, 'onMouseOver', function (evt) {
-				var graphic = evt.graphic;
-				graphic.setSymbol(self.get('hoverSymbol'));
-
-				// default behavior is infowindow on click. hover iz better
-				// TODO. factor this out to some util somewhere or plugin updating graphic prototype
-				var map = self.get('mapModel');
-				var content = graphic.getContent();
-				if (map && content) {
-					var infoWindow = map.getInfoWindow();
-					infoWindow.setContent(content);
-					var screenPoint = map.getScreenPointFromMapPoint(graphic.geometry);
-					if (infoWindow.fadeShow) {
-						infoWindow.fadeShow(screenPoint);
-					} else {
-						infoWindow.show(screenPoint);
-					}
-				}
-			});
-			dojo.connect(self._graphics, 'onMouseOut', function (evt) {
-				evt.graphic.setSymbol(self.get('defaultSymbol'));
-
-				var map = self.get('mapModel');
-				if (map) {
-					map.getInfoWindow().hide();
-				}
-			});
-
-			// map layer
-			if (self.get('mapModel')) {
-				addLayerToMap(self._graphics, self.get('mapModel'));
-			}
-			// what if mapModel changes a second time? is it ok to readd graphics layer to another map?
-			self.on('change:mapModel', function (model, value) {
-				addLayerToMap(self._graphics, value);
 			});
 		},
 		// options: searchExtent
@@ -91,41 +35,26 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 			self.set('isWorking', true);
 
-			self._graphics.clear();
-
 			var a = { 'SingleLine': address };
 			var params = _.extend(options || {}, { address: a, outFields: ['*']});
 
-			var map = self.get('mapModel');
-			if (map) {
-				self._locator.outSpatialReference = map.spatialReference;
-			}
+			self._locator.outSpatialReference = new esri.SpatialReference(outputWkid);
 
 			self._locator.addressToLocations(params, function (candidates) {
-				if (map) {
-					var filtered = _.chain(candidates).filter(isGoodAddress).sortBy(function (item) {
-						return -1 * item.location.y; // sort reverse y order for better draw order
-					}).each(function (item) {
-						var geom = new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference));
-						if (geom.spatialReference.wkid === map.get('geographicWkid')) {
-							geom = esriGeometry.geographicToWebMercator(geom);
-						}
-						var infoTemplate = new esri.InfoTemplate('Location Search Result', '${address}');
-						var graphic = new esri.Graphic(geom, self.get('defaultSymbol'), {
-							address: item.address,
-							score: item.score
-						}, infoTemplate);
-						self._graphics.add(graphic);
+				var results = _.chain(candidates).filter(isGoodAddress).map(function (item) {
+					return new MapFeatureModel({
+						props: {
+							score: 'item.score',
+							matchType: item.attributes.MatchLevel,
+							name: item.address
+						},
+						geometry: new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference))
 					});
-
-					self._graphics.show();
-				}
+				}).value();
+				self.get('featureResults').reset(results);
 
 				self.set('isWorking', false);
 			});
-		},
-		getEsriGraphicsLayer: function () {
-			return this._graphics;
 		}
 	});
 

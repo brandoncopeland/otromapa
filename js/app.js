@@ -15,7 +15,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			fullExtent: defaultExtent
 		});
 
-		map.layers.add([
+		map.get('layers').add([
 			new LayerModel({
 				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer', {
 					id: 'Canvas'
@@ -45,7 +45,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 
 		var basemapPickerView = new BasemapPickerView({
 			el: $('#basemapbox > .basemaps'),
-			collection: map.layers
+			collection: map.get('layers')
 		});
 
 		var locationSearchModel = new LocationSearchModel({ mapModel: map });

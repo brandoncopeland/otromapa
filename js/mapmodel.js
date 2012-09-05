@@ -109,13 +109,14 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			domId: 'map',
 			geographicWkid: gWkid,
 			mercatorWkid: mWkid,
-			fullExtent: defaultExtent
+			fullExtent: defaultExtent,
+			layers: new LayerModelCollection()
 		},
 		_widget: undefined,
 		initialize: function () {
 			var self = this;
 
-			var layers = self.layers = new LayerModelCollection(); // this is not on attributes b/c not expected to bet set. may be better to hang on attributes.
+			var layers = self.get('layers');
 
 			var mapSettings = {
 				fadeOnZoom: true,

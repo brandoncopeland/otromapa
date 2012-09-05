@@ -5,7 +5,7 @@ define('models/mapfeaturemodel', ['jquery', 'underscore', 'backbone'], function 
 
 	var MapFeatureModel = Backbone.Model.extend({
 		defaults: {
-			attributes: {},
+			props: {},
 			geometry: undefined
 		}
 	});

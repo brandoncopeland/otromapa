@@ -1,4 +1,4 @@
-define('models/mapfeaturemodel', ['jquery', 'underscore', 'backbone', 'models/mapfeaturemodel'], function ($, _, Backbone, MapFeatureModel) {
+define('models/mapfeaturemodelcollection', ['jquery', 'underscore', 'backbone', 'models/mapfeaturemodel'], function ($, _, Backbone, MapFeatureModel) {
 	'use strict';
 
 	var MapFeatureModelCollection = Backbone.Collection.extend({
