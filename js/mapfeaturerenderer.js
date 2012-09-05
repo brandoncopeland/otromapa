@@ -1,29 +1,35 @@
+// mapfeaturerenderer.js
+// maps MapFeatureModelCollection on a MapModel
 define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'models/layermodel'], function ($, dojo, _, Backbone, esri, LayerModel) {
 	'use strict';
 
+	var defaultOpacity = 1.0;
+
+	// attach standard events to graphicsLayer
+	// change symbol and show info window on hover. go back on out.
 	var wireLayerEvents = function (graphicsLayer, mapModel) {
+
 		dojo.connect(graphicsLayer, 'onMouseOver', function (evt) {
 			var graphic = evt.graphic;
 
-			if (graphicsLayer.hoverSymbol) {
-				graphic.setSymbol(graphicsLayer.hoverSymbol);
-			}
+			graphic.setSymbol(graphicsLayer.hoverSymbol); // this is fine if undefined
 
 			// default behavior is infowindow on click. hover iz better
-			var content = graphic.getContent(); // TODO. no content
+			var content = graphic.getContent();
 			if (mapModel && content) {
 				var infoWindow = mapModel.getInfoWindow();
 				infoWindow.setContent(content);
 				var screenPoint = mapModel.getScreenPointFromMapPoint(graphic.geometry);
 				if (infoWindow.fadeShow) {
-					infoWindow.fadeShow(screenPoint);
+					infoWindow.fadeShow(screenPoint); // not esri. added by MapModel
 				} else {
 					infoWindow.show(screenPoint);
 				}
 			}
 		});
+
 		dojo.connect(graphicsLayer, 'onMouseOut', function (evt) {
-			evt.graphic.setSymbol(undefined);
+			evt.graphic.setSymbol(undefined); // use layer's renderer
 
 			if (mapModel) {
 				mapModel.getInfoWindow().hide();
@@ -31,7 +37,7 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 		});
 	};
 
-	// returns array graphics
+	// returns array graphics from MapFeatureModelCollection
 	var createGraphics = function (featureModels) {
 		var graphics = featureModels.map(function (model) {
 			var graphic = new esri.Graphic(model.get('geometry'));
@@ -51,9 +57,8 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 	var MapFeatureRenderer = Backbone.View.extend({
 		_graphics: new esri.layers.GraphicsLayer(),
 		initialize: function () {
-			if ('opacity' in this.options) {
-				this._graphics.setOpacity(this.options.opacity);
-			}
+			this._graphics.setOpacity(this.options.opacity || defaultOpacity);
+
 			if ('infoTemplate' in this.options) {
 				this._graphics.setInfoTemplate(this.options.infoTemplate);
 			}
@@ -77,18 +82,17 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 		render: function () {
 			this._graphics.clear();
 
-			var g;
-			if (this.options.doNorthSouthSort) {
-				g = createGraphics(this.collection.byNorthToSouth());
-			} else {
-				g = createGraphics(this.collection);
-			}
+			var coll = this.options.doNorthSouthSort ? this.collection.byNorthToSouth() : this.collection;
+			var g = createGraphics(coll);
 
 			_.each(g, function (graphic) {
 				this._graphics.add(graphic);
 			}, this);
 
 			return this;
+		},
+		getGraphicsLayer: function () {
+			return this._graphics;
 		}
 	});
 
