@@ -100,8 +100,9 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 			self._locator.addressToLocations(params, function (candidates) {
 				if (map) {
-					var filtered = _.filter(candidates, isGoodAddress);
-					_.each(filtered, function (item) {
+					var filtered = _.chain(candidates).filter(isGoodAddress).sortBy(function (item) {
+						return -1 * item.location.y; // sort reverse y order for better draw order
+					}).each(function (item) {
 						var geom = new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference));
 						if (geom.spatialReference.wkid === map.get('geographicWkid')) {
 							geom = esriGeometry.geographicToWebMercator(geom);
