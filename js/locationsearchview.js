@@ -13,7 +13,7 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 		template: _.template(locationSearchTemplate),
 		render: function () {
 			var self = this;
-			
+
 			self.$el.html(self.template({}));
 
 			self.input = self.$('input[type=text]');
@@ -29,6 +29,7 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 		},
 		updateSearching: function (model, newValue) {
 			this.$el.toggleClass(searchingClass, newValue);
+			this.$('*').prop('disabled', newValue);
 		},
 		search: function (evt) {
 			var self = this;
