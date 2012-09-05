@@ -30,6 +30,7 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 			});
 		},
 		// options: searchExtent
+		// featureResults populated with results after via reset
 		locateAddress: function (address, options) {
 			var self = this;
 
