@@ -47,7 +47,7 @@ define('views/maptoolsview', ['jquery', 'dojo/_base/window', 'dojo/window', 'und
 			self.$el.html(self.template({ tools : tools }));
 
 			win.require(['js/plugins/jquery.tools.min.js'], function () {
-				$(self.$el.find('[title]')).tooltip(toolTipSettings);
+				self.$('[title]').tooltip(toolTipSettings);
 			});
 
 			return self;

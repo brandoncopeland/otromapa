@@ -1,5 +1,7 @@
-define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, _, Backbone, locationSearchTemplate) {
+define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, baseWin, dojoWin, _, Backbone, locationSearchTemplate) {
 	'use strict';
+
+	var win = dojoWin.get(baseWin.doc);
 
 	var searchingClass = 'searching';
 
@@ -10,8 +12,16 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 		},
 		template: _.template(locationSearchTemplate),
 		render: function () {
-			this.$el.html(this.template({}));
-			this.input = this.$('input[type=text]');
+			var self = this;
+			
+			self.$el.html(self.template({}));
+
+			self.input = self.$('input[type=text]');
+
+			win.require(['js/plugins/jquery.placeholder.js'], function () {
+				self.input.placeholder();
+			});
+
 			return this;
 		},
 		events: {
