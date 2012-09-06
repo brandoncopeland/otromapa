@@ -15,8 +15,8 @@
     ],
     paths: {
       'app': localJs,
-      'views': localJs,
-      'models': localJs,
+      'views': localJs + '/views',
+      'models': localJs + '/models',
       'templates': localTemplates
     },
     packages: [
