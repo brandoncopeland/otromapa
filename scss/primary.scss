@@ -32,11 +32,12 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	margin-left: $width-toolbox;
 	position: relative;
 	background-color: $color-aerialback;
-	box-shadow: 0 0 15px -2px #333;
+	box-shadow: 0 0 10px -2px #555;
 
 	.map {
 		@include noselection;
 		height: 100%; width: 100%;
+		border: solid 1px #aaa;
 		background: {
 			position: center center;
 			repeat: no-repeat;
@@ -124,11 +125,17 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 
 .searchbox {
 	position: absolute;
-	top: 0;
+	top: -2px; // keep text in line with basemap text
 	right: 0;
 	line-height: 1.8;
+	input[type="text"] {
+		padding: 5px 8px;
+		width: 240px;
+		background-color: white;
+		border: solid 1px #aaa;
+	}
 	input:disabled {
-		opacity: 0.2;
+		opacity: 0.3; filter: alpha(opacity=30);
 	}
 }
 

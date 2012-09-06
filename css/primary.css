@@ -19,7 +19,7 @@ html {
   margin-left: 34px;
   position: relative;
   background-color: rgba(187, 187, 187, 0.5);
-  box-shadow: 0 0 15px -2px #333333; }
+  box-shadow: 0 0 10px -2px #555555; }
   .mapbox .map {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -30,6 +30,7 @@ html {
     user-select: none;
     height: 100%;
     width: 100%;
+    border: solid 1px #aaa;
     background-position: center center;
     background-repeat: no-repeat; }
     .mapbox .map .esriSimpleSlider, .mapbox .map .bingLogo-lg {
@@ -121,11 +122,17 @@ html {
 
 .searchbox {
   position: absolute;
-  top: 0;
+  top: -2px;
   right: 0;
   line-height: 1.8; }
+  .searchbox input[type="text"] {
+    padding: 5px 8px;
+    width: 240px;
+    background-color: white;
+    border: solid 1px #aaa; }
   .searchbox input:disabled {
-    opacity: 0.2; }
+    opacity: 0.3;
+    filter: alpha(opacity=30); }
 
 #map_infowindow {
   height: auto !important;
