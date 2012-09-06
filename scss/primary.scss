@@ -37,7 +37,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	.map {
 		@include noselection;
 		height: 100%; width: 100%;
-		border: solid 1px #aaa;
+		border: solid 1px #888;
 		background: {
 			position: center center;
 			repeat: no-repeat;
@@ -131,11 +131,27 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	input[type="text"] {
 		padding: 5px 8px;
 		width: 240px;
-		background-color: white;
+		background-color: #fff;
 		border: solid 1px #aaa;
 	}
-	input:disabled {
-		opacity: 0.3; filter: alpha(opacity=30);
+	.workingoverlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background: #fff url('../img/searching.gif') center center no-repeat;
+		border: solid 1px #aaa;
+		opacity: 0.85; filter: alpha(opacity=85);
+		display: none;
+		-webkit-transition: opacity 1s linear;
+		transition: opacity 1s linear;
+	}
+	&.searching {
+		opacity: 0.7; filter: alpha(opacity=70);
+		.workingoverlay {
+			display: block;
+		}
 	}
 }
 
