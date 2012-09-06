@@ -452,6 +452,10 @@ html {
     width: 240px;
     background-color: #fff;
     border: solid 1px #aaa; }
+  .searchbox .clearsearch {
+    position: absolute;
+    top: 4px;
+    left: -85px; }
   .searchbox .workingoverlay {
     position: absolute;
     left: 0;

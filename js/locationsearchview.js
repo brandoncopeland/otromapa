@@ -7,7 +7,8 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
-			this.model.bind('change:isWorking', this.updateSearching, this);
+			this.model.on('change:isWorking', this.updateSearching, this);
+			this.model.get('featureResults').on('all', this.setClearVisibility, this);
 			this.render();
 		},
 		template: _.template(locationSearchTemplate),
@@ -16,25 +17,39 @@ define('views/locationsearchview', ['jquery', 'dojo/_base/window', 'dojo/window'
 
 			self.$el.html(self.template({}));
 
-			self.input = self.$('input[type=text]');
+			self._input = self.$('input[type=text]');
 
 			win.require(['js/plugins/jquery.placeholder.js'], function () {
-				self.input.placeholder();
+				self._input.placeholder();
 			});
+
+			self._clearButton = self.$('#clearsearch');
 
 			return this;
 		},
 		events: {
-			'submit form': 'search'
+			'submit form': 'search',
+			'click #clearsearch': 'clearSearch'
 		},
+		// update state based if currently searching or not
 		updateSearching: function (model, newValue) {
 			this.$el.toggleClass(searchingClass, newValue);
 			this.$('*').prop('disabled', newValue);
 		},
+		// update state of clear button if there are or are not results
+		setClearVisibility: function () {
+			$(this._clearButton).toggleClass('hidden', this.model.get('featureResults').isEmpty());
+		},
 		search: function (evt) {
 			var self = this;
 			evt.preventDefault();
-			self.model.locateAddress(self.input.val());
+			if (self._input.val()) {
+				self.model.locateAddress(self._input.val());
+			}
+		},
+		clearSearch: function () {
+			this.model.clearResults();
+			$(this._input).val('');
 		}
 	});
 

@@ -134,6 +134,11 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		background-color: #fff;
 		border: solid 1px #aaa;
 	}
+	.clearsearch {
+		position: absolute;
+		top: 4px;
+		left: -85px;
+	}
 	.workingoverlay {
 		position: absolute;
 		left: 0;

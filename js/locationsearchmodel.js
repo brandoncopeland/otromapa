@@ -36,6 +36,8 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 			self.set('isWorking', true);
 
+			self.clearResults();
+
 			var a = { 'SingleLine': address };
 			var params = _.extend(options || {}, { address: a, outFields: ['*']});
 
@@ -56,6 +58,9 @@ define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone'
 
 				self.set('isWorking', false);
 			});
+		},
+		clearResults: function () {
+			this.get('featureResults').reset();
 		}
 	});
 
