@@ -1,9 +1,9 @@
 define('models/layermodel', ['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
 	'use strict';
 
+	// attributes... isBasemap, esriLayer
 	var LayerModel = Backbone.Model.extend({
 		defaults: {
-			esriLayer: undefined,
 			isBasemap: false
 		},
 		initialize: function () {

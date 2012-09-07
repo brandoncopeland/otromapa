@@ -1,32 +1,35 @@
-// spec test runner
-// run... node runner.js
-
-var requirejs = require('requirejs');
-requirejs.config({
-	nodeRequire: require
+require.config({
+	baseUrl: 'js',
+	paths: {
+		'jquery': 'lib/jquery-1.8.0.min',
+		'underscore': 'lib/underscore-amd-min',
+		'backbone': 'lib/backbone-amd-min',
+		'specs': '../spec'
+	}
 });
 
-global.define = require('requirejs');
+// for more specs, add as additional dependencies
+require(['specs/models/layermodelspec'], function () {
+	var jasmineEnv = jasmine.getEnv();
+	jasmineEnv.updateInterval = 1000;
 
-global.describe = require('../jasmine/jasmine-1.2.0/jasmine').describe;
-global.it = require('../jasmine/jasmine-1.2.0/jasmine').it;
-global.expect = require('../jasmine/jasmine-1.2.0/jasmine').expect;
-global.beforeEach = require('../jasmine/jasmine-1.2.0/jasmine').beforeEach;
+	var htmlReporter = new jasmine.HtmlReporter();
+	jasmineEnv.addReporter(htmlReporter);
 
-function magenta(s) { return ['\033[35m', s, '\033[0m'].join(''); }
+	jasmineEnv.specFilter = function (spec) {
+		return htmlReporter.specFilter(spec);
+	};
 
-// requirejs(['./sample/samplespec'], function (samplespec) {
-// 	console.log(['\n', magenta(samplespec.name), '\n'].join(''));
-// 	var jasmine = require('../jasmine/jasmine-1.2.0/jasmine').jasmine;
-// 	var ConsoleReporter = require('../jasmine/jasmine-consolereporter').ConsoleReporter;
-// 	jasmine.getEnv().addReporter(new ConsoleReporter());
-// 	jasmine.getEnv().execute();
-// });
+	var currentWindowOnload = window.onload;
 
-requirejs(['./models/layermodelspec'], function (samplespec) {
-	console.log(['\n', magenta(samplespec.name), '\n'].join(''));
-	var jasmine = require('../jasmine/jasmine-1.2.0/jasmine').jasmine;
-	var ConsoleReporter = require('../jasmine/jasmine-consolereporter').ConsoleReporter;
-	jasmine.getEnv().addReporter(new ConsoleReporter());
-	jasmine.getEnv().execute();
+	function execJasmine() {
+		jasmineEnv.execute();
+	}
+
+	window.onload = function () {
+		if (currentWindowOnload) {
+			currentWindowOnload();
+		}
+		execJasmine();
+	};
 });
