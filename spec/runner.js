@@ -1,38 +1,73 @@
-require.config({
-	baseUrl: 'js',
-	paths: {
-		'jquery': 'lib/jquery-1.8.0.min',
-		'underscore': 'lib/underscore-amd-min',
-		'backbone': 'lib/backbone-amd-min',
-		'specs': '../spec'
-	}
-});
+(function (window) {
+  'use strict';
 
-var specs = [
-	'specs/models/layermodelspec',
-	'specs/models/layermodelcollectionspec'
-];
-require(specs, function () {
-	var jasmineEnv = jasmine.getEnv();
-	jasmineEnv.updateInterval = 1000;
+  var local = window.location.pathname.replace(/\/[^/]+$/, '');
+  var localJs = local + '/js';
+  var localSpecs = local + '/spec';
+  var localLib = localJs + '/lib';
+  var localTemplates = local + '/templates';
 
-	var htmlReporter = new jasmine.HtmlReporter();
-	jasmineEnv.addReporter(htmlReporter);
+  window.require({
+    async: true,
+    parseOnLoad: true,
+    aliases: [
+      ['text', 'dojo/text'],
+      ['ready', 'dojo/domReady']
+    ],
+    paths: {
+      'app': localJs,
+      'views': localJs + '/views',
+      'models': localJs + '/models',
+      'specs': localSpecs,
+      'templates': localTemplates
+    },
+    packages: [
+      {
+        name: 'jquery',
+        location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.0',
+        main: 'jquery.min'
+      }, {
+        name: 'underscore',
+        location: localLib,
+        main: 'underscore-amd-min'
+      }, {
+        name: 'backbone',
+        location: localLib,
+        main: 'backbone-amd-min'
+      }
+    ]
+  });
 
-	jasmineEnv.specFilter = function (spec) {
-		return htmlReporter.specFilter(spec);
-	};
+  window.define.amd.jQuery = true;
 
-	var currentWindowOnload = window.onload;
+	var specs = [
+		'specs/models/layermodelspec',
+		'specs/models/layermodelcollectionspec',
+		'specs/models/locationsearchmodelspec'
+	];
+	window.require(specs, function () {
+		var jasmineEnv = jasmine.getEnv();
+		jasmineEnv.updateInterval = 1000;
 
-	function execJasmine() {
-		jasmineEnv.execute();
-	}
+		var htmlReporter = new jasmine.HtmlReporter();
+		jasmineEnv.addReporter(htmlReporter);
 
-	window.onload = function () {
-		if (currentWindowOnload) {
-			currentWindowOnload();
+		jasmineEnv.specFilter = function (spec) {
+			return htmlReporter.specFilter(spec);
+		};
+
+		var currentWindowOnload = window.onload;
+
+		function execJasmine() {
+			jasmineEnv.execute();
 		}
-		execJasmine();
-	};
-});
+
+		window.onload = function () {
+			if (currentWindowOnload) {
+				currentWindowOnload();
+			}
+			execJasmine();
+		};
+	});
+
+}(window));
