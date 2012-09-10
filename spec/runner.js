@@ -43,7 +43,8 @@
 	var specs = [
 		'specs/models/layermodelspec',
 		'specs/models/layermodelcollectionspec',
-		'specs/models/locationsearchmodelspec'
+		'specs/models/locationsearchmodelspec',
+    'specs/models/mapfeaturemodelcollectionspec'
 	];
 	window.require(specs, function () {
 		var jasmineEnv = jasmine.getEnv();

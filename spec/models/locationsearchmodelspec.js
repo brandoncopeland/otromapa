@@ -109,8 +109,10 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 
 				// if esri.SpatialReference and esriGeometry.Point are both constructed as expected, goodGeom returned
 				// test for geometry === goodGeom
-				var srStub = sinon.stub(esri, 'SpatialReference').withArgs(sr).returns(sr);
-				var pointStub = sinon.stub(esriGeometry, 'Point').withArgs(x, y, sr).returns(goodGeom);
+				var srStub = sinon.stub(esri, 'SpatialReference');
+				srStub.withArgs(sr).returns(sr);
+				var pointStub = sinon.stub(esriGeometry, 'Point');
+				pointStub.withArgs(x, y, sr).returns(goodGeom);
 
 				this.locator.addressToLocations.callsArgWith(1, candidates);
 				this.model.locateAddress('fake address');
@@ -120,6 +122,9 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				expect(feature.get('props').score).toBe(score);
 				expect(feature.get('props').matchType).toBe('PointAddress');
 				expect(feature.get('props').name).toBe(address);
+
+				srStub.restore();
+				pointStub.restore();
 			});
 
 			it('should set isWorking to false after candidates returned', function () {
