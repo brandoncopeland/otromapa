@@ -38,7 +38,7 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 
 			self.clearResults();
 
-			var a = { 'SingleLine': address };
+			var a = { SingleLine: address };
 			var params = _.extend(options || {}, { address: a, outFields: ['*']});
 
 			self._locator.outSpatialReference = new esri.SpatialReference(outputWkid);
@@ -47,7 +47,7 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 				var results = _.chain(candidates).filter(isGoodAddress).map(function (item) {
 					return new MapFeatureModel({
 						props: {
-							score: 'item.score',
+							score: item.score,
 							matchType: item.attributes.MatchLevel,
 							name: item.address
 						},
