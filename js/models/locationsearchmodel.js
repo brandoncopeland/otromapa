@@ -3,7 +3,7 @@
 // var locationSearchModel = new LocationSearchModel({ mapModel: map });
 // locationSearchModel.locateAddress('2929 Briarpark, Houston, TX');
 
-define('models/locationsearchmodel', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'esri/tasks/Locator', 'models/mapfeaturemodel', 'models/mapfeaturemodelcollection'], function ($, dojo, _, Backbone, esri, esriGeometry, esriLocator, MapFeatureModel, MapFeatureModelCollection) {
+define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri', 'esri/geometry', 'esri/tasks/Locator', 'models/mapfeaturemodel', 'models/mapfeaturemodelcollection'], function ($, _, Backbone, esri, esriGeometry, esriLocator, MapFeatureModel, MapFeatureModelCollection) {
 	'use strict';
 
 	var outputWkid = 3857;
