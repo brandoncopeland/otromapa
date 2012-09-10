@@ -8,8 +8,11 @@ require.config({
 	}
 });
 
-// for more specs, add as additional dependencies
-require(['specs/models/layermodelspec', 'specs/models/layermodelcollectionspec'], function () {
+var specs = [
+	'specs/models/layermodelspec',
+	'specs/models/layermodelcollectionspec'
+];
+require(specs, function () {
 	var jasmineEnv = jasmine.getEnv();
 	jasmineEnv.updateInterval = 1000;
 
