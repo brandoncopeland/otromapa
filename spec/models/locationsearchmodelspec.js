@@ -1,4 +1,6 @@
 define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], function (_, esri, esriGeometry, LocationSearchModel) {
+	var defaultUrl = 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer';
+
 	describe('LocationSearchModel', function () {
 
 		beforeEach(function () {
@@ -6,10 +8,22 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 		});
 
 		describe('when instantiated', function () {
+
 			it('should have defaults', function () {
-				expect(this.model.get('serviceUrl')).toEqual('http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer');
+				expect(this.model.get('serviceUrl')).toEqual(defaultUrl);
 				expect(this.model.get('isWorking')).toEqual(false);
 				expect(this.model.get('featureResults')).not.toBeUndefined();
+			});
+
+			it('should have an internal locator with url set', function () {
+				expect(this.model._locator.url).toBe(defaultUrl);
+			});
+		});
+
+		describe('on serviceUrl change', function () {
+			it('should update the internal locator with the url', function () {
+				this.model.set('serviceUrl', 'somenewurl');
+				expect(this.model._locator.url).toBe('somenewurl');
 			});
 		});
 
