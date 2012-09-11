@@ -185,6 +185,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			var extent = this.get('fullExtent');
 			zoomMapToExtent(this._widget, extent.xmin, extent.xmax, extent.ymin, extent.ymax, extent.spatialReference.wkid);
 		},
+		// may use number scale or one of predefined scales (house, subdivision, city, county)
 		zoomToLocation: function (x, y, wkid, scaleLevel) {
 			zoomMapToLocation(this._widget, x, y, wkid, scaleLevel);
 		}
