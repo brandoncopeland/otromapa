@@ -1,7 +1,5 @@
-define('views/maptoolsview', ['jquery', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html'], function ($, baseWin, dojoWin, _, Backbone, mapToolsTemplate) {
+define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html'], function ($, _, Backbone, mapToolsTemplate) {
 	'use strict';
-
-	var win = dojoWin.get(baseWin.doc);
 
 	var toolTipSettings = {
 		effect: 'fade',
@@ -46,7 +44,7 @@ define('views/maptoolsview', ['jquery', 'dojo/_base/window', 'dojo/window', 'und
 
 			self.$el.html(self.template({ tools : tools }));
 
-			win.require(['js/plugins/jquery.tools.min.js'], function () {
+			require(['js/plugins/jquery.tools.min.js'], function () {
 				self.$('[title]').tooltip(toolTipSettings);
 			});
 
