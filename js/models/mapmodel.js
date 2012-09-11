@@ -26,8 +26,8 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 		var timer;
 		dojo.connect(map, 'onLoad', function (evt) {
 			dojo.connect(win, 'onresize', function (evt) {
-				win.clearTimeout(timer);
-				timer = win.setTimeout(function () {
+				clearTimeout(timer);
+				timer = setTimeout(function () {
 					map.resize();
 					map.reposition();
 				}, 500);
@@ -98,6 +98,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 		var location = new esriGeometry.Point(x, y, new esri.SpatialReference({ wkid: wkid }));
 		if (wkid === gWkid) {
 			location = esriGeometry.geographicToWebMercator(location);
+			location.setSpatialReference(new esri.SpatialReference({ wkid: mWkid })); // projection still uses older 102100, update manually
 		}
 		map.centerAndZoom(location, scaleLevel || map.getLevel());
 	};
@@ -133,7 +134,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			map.infoWindow.fadeShow = function (location) {
 				map.infoWindow.show(location);
 				var $infoContent = $('#' + self.get('domId') + '_infowindow .content').hide();
-				win.setTimeout(function () {
+				setTimeout(function () {
 					$infoContent.fadeIn(500);
 				}, 600);
 			};
