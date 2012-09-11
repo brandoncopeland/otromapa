@@ -138,10 +138,6 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				this.centerAndZoomSpy = sinon.spy(this.model._widget, 'centerAndZoom');
 			});
 
-			// location wkid
-			// location geo
-			// scale
-			// no scale
 			it('when wkid is 3857, should call map widget\'s .centerAndZoom with point composed of x, y, wkid 3857', function () {
 				this.model.zoomToLocation(1, 2, 3857);
 				var pointMatch = sinon.match.instanceOf(esriGeometry.Point)
@@ -172,7 +168,7 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				this.model.zoomToLocation(1, 1, 3857);
 				expect(this.centerAndZoomSpy).toHaveBeenCalledWith(sinon.match.any, 11);
 			});
-
 		});
+
 	});
 });
