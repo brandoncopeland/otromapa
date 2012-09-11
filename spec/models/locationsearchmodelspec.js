@@ -50,9 +50,7 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 			it('should use the right input address parameters for the ESRI locator', function () {
 				this.model.locateAddress('my address');
 				expect(this.locator.addressToLocations).toHaveBeenCalledWith({
-					address: {
-						SingleLine: 'my address'
-					},
+					address: { SingleLine: 'my address' },
 					outFields: ['*']
 				});
 			});
@@ -97,9 +95,7 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				var candidates = [{
 					score: score,
 					address: address,
-					attributes: {
-						MatchLevel: 'PointAddress'
-					},
+					attributes: { MatchLevel: 'PointAddress' },
 					location: {
 						x: x,
 						y: y,

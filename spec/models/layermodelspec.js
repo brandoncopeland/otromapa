@@ -17,7 +17,7 @@ define(['models/layermodel'], function (LayerModel) {
 				this.model.on('error', spy);
 				this.model.set('esriMap', undefined);
 				expect(spy).toHaveBeenCalledOnce();
-				expect(spy).toHaveBeenCalledWith(this.model, 'LayerModel attribute esriLayer must have a value');
+				expect(spy).toHaveBeenCalledWith(sinon.match.any, 'LayerModel attribute esriLayer must have a value');
 			});
 		});
 
