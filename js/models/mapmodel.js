@@ -6,7 +6,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 	var gWkid = 4326;
 	var mWkid = 3857;
 
-	var scales = { // use later, maybe as alternate to number in zoomToLocation?
+	var scales = {
 		house: 16,
 		subdivision: 13,
 		city: 11,
@@ -94,13 +94,26 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 		map.setExtent(extent, true);
 	};
 
+	var getScaleFrom = function (definition) {
+		if (!definition) {
+			return;
+		}
+		// number is just a number. string could mean predined scale string.
+		if ($.isNumeric(definition)) {
+			return definition;
+		} else if (scales.hasOwnProperty(definition.toString())) {
+			return scales[definition.toString()];
+		}
+
+		return;
+	};
 	var zoomMapToLocation = function (map, x, y, wkid, scaleLevel) {
 		var location = new esriGeometry.Point(x, y, new esri.SpatialReference({ wkid: wkid }));
 		if (wkid === gWkid) {
 			location = esriGeometry.geographicToWebMercator(location);
 			location.setSpatialReference(new esri.SpatialReference({ wkid: mWkid })); // projection still uses older 102100, update manually
 		}
-		map.centerAndZoom(location, scaleLevel || map.getLevel());
+		map.centerAndZoom(location, getScaleFrom(scaleLevel) || map.getLevel());
 	};
 
 	// model...

@@ -168,6 +168,11 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				this.model.zoomToLocation(1, 1, 3857);
 				expect(this.centerAndZoomSpy).toHaveBeenCalledWith(sinon.match.any, 11);
 			});
+
+			it('when passed scale is a prenamed string (ie. city), should call map widget\'s .centerAndZoom with the scale defined for that string', function () {
+				this.model.zoomToLocation(1, 1, 3857, 'city');
+				expect(this.centerAndZoomSpy).toHaveBeenCalledWith(sinon.match.any, 11);
+			})
 		});
 
 	});

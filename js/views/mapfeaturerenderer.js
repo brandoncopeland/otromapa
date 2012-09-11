@@ -35,6 +35,14 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 				mapModel.getInfoWindow().hide();
 			}
 		});
+
+		dojo.connect(graphicsLayer, 'onDblClick', function (evt) {
+			evt.preventDefault();
+			var geom = evt.graphic.geometry;
+			if (geom.type === 'point') {
+				mapModel.zoomToLocation(geom.x, geom.y, geom.spatialReference.wkid, 'city');
+			}
+		});
 	};
 
 	// returns array graphics from MapFeatureModelCollection
