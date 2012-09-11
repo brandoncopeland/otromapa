@@ -43,6 +43,7 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 			evt.preventDefault();
 			if (self._input.val()) {
 				self.model.locateAddress(self._input.val());
+				$(self._input).blur();
 			}
 		},
 		clearSearch: function () {
