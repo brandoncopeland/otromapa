@@ -1,7 +1,7 @@
 // demonotificationtoolsview.js
 // Demonstration of various ways to add content to and open TopBannerView
 
-define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/toolstemplate.html'], function ($, _, Backbone, toolstemplate) {
+define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/toolstemplate.html', 'views/topbannerview'], function ($, _, Backbone, toolstemplate, TopBannerView) {
 	'use strict';
 
 	var toolTipSettings = {
@@ -24,10 +24,16 @@ define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', '
 		val: 'Notification with Text and Link',
 		description: 'Demo simple notification with text and link',
 		clickHandler: 'showSimpleWithLink'
+	}, {
+		cl: 'notigetchromeframe',
+		val: 'Notification for Google Chrome Frame',
+		description: 'Demo notification using an HTML template',
+		clickHandler: 'showGetChromeFrame'
 	}];
 
 	var DemoNotificationToolsView = Backbone.View.extend({
 		initialize: function () {
+			this._bannerView = new TopBannerView();
 			this.render();
 		},
 		template: _.template(toolstemplate),
@@ -51,16 +57,19 @@ define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', '
 		},
 		showSimpleWithLink: function () {
 			var contentWrapper = $('<div>');
-			var text = $('<p>').text('Demonstration of banner type notification with link to ');
-			var link = $('<a>').attr('href', 'http://www.google.com').text('Google');
+			var text = $('<p>').text('You clicked a llama. Check out some ');
+			var link = $('<a>').attr('href', 'http://xkcd.com/974').text('XKCD');
 			text.append(link);
 			contentWrapper.append(text);
 
-			require(['views/topbannerview'], function (TopBannerView) {
-				var view = new TopBannerView();
-				view.addItem(contentWrapper.html(), {
-					additionalClasses: 'notisimple'
-				});
+			this._bannerView.addItem(contentWrapper.html(), {
+				additionalClasses: 'notisimple'
+			});
+		},
+		showGetChromeFrame: function () {
+			var view = this;
+			require(['text!templates/getchromeframetemplate.html'], function (getChromeFrameTemplate) {
+				view._bannerView.addItem(_.template(getChromeFrameTemplate, {}));
 			});
 		}
 	});

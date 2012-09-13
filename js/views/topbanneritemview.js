@@ -21,6 +21,7 @@ define('views/topbanneritemview', ['jquery', 'underscore', 'backbone', 'text!tem
 				htmlContent: this.options.htmlContent
 			}));
 
+			var inDuration = 500;
 			this.$el.fadeIn(500);
 
 			return this;

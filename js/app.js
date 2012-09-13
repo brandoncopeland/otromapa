@@ -11,13 +11,6 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 
 	var init = function () {
 
-		if ($('html').hasClass('lt-ie9')) {
-			require(['underscore', 'views/topbannerview', 'text!templates/getchromeframetemplate.html'], function (_, TopBannerView, getChromeFrameTemplate) {
-				var view = new TopBannerView();
-				view.addItem(_.template(getChromeFrameTemplate, {}));
-			});
-		}
-
 		// a couple options for app specific config... can just create custom app.js for each project (current winner) or load from some config.json
 		var map = new MapModel({
 			fullExtent: defaultExtent

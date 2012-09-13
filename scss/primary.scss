@@ -97,7 +97,10 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			background-image: url('../img/blanktool.png'); // TODO
 		}
 		.notisimplewithlink {
-			background-image: url('../img/blanktool.png'); // TODO
+			background-image: url('../img/llamatool.png');
+		}
+		.notigetchromeframe {
+			background-image: url('../img/chrometool.png');
 		}
 	}
 }
@@ -225,7 +228,8 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;	
+	width: 100%;
+	z-index: 1000;
 }
 .topbanner {
 	@include clearfix;

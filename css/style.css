@@ -409,7 +409,9 @@ html {
     .toolbox .tools .zoominitial {
       background-image: url("../img/blanktool.png"); }
     .toolbox .tools .notisimplewithlink {
-      background-image: url("../img/blanktool.png"); }
+      background-image: url("../img/llamatool.png"); }
+    .toolbox .tools .notigetchromeframe {
+      background-image: url("../img/chrometool.png"); }
 
 .basemapbox {
   zoom: 1;
@@ -526,7 +528,8 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; }
+  width: 100%;
+  z-index: 1000; }
 
 .topbanner {
   zoom: 1;
