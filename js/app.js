@@ -1,4 +1,4 @@
-define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview', 'views/mapfeaturerenderer'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView, MapFeatureRenderer) {
+define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview', 'views/mapfeaturerenderer', 'views/demonotificationtoolsview'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView, MapFeatureRenderer, DemoNotificationToolsView) {
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
@@ -12,7 +12,10 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 	var init = function () {
 
 		if ($('html').hasClass('lt-ie9')) {
-			require(['views/getchromeframeview']);
+			require(['underscore', 'views/topbannerview', 'text!templates/getchromeframetemplate.html'], function (_, TopBannerView, getChromeFrameTemplate) {
+				var view = new TopBannerView();
+				view.addItem(_.template(getChromeFrameTemplate, {}));
+			});
 		}
 
 		// a couple options for app specific config... can just create custom app.js for each project (current winner) or load from some config.json
@@ -47,6 +50,10 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 		var toolsView = new MapToolsView({
 			el: $('#toolbox > .tools'),
 			mapModel: map
+		});
+
+		var demoNotificationView = new DemoNotificationToolsView({
+			el: $('#toolbox > .tools')
 		});
 
 		// basemap picker

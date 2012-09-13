@@ -1,4 +1,4 @@
-define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/maptoolstemplate.html'], function ($, _, Backbone, mapToolsTemplate) {
+define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!templates/toolstemplate.html'], function ($, _, Backbone, toolsTemplate) {
 	'use strict';
 
 	var toolTipSettings = {
@@ -38,7 +38,7 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		initialize: function () {
 			this.render();
 		},
-		template: _.template(mapToolsTemplate),
+		template: _.template(toolsTemplate),
 		render: function () {
 			var self = this;
 

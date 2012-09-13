@@ -53,7 +53,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	top: 0;
 	left: 0;
 	height: 100%; width: $width-toolbox;
-	padding: (10px + $height-header) 0 10px;
+	padding: $height-header 0 10px;
 	
 	.tools {
 		height: 100%; width: 100%;
@@ -84,6 +84,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			}
 		}
 
+		.toolgroup {
+			margin-top: 10px;
+		}
 		.zoomout {
 			background-image: url('../img/zoomout.png');
 		}
@@ -91,6 +94,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			background-image: url('../img/zoomin.png');
 		}
 		.zoominitial {
+			background-image: url('../img/blanktool.png'); // TODO
+		}
+		.notisimplewithlink {
 			background-image: url('../img/blanktool.png'); // TODO
 		}
 	}
@@ -214,21 +220,24 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	@include hidden;
 }
 
-// chrome frame
-.topbanner {
-	@include clearfix;
-	opacity: 0.95; filter: alpha(opacity=95);
+// top banner
+.bannercontainer {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 100%;	
+}
+.topbanner {
+	@include clearfix;
+	opacity: 0.95; filter: alpha(opacity=95);
 	padding: 25px 70px 25px 25px;
 	line-height: 20px;
 	background-color: #333;
 	text-align: center;
 	color: #fff;
+	box-shadow: 0 0 6px #333;
+	position: relative;
 	border: {
-		top: solid 1px #000;
 		bottom: solid 1px #000;
 	}
 	a {
