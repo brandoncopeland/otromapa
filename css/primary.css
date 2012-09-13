@@ -195,3 +195,21 @@ html {
 .hidden {
   display: none !important;
   visibility: hidden; }
+
+.getchromeframe {
+  opacity: 0.95;
+  filter: alpha(opacity=95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  background-color: #333;
+  text-align: center;
+  color: #fff;
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000; }
+  .getchromeframe p, .getchromeframe input {
+    display: inline; }
+  .getchromeframe input {
+    margin-left: 30px; }
