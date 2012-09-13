@@ -196,20 +196,44 @@ html {
   display: none !important;
   visibility: hidden; }
 
-.getchromeframe {
+.topbanner {
+  zoom: 1;
   opacity: 0.95;
   filter: alpha(opacity=95);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 25px;
+  padding: 25px 70px 25px 25px;
+  line-height: 20px;
   background-color: #333;
   text-align: center;
   color: #fff;
   border-top: solid 1px #000;
   border-bottom: solid 1px #000; }
-  .getchromeframe p, .getchromeframe input {
-    display: inline; }
-  .getchromeframe input {
-    margin-left: 30px; }
+  .topbanner:before, .topbanner:after {
+    content: "";
+    display: table; }
+  .topbanner:after {
+    clear: both; }
+  .topbanner a {
+    color: #A0BAF9; }
+  .topbanner input {
+    display: block;
+    border: 0;
+    text-indent: -999em;
+    overflow: hidden;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    background: transparent url("../img/close-dark.png") left top no-repeat; }
+    .topbanner input br {
+      display: none; }
+    .topbanner input:hover {
+      background-position: left -20px; }
