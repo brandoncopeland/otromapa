@@ -63,13 +63,17 @@ define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', '
 			contentWrapper.append(text);
 
 			this._bannerView.addItem(contentWrapper.html(), {
-				additionalClasses: 'notisimple'
+				additionalClasses: 'notisimple somesecondclass'
 			});
 		},
 		showGetChromeFrame: function () {
-			var view = this;
+			var view = this, html = '';
+			if (!($('html').hasClass('lt-ie9'))) {
+				html = $('<div>').html($('<p>').addClass('subtle').text('Luckily you have a modern browser, but if you didn\'t, you would see...')).html();
+			}
 			require(['text!templates/getchromeframetemplate.html'], function (getChromeFrameTemplate) {
-				view._bannerView.addItem(_.template(getChromeFrameTemplate, {}));
+				html = html + _.template(getChromeFrameTemplate, {});
+				view._bannerView.addItem(html);
 			});
 		}
 	});

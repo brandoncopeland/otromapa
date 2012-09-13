@@ -247,6 +247,15 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	a {
 		color: #A0BAF9;
 	}
+	p {
+		margin-top: 10px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+	.subtle {
+		color: #999;
+	}
 	input {
 		@include imagereplace;
 		height: 20px;

@@ -1,3 +1,5 @@
+// topbanneritemview.js
+// individual top banner item used by topbannerview
 define('views/topbanneritemview', ['jquery', 'underscore', 'backbone', 'text!templates/topbanneritemtemplate.html', 'ready!'], function ($, _, Backbone, topBannerItemTemplate) {
 	var TopBannerItemView = Backbone.View.extend({
 		tagName: 'div',

@@ -1,3 +1,5 @@
+// topbannerview.js
+// view for banner notifications
 define('views/topbannerview', ['jquery', 'underscore', 'backbone', 'views/topbanneritemview'], function ($, _, Backbone, TopBannerItemView) {
 	var TopBannerView = Backbone.View.extend({
 		el: $('#bannercontainer'), // use convention for default

@@ -550,6 +550,12 @@ html {
     clear: both; }
   .topbanner a {
     color: #A0BAF9; }
+  .topbanner p {
+    margin-top: 10px; }
+    .topbanner p:first-child {
+      margin-top: 0; }
+  .topbanner .subtle {
+    color: #999; }
   .topbanner input {
     display: block;
     border: 0;
