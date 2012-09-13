@@ -11,7 +11,7 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 
 	var init = function () {
 
-		if ($('html').hasClass('oldie')) { // use modernizr's added class
+		if ($('html').hasClass('lt-ie9')) {
 			require(['views/getchromeframeview']);
 		}
 
