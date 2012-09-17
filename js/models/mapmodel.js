@@ -93,6 +93,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 		});
 		if (wkid === gWkid) {
 			extent = esriGeometry.geographicToWebMercator(extent);
+			extent.setSpatialReference(new esri.SpatialReference({ wkid: mWkid })); // projection still uses older 102100, update manually
 		}
 		map.setExtent(extent, true);
 	};

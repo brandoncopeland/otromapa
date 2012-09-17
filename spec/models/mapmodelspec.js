@@ -113,7 +113,7 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 					.and(sinon.match({ xmax: 3239397.1820842065 }))
 					.and(sinon.match({ ymax: 3401126.264066427 }))
 					.and(sinon.match({ spatialReference: sinon.match.instanceOf(esri.SpatialReference)
-						.and(sinon.match({ wkid: 102100 }))})); // 102100 not current best value, but is returned by geographicToWebMercator util
+						.and(sinon.match({ wkid: 3857 }))}));
 				expect(this.setExtentSpy).toHaveBeenCalledWith(extentMatch);
 			});
 			it('should call map widget\'s .setExtent with fit argument === true', function () {

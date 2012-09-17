@@ -1,9 +1,23 @@
 // mapfeaturerenderer.js
 // maps MapFeatureModelCollection on a MapModel
-define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'models/layermodel'], function ($, dojo, _, Backbone, esri, LayerModel) {
+define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel'], function ($, dojo, _, Backbone, esri, esriGeometry, LayerModel) {
 	'use strict';
 
 	var defaultOpacity = 1.0;
+	var zoomExpansionFactor = 1.3;
+	var someSmallAmount = 0.0001;
+
+	var getGraphicExtent = function (graphic) {
+		if (graphic.attributes.zoomExtent) {
+			return graphic.attributes.zoomExtent;
+		} else if (graphic.geometry.type === 'extent') {
+			return graphic.geometry;
+		} else if (graphic.geometry.type === 'point') {
+			return new esriGeometry.Extent(graphic.geometry.x - someSmallAmount, graphic.geometry.y - someSmallAmount, graphic.geometry.x + someSmallAmount, graphic.geometry.y + someSmallAmount, graphic.geometry.spatialReference);
+		} else if ('getExtent' in graphic.geometry) { // covers all other known geometry types @ ESRI v. 3.1
+			return graphic.geometry.getExtent();
+		}
+	};
 
 	// attach standard events to graphicsLayer
 	// change symbol and show info window on hover. go back on out.
@@ -30,7 +44,6 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 
 		dojo.connect(graphicsLayer, 'onMouseOut', function (evt) {
 			evt.graphic.setSymbol(undefined); // use layer's renderer
-
 			if (mapModel) {
 				mapModel.getInfoWindow().hide();
 			}
@@ -38,15 +51,8 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 
 		dojo.connect(graphicsLayer, 'onDblClick', function (evt) {
 			evt.preventDefault();
-			var geom = evt.graphic.geometry;
-			if (geom.type === 'point') {
-				if (evt.graphic.attributes.zoomExtent) {
-					var extent = evt.graphic.attributes.zoomExtent;
-					mapModel.zoomToExtent(extent.xmin, extent.xmax, extent.ymin, extent.ymax, extent.spatialReference.wkid);
-				} else {
-					mapModel.zoomToLocation(geom.x, geom.y, geom.spatialReference.wkid, 'city');
-				}
-			}
+			var zoomExt = getGraphicExtent(evt.graphic).expand(zoomExpansionFactor);
+			mapModel.zoomToExtent(zoomExt.xmin, zoomExt.xmax, zoomExt.ymin, zoomExt.ymax, zoomExt.spatialReference.wkid);
 		});
 	};
 
@@ -58,14 +64,6 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			return graphic;
 		});
 		return graphics;
-	};
-
-	var getGraphicExtent = function (graphic) {
-		if (graphic.attributes.zoomExtent) {
-			return graphic.attributes.zoomExtent;
-		}
-
-		// TODO. Handle other extent types... point, other geoms
 	};
 
 	// collection - MapFeatureModelCollection
@@ -119,6 +117,7 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			}, this);
 
 			if (graphicsExtent && this.options.mapModel && this.options.zoomOnRender === true) {
+				graphicsExtent = graphicsExtent.expand(zoomExpansionFactor);
 				this.options.mapModel.zoomToExtent(graphicsExtent.xmin, graphicsExtent.xmax, graphicsExtent.ymin, graphicsExtent.ymax, graphicsExtent.spatialReference.wkid);
 			}
 

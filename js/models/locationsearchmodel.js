@@ -45,14 +45,14 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 
 			self._locator.addressToLocations(params, function (candidates) {
 				var results = _.chain(candidates).filter(isGoodAddress).map(function (item) {
-					// TODO. Are .West_Lon, etc... always available? Always GCS? Research this better and add checks if necessary
+					// TODO. These fields (West_Lon, etc...) are service specific. Define better specs on how to construct this.
 					var zoomExtent = esriGeometry.geographicToWebMercator(new esriGeometry.Extent(item.attributes.West_Lon, item.attributes.South_Lat, item.attributes.East_Lon, item.attributes.North_Lat, new esri.SpatialReference(4326)));
 					return new MapFeatureModel({
 						props: {
 							score: item.score,
 							matchType: item.attributes.MatchLevel,
 							name: item.address,
-							zoomExtent: zoomExtent
+							zoomExtent: zoomExtent // convention for all MapFeatureModels
 						},
 						geometry: new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference))
 					});
