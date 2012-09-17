@@ -3,6 +3,22 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 
 	var searchingClass = 'searching';
 
+	var toolTipSettings = {
+		effect: 'fade',
+		fadeOutSpeed: 100,
+		predelay: 100,
+		opacity: 1.0,
+		position: 'center right',
+		offset: [0, 11],
+		tipClass: 'tipsearchclose',
+		events: {
+			def: 'mouseenter',
+			input: 'mouseenter,click mouseleave',
+			widget: 'mouseenter,click mouseleave',
+			tooltip: ''
+		}
+	};
+
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
 			this.model.on('change:isWorking', this.updateSearching, this);
@@ -19,6 +35,10 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 
 			require(['js/plugins/jquery.placeholder.js'], function () {
 				self._input.placeholder();
+			});
+
+			require(['js/plugins/jquery.tools.min.js'], function () {
+				self.$('[title]').tooltip(toolTipSettings);
 			});
 
 			self._clearButton = self.$('#clearsearch');

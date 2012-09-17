@@ -459,9 +459,24 @@ html {
     background-color: #fff;
     border: solid 1px #aaa; }
   .searchbox .clearsearch {
+    display: block;
+    border: 0;
+    text-indent: -999em;
+    overflow: hidden;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
+    height: 20px;
+    width: 20px;
     position: absolute;
     top: 4px;
-    left: -85px; }
+    left: -30px;
+    background: transparent url("../img/close-dark.png") left top no-repeat; }
+    .searchbox .clearsearch br {
+      display: none; }
+    .searchbox .clearsearch:hover {
+      background-position: left -20px; }
   .searchbox .workingoverlay {
     position: absolute;
     left: 0;
@@ -509,6 +524,14 @@ html {
   background-color: #222;
   color: #ccc;
   box-shadow: 0 0 5px #444; }
+
+.tipsearchclose {
+  background-color: #fff;
+  color: #E53568;
+  padding: 0 8px;
+  line-height: 24px;
+  width: 238px;
+  height: 24px; }
 
 #map_infowindow.simpleInfoWindow {
   padding: 0 5px; }
