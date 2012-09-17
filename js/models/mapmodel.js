@@ -91,6 +91,9 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			ymax: ymax,
 			spatialReference: { wkid: wkid }
 		});
+		if (wkid === gWkid) {
+			extent = esriGeometry.geographicToWebMercator(extent);
+		}
 		map.setExtent(extent, true);
 	};
 

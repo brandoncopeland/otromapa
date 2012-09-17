@@ -14,7 +14,7 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 
 	// bool if candidate matches good address requirements
 	var isGoodAddress = function (candidate) {
-		return candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
+		return true; // candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
 	};
 
 	var LocationSearchModel = Backbone.Model.extend({
@@ -45,11 +45,14 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 
 			self._locator.addressToLocations(params, function (candidates) {
 				var results = _.chain(candidates).filter(isGoodAddress).map(function (item) {
+					// TODO. Are .West_Lon, etc... always available? Always GCS? Research this better and add checks if necessary
+					var zoomExtent = esriGeometry.geographicToWebMercator(new esriGeometry.Extent(item.attributes.West_Lon, item.attributes.South_Lat, item.attributes.East_Lon, item.attributes.North_Lat, new esri.SpatialReference(4326)));
 					return new MapFeatureModel({
 						props: {
 							score: item.score,
 							matchType: item.attributes.MatchLevel,
-							name: item.address
+							name: item.address,
+							zoomExtent: zoomExtent
 						},
 						geometry: new esriGeometry.Point(item.location.x, item.location.y, new esri.SpatialReference(item.location.spatialReference))
 					});

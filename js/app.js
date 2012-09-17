@@ -72,7 +72,8 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 			hoverSymbol: locationHoverSymbol,
 			opacity: 0.9,
 			infoTemplate: new esri.InfoTemplate('Location Search Result', '${name}'),
-			doNorthSouthSort: true
+			doNorthSouthSort: true,
+			zoomOnRender: true
 		});
 	};
 

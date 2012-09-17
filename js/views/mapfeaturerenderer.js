@@ -40,7 +40,12 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			evt.preventDefault();
 			var geom = evt.graphic.geometry;
 			if (geom.type === 'point') {
-				mapModel.zoomToLocation(geom.x, geom.y, geom.spatialReference.wkid, 'city');
+				if (evt.graphic.attributes.zoomExtent) {
+					var extent = evt.graphic.attributes.zoomExtent;
+					mapModel.zoomToExtent(extent.xmin, extent.xmax, extent.ymin, extent.ymax, extent.spatialReference.wkid);
+				} else {
+					mapModel.zoomToLocation(geom.x, geom.y, geom.spatialReference.wkid, 'city');
+				}
 			}
 		});
 	};
@@ -55,6 +60,14 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 		return graphics;
 	};
 
+	var getGraphicExtent = function (graphic) {
+		if (graphic.attributes.zoomExtent) {
+			return graphic.attributes.zoomExtent;
+		}
+
+		// TODO. Handle other extent types... point, other geoms
+	};
+
 	// collection - MapFeatureModelCollection
 	// options...
 	// mapModel
@@ -62,6 +75,7 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 	// infoTemplate
 	// opacity
 	// doNorthSouthSort
+	// zoomOnRender
 	var MapFeatureRenderer = Backbone.View.extend({
 		_graphics: new esri.layers.GraphicsLayer(),
 		initialize: function () {
@@ -93,9 +107,20 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 			var coll = this.options.doNorthSouthSort ? this.collection.byNorthToSouth() : this.collection;
 			var g = createGraphics(coll);
 
+			var graphicsExtent;
+
 			_.each(g, function (graphic) {
 				this._graphics.add(graphic);
+				if ('undefined' === typeof graphicsExtent) {
+					graphicsExtent = getGraphicExtent(graphic);
+				} else {
+					graphicsExtent = graphicsExtent.union(getGraphicExtent(graphic));
+				}
 			}, this);
+
+			if (graphicsExtent && this.options.mapModel && this.options.zoomOnRender === true) {
+				this.options.mapModel.zoomToExtent(graphicsExtent.xmin, graphicsExtent.xmax, graphicsExtent.ymin, graphicsExtent.ymax, graphicsExtent.spatialReference.wkid);
+			}
 
 			return this;
 		},

@@ -60,42 +60,50 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				expect(this.locator.outSpatialReference.wkid).toBe(3857);
 			});
 
+			// TEST GOOD but specs currently changed to not do any checking. Always true in current implementation.
+			// Maybe the good test function should be passed from caller in future?
 			// 'good' candidates are candidates w/ MatchLevel === 'PointAddress'
-			it('should set featureResults to only \'good\' address candidates returned from locator', function () {
-				var srStub = sinon.stub(esri, 'SpatialReference');
-				var ptStub = sinon.stub(esriGeometry, 'Point');
+			// it('should set featureResults to only \'good\' address candidates returned from locator', function () {
+			// 	var srStub = sinon.stub(esri, 'SpatialReference');
+			// 	var ptStub = sinon.stub(esriGeometry, 'Point');
 
-				var candidates = [{
-					attributes: { MatchLevel: 'PointAddress' },		// 1
-					location: {} // have to set location to avoid undefined
-				}, {
-					attributes: {	MatchLevel: 'StreetAddress' },
-					location: {}
-				}, {
-					attributes: {	MatchLevel: 'PointAddress' },		// 2
-					location: {}
-				}, {
-					attributes: {	MatchLevel: 'PointAddress' },		// 3
-					location: {}
-				}];
-				this.locator.addressToLocations.callsArgWith(1, candidates);
-				this.model.locateAddress('fake address');
+			// 	var candidates = [{
+			// 		attributes: { MatchLevel: 'PointAddress' },		// 1
+			// 		location: {} // have to set location to avoid undefined
+			// 	}, {
+			// 		attributes: {	MatchLevel: 'StreetAddress' },
+			// 		location: {}
+			// 	}, {
+			// 		attributes: {	MatchLevel: 'PointAddress' },		// 2
+			// 		location: {}
+			// 	}, {
+			// 		attributes: {	MatchLevel: 'PointAddress' },		// 3
+			// 		location: {}
+			// 	}];
+			// 	this.locator.addressToLocations.callsArgWith(1, candidates);
+			// 	this.model.locateAddress('fake address');
 
-				expect(this.model.get('featureResults').length).toBe(3);
-				var matchLevelValues = _.pluck(this.model.get('featureResults').featureResults, 'props.matchType');
-				expect(matchLevelValues).not.toContain('StreetAddress');
+			// 	expect(this.model.get('featureResults').length).toBe(3);
+			// 	var matchLevelValues = _.pluck(this.model.get('featureResults').featureResults, 'props.matchType');
+			// 	expect(matchLevelValues).not.toContain('StreetAddress');
 
-				srStub.restore();
-				ptStub.restore();
-			});
+			// 	srStub.restore();
+			// 	ptStub.restore();
+			// });
 
 			it('should construct featureResults with props and geometry correctly set', function () {
-				var score = 97, address = 'some address', x = 1, y = 2, sr = { wkid: 3 };
+				var score = 97, address = 'some address', x = 1, y = 2, sr = { wkid: 3857 };
 				var goodGeom = {good: 'geometry'}; // just some object, doesn't matter what
 				var candidates = [{
 					score: score,
 					address: address,
-					attributes: { MatchLevel: 'PointAddress' },
+					attributes: {
+						MatchLevel: 'PointAddress',
+						North_Lat: 29.2,
+						South_Lat: 29.1,
+						West_Lon: -95.2,
+						East_Lon: -95.1
+					},
 					location: {
 						x: x,
 						y: y,
@@ -106,9 +114,9 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				// if esri.SpatialReference and esriGeometry.Point are both constructed as expected, goodGeom returned
 				// test for geometry === goodGeom
 				var srStub = sinon.stub(esri, 'SpatialReference');
-				srStub.withArgs(sr).returns(sr);
+				srStub.withArgs(sinon.match({ wkid: sr.wkid })).returns(sr);
 				var pointStub = sinon.stub(esriGeometry, 'Point');
-				pointStub.withArgs(x, y, sr).returns(goodGeom);
+				pointStub.withArgs(x, y, sinon.match({ wkid: sr.wkid })).returns(goodGeom);
 
 				this.locator.addressToLocations.callsArgWith(1, candidates);
 				this.model.locateAddress('fake address');
@@ -118,6 +126,7 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				expect(feature.get('props').score).toBe(score);
 				expect(feature.get('props').matchType).toBe('PointAddress');
 				expect(feature.get('props').name).toBe(address);
+				// TODO. Add zoomExtent once spec better defined
 
 				srStub.restore();
 				pointStub.restore();

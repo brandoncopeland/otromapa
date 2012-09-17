@@ -94,7 +94,7 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 			beforeEach(function () {
 				this.setExtentSpy = sinon.spy(this.model._widget, 'setExtent');
 			});
-			it('should call map widget\'s .setExtent with the passed extent', function () {
+			it('when extent is wkid 3857, should call map widget\'s .setExtent with the passed extent', function () {
 				this.model.zoomToExtent(1, 2, 3, 4, 3857); // order of xs and ys diff from extent constructor
 				var extentMatch = sinon.match.instanceOf(esriGeometry.Extent)
 					.and(sinon.match({ xmin: 1 }))
@@ -103,6 +103,17 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 					.and(sinon.match({ ymax: 4 }))
 					.and(sinon.match({ spatialReference: sinon.match.instanceOf(esri.SpatialReference)
 						.and(sinon.match({ wkid: 3857 }))}));
+				expect(this.setExtentSpy).toHaveBeenCalledWith(extentMatch);
+			});
+			it('when extent is wkid 4326, should call map widget\'s .setExtent with the passed extent reprojected to web mercator', function () {
+				this.model.zoomToExtent(-95.2, 29.1, -95.1, 29.2, 4326); // order of xs and ys diff from extent constructor
+				var extentMatch = sinon.match.instanceOf(esriGeometry.Extent)
+					.and(sinon.match({ xmin: -10597615.523519464 })) // trust me these are the right projected values
+					.and(sinon.match({ ymin: -19845401.335498393 }))
+					.and(sinon.match({ xmax: 3239397.1820842065 }))
+					.and(sinon.match({ ymax: 3401126.264066427 }))
+					.and(sinon.match({ spatialReference: sinon.match.instanceOf(esri.SpatialReference)
+						.and(sinon.match({ wkid: 102100 }))})); // 102100 not current best value, but is returned by geographicToWebMercator util
 				expect(this.setExtentSpy).toHaveBeenCalledWith(extentMatch);
 			});
 			it('should call map widget\'s .setExtent with fit argument === true', function () {
@@ -172,7 +183,7 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 			it('when passed scale is a prenamed string (ie. city), should call map widget\'s .centerAndZoom with the scale defined for that string', function () {
 				this.model.zoomToLocation(1, 1, 3857, 'city');
 				expect(this.centerAndZoomSpy).toHaveBeenCalledWith(sinon.match.any, 11);
-			})
+			});
 		});
 
 	});
