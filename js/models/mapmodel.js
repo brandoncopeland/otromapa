@@ -1,3 +1,5 @@
+// model for interacting with map
+// props... layers, canZoomBackOne
 define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'esri', 'esri/geometry', 'models/layermodel', 'models/layermodelcollection'], function ($, dojo, baseWin, dojoWin, _, Backbone, esri, esriGeometry, LayerModel, LayerModelCollection) {
 	'use strict';
 
@@ -127,14 +129,15 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 			domId: 'map',
 			geographicWkid: gWkid,
 			mercatorWkid: mWkid,
-			fullExtent: defaultExtent,
-			layers: new LayerModelCollection()
+			fullExtent: defaultExtent
 		},
-		_widget: undefined,
 		initialize: function () {
 			var self = this;
 
-			var layers = self.get('layers');
+			self._pastExtents = []; // hold previous extent list
+
+			self.set('canZoomBackOne', false);
+			self.set('layers', new LayerModelCollection());
 
 			var mapSettings = {
 				fadeOnZoom: true,
@@ -158,6 +161,16 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 
 			wireMapResize(map);
 
+			dojo.connect(map, 'onExtentChange', function (newExtent) {
+				self._pastExtents.push(newExtent);
+				if (self._pastExtents.length > 1) {
+					self.set('canZoomBackOne', true);
+				} else {
+					self.set('canZoomBackOne', false);
+				}
+			});
+
+			var layers = self.get('layers');
 			layers.on('add', function (layer, collection, options) {
 				addMapLayer(self._widget, layer.get('esriLayer'), options.index);
 			});
@@ -168,6 +181,7 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 				resetMapLayers(self._widget, collection);
 			});
 		},
+		// get map widget's infoWindow
 		getInfoWindow: function () {
 			return this._widget.infoWindow;
 		},
@@ -192,6 +206,13 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 		// may use number scale or one of predefined scales (house, subdivision, city, county)
 		zoomToLocation: function (x, y, wkid, scaleLevel) {
 			zoomMapToLocation(this._widget, x, y, wkid, scaleLevel);
+		},
+		zoomBackOneExtent: function () {
+			if (this.get('canZoomBackOne') === true) {
+				this._pastExtents.pop(); // take off current
+				var newExtent = this._pastExtents.pop(); // this will get pushed back on extent change
+				zoomMapToExtent(this._widget, newExtent.xmin, newExtent.xmax, newExtent.ymin, newExtent.ymax, newExtent.spatialReference.wkid);
+			}
 		}
 	});
 

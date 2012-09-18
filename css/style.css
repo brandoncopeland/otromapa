@@ -400,6 +400,9 @@ html {
       .toolbox .tools input.tool:active {
         opacity: 1;
         filter: alpha(opacity=100); }
+      .toolbox .tools input.tool:disabled {
+        opacity: 0.1;
+        filter: alpha(opacity=10); }
     .toolbox .tools .toolgroup {
       margin-top: 10px; }
     .toolbox .tools .zoomout {
@@ -407,6 +410,8 @@ html {
     .toolbox .tools .zoomin {
       background-image: url("../img/zoomin.png"); }
     .toolbox .tools .zoominitial {
+      background-image: url("../img/blanktool.png"); }
+    .toolbox .tools .zoomback {
       background-image: url("../img/blanktool.png"); }
     .toolbox .tools .notisimplewithlink {
       background-image: url("../img/llamatool.png"); }

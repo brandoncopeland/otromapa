@@ -11,7 +11,8 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				getLevel: function () {},
 				setLevel: function () {},
 				setExtent: function () {},
-				centerAndZoom: function () {}
+				centerAndZoom: function () {},
+				onExtentChange: function () {}
 			});
 			this.model = new MapModel();
 		});
@@ -34,6 +35,10 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 					spatialReference: { wkid: 3857 }
 				}));
 				expect(this.model.get('layers')).toBeDefined();
+			});
+
+			it('should have canZoomBackOne set to false', function () {
+				expect(this.model.get('canZoomBackOne')).toBe(false);
 			});
 
 			it('should construct an ESRI Map with the expected parameters', function () {
@@ -64,6 +69,41 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 		// TODO. add, remove, reset layers
 
 		// TODO. getScreenPointFromMapPoint. not sure if this is worth it. tough (not possible?) without actual
+
+		describe('on map widget\'s ExtentChange', function () {
+			it('should add current extent to internal _pastExtents array', function () {
+				var expectedExtent = new esriGeometry.Extent({
+					xmin: -14148334,
+					ymin: 1317618,
+					xmax: -6158715,
+					ymax: 6889553,
+					spatialReference: { wkid: 3857 }
+				});
+				this.model._widget.onExtentChange(expectedExtent);
+				expect(this.model._pastExtents.length).toBe(1);
+				expect(this.model._pastExtents[0]).toBe(expectedExtent);
+			});
+			it('should set canZoomBackOne to true if past extent count > 1', function () {
+				var extent1 = new esriGeometry.Extent({
+					xmin: -14148333,
+					ymin: 1317617,
+					xmax: -6158714,
+					ymax: 6889552,
+					spatialReference: { wkid: 3857 }
+				});
+				var extent2 = new esriGeometry.Extent({
+					xmin: -14148335,
+					ymin: 1317619,
+					xmax: -6158716,
+					ymax: 6889554,
+					spatialReference: { wkid: 3857 }
+				});
+				this.model._widget.onExtentChange(extent1);
+				expect(this.model.get('canZoomBackOne')).toBe(false);
+				this.model._widget.onExtentChange(extent2);
+				expect(this.model.get('canZoomBackOne')).toBe(true);
+			});
+		});
 
 		describe('on .getInfoWindow', function () {
 			it('should return the ESRI map widget\'s infoWindow', function () {
@@ -183,6 +223,70 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 			it('when passed scale is a prenamed string (ie. city), should call map widget\'s .centerAndZoom with the scale defined for that string', function () {
 				this.model.zoomToLocation(1, 1, 3857, 'city');
 				expect(this.centerAndZoomSpy).toHaveBeenCalledWith(sinon.match.any, 11);
+			});
+		});
+
+		describe('on .zoomBackOneExtent', function () {
+			describe('when canZoomBackOne === true', function () {
+				beforeEach(function () {
+					this.model.set('canZoomBackOne', true);
+				});
+				it('should pop off last 2 past extents', function () {
+					var expectedExtent = new esriGeometry.Extent({
+						xmin: -14148334,
+						ymin: 1317618,
+						xmax: -6158715,
+						ymax: 6889553,
+						spatialReference: { wkid: 3857 }
+					});
+					this.model._pastExtents.push(expectedExtent);
+					this.model._pastExtents.push(new esriGeometry.Extent({
+						xmin: -14148334,
+						ymin: 1317618,
+						xmax: -6158715,
+						ymax: 6889553,
+						spatialReference: { wkid: 3857 }
+					}));
+					this.model._pastExtents.push(new esriGeometry.Extent({
+						xmin: -14148334,
+						ymin: 1317618,
+						xmax: -6158715,
+						ymax: 6889553,
+						spatialReference: { wkid: 3857 }
+					}));
+					this.model.zoomBackOneExtent();
+					expect(this.model._pastExtents.length).toBe(1);
+					expect(this.model._pastExtents[0]).toBe(expectedExtent);
+				});
+				it('should call map widget\'s .setExtent with 2nd extent from top', function () {
+					// first extent on top is current, it goes away
+					// second extent from top is last previous, it is zoomed to
+					var setExtentSpy = sinon.spy(this.model._widget, 'setExtent');
+					var expectedExtent = new esriGeometry.Extent({
+						xmin: -14148334,
+						ymin: 1317618,
+						xmax: -6158715,
+						ymax: 6889553,
+						spatialReference: { wkid: 3857 }
+					});
+					this.model._pastExtents.push(expectedExtent);
+					this.model._pastExtents.push(new esriGeometry.Extent({
+						xmin: -14148333,
+						ymin: 1317617,
+						xmax: -6158714,
+						ymax: 6889552,
+						spatialReference: { wkid: 3857 }
+					}));
+					this.model.zoomBackOneExtent();
+					var extentMatch = sinon.match.instanceOf(esriGeometry.Extent)
+						.and(sinon.match({ xmin: expectedExtent.xmin }))
+						.and(sinon.match({ ymin: expectedExtent.ymin }))
+						.and(sinon.match({ xmax: expectedExtent.xmax }))
+						.and(sinon.match({ ymax: expectedExtent.ymax }))
+						.and(sinon.match({ spatialReference: sinon.match.instanceOf(esri.SpatialReference)
+							.and(sinon.match({ wkid: expectedExtent.spatialReference.wkid }))}));
+					expect(setExtentSpy).toHaveBeenCalledWith(extentMatch);
+				});
 			});
 		});
 

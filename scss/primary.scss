@@ -82,6 +82,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			&:active {
 				opacity: 1; filter:alpha(opacity=100);
 			}
+			&:disabled {
+				opacity: 0.1; filter:alpha(opacity=10);
+			}
 		}
 
 		.toolgroup {
@@ -94,6 +97,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			background-image: url('../img/zoomin.png');
 		}
 		.zoominitial {
+			background-image: url('../img/blanktool.png'); // TODO
+		}
+		.zoomback {
 			background-image: url('../img/blanktool.png'); // TODO
 		}
 		.notisimplewithlink {

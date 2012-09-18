@@ -32,6 +32,11 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		val: 'Zoom In',
 		description: 'Go to the initial extent used when the map first loaded',
 		clickHandler: 'doZoomInitial'
+	}, {
+		cl: 'zoomback',
+		val: 'Previous Extent',
+		description: 'Go to previous map extent',
+		clickHandler: 'doZoomBack'
 	}];
 
 	var MapToolsView = Backbone.View.extend({
@@ -43,6 +48,13 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 			var self = this;
 
 			self.$el.html(self.template({ tools : tools }));
+
+			self.$('.zoomback').prop('disabled', true);
+			if (self.options.mapModel) {
+				self.options.mapModel.on('change:canZoomBackOne', function (model, canZoom) {
+					self.$('.zoomback').prop('disabled', !self.options.mapModel.get('canZoomBackOne'));
+				});
+			}
 
 			require(['js/plugins/jquery.tools.min.js'], function () {
 				self.$('[title]').tooltip(toolTipSettings);
@@ -70,6 +82,11 @@ define('views/maptoolsview', ['jquery', 'underscore', 'backbone', 'text!template
 		doZoomInitial: function () {
 			if (this.options.mapModel) {
 				this.options.mapModel.zoomToFullExtent();
+			}
+		},
+		doZoomBack: function () {
+			if (this.options.mapModel) {
+				this.options.mapModel.zoomBackOneExtent();
 			}
 		}
 	});
