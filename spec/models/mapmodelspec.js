@@ -1,4 +1,4 @@
-define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometry, MapModel) {
+define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri, esriGeometry, MapModel) {
 	// NOTE. a lot of testing of behaviors on ._widget. _widget is not part of public API, but best access to we have to many expected behaviors.
 
 	describe('MapModel', function () {
@@ -7,12 +7,15 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 			this.mapStub = sinon.stub(esri, 'Map');
 			this.mapStub.returns({
 				infoWindow: {},
+				resize: function () {},
+				reposition: function () {},
 				addLayer: function () {},
 				getLevel: function () {},
 				setLevel: function () {},
 				setExtent: function () {},
 				centerAndZoom: function () {},
-				onExtentChange: function () {}
+				onExtentChange: function () {},
+				onLoad: function () {}
 			});
 			this.model = new MapModel();
 		});
@@ -62,8 +65,6 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				expect(this.model._widget.infoWindow.fadeShow).toBeDefined();
 			});
 
-			// TODO. window resize
-
 		});
 
 		// TODO. add, remove, reset layers
@@ -102,6 +103,27 @@ define(['esri', 'esri/geometry', 'models/mapmodel'], function (esri, esriGeometr
 				expect(this.model.get('canZoomBackOne')).toBe(false);
 				this.model._widget.onExtentChange(extent2);
 				expect(this.model.get('canZoomBackOne')).toBe(true);
+			});
+		});
+
+		describe('on window resize', function () {
+			it('should call map widget\'s resize and reposition functions after 500ms timeout', function () {
+				// map is resized and repositioned on window resize
+				// some browsers can trigger multiple resizes on drag resize, so wait 500ms and any previous cleared
+				var clock = sinon.useFakeTimers();
+				var resizeSpy = sinon.spy(this.model._widget, 'resize');
+				var repositionSpy = sinon.spy(this.model._widget, 'reposition');
+				this.model._widget.onLoad();
+				$(window).resize(); // couldn't trigger dojo.connect(window, 'onresize'), so using jQuery instead in source & spec
+				clock.tick(200);
+				$(window).resize(); // call twice, first should be cleared if less than 500 ms
+				clock.tick(499);
+				expect(resizeSpy.called).toBe(false);
+				expect(repositionSpy.called).toBe(false);
+				clock.tick(1);
+				expect(resizeSpy).toHaveBeenCalledOnce();
+				expect(repositionSpy).toHaveBeenCalledOnce();
+				clock.restore();
 			});
 		});
 

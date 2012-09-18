@@ -26,8 +26,8 @@ define('models/mapmodel', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window',
 	// update map on window resize
 	var wireMapResize = function (map) {
 		var timer;
-		dojo.connect(map, 'onLoad', function (evt) {
-			dojo.connect(win, 'onresize', function (evt) {
+		dojo.connect(map, 'onLoad', function () {
+			$(win).resize(function () {
 				clearTimeout(timer);
 				timer = setTimeout(function () {
 					map.resize();
