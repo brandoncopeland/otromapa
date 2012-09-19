@@ -406,13 +406,13 @@ html {
     .toolbox .tools .toolgroup {
       margin-top: 10px; }
     .toolbox .tools .zoomout {
-      background-image: url("../img/zoomout.png"); }
+      background-image: url("../img/zoomouttool.png"); }
     .toolbox .tools .zoomin {
-      background-image: url("../img/zoomin.png"); }
+      background-image: url("../img/zoomintool.png"); }
     .toolbox .tools .zoominitial {
-      background-image: url("../img/blanktool.png"); }
+      background-image: url("../img/hometool.png"); }
     .toolbox .tools .zoomback {
-      background-image: url("../img/blanktool.png"); }
+      background-image: url("../img/zoombacktool.png"); }
     .toolbox .tools .notisimplewithlink {
       background-image: url("../img/llamatool.png"); }
     .toolbox .tools .notigetchromeframe {

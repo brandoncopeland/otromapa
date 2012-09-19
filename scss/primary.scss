@@ -91,16 +91,16 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			margin-top: 10px;
 		}
 		.zoomout {
-			background-image: url('../img/zoomout.png');
+			background-image: url('../img/zoomouttool.png');
 		}
 		.zoomin {
-			background-image: url('../img/zoomin.png');
+			background-image: url('../img/zoomintool.png');
 		}
 		.zoominitial {
-			background-image: url('../img/blanktool.png'); // TODO
+			background-image: url('../img/hometool.png');
 		}
 		.zoomback {
-			background-image: url('../img/blanktool.png'); // TODO
+			background-image: url('../img/zoombacktool.png');
 		}
 		.notisimplewithlink {
 			background-image: url('../img/llamatool.png');
