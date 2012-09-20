@@ -14,7 +14,8 @@ html {
 	}
 	body {
 		padding: 20px;
-		background: transparent url('../img/bright_squares.png');
+		background-color: transparent;
+		@include retinabackground('../img/bright_squares', 'png', 297px, 297px);
 	}
 }
 
@@ -31,7 +32,8 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	height: 100%;
 	margin-left: $width-toolbox;
 	position: relative;
-	background: $color-aerialback url('../img/bg-map.png');
+	background-color: $color-aerialback;
+	@include retinabackground('../img/bg-map', 'png', 10px, 10px);
 	box-shadow: 0 0 10px -2px #555;
 
 	.map {
@@ -91,22 +93,22 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			margin-top: 10px;
 		}
 		.zoomout {
-			background-image: url('../img/zoomouttool.png');
+			@include retinabackground('../img/zoomouttool', 'png', 24px, 24px);
 		}
 		.zoomin {
-			background-image: url('../img/zoomintool.png');
+			@include retinabackground('../img/zoomintool', 'png', 24px, 24px);
 		}
 		.zoominitial {
-			background-image: url('../img/hometool.png');
+			@include retinabackground('../img/hometool', 'png', 24px, 24px);
 		}
 		.zoomback {
-			background-image: url('../img/zoombacktool.png');
+			@include retinabackground('../img/zoombacktool', 'png', 24px, 24px);
 		}
 		.notisimplewithlink {
-			background-image: url('../img/llamatool.png');
+			@include retinabackground('../img/llamatool', 'png', 24px, 24px);
 		}
 		.notigetchromeframe {
-			background-image: url('../img/chrometool.png');
+			@include retinabackground('../img/chrometool', 'png', 24px, 24px);
 		}
 	}
 }
@@ -158,7 +160,12 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		position: absolute;
 		top: 4px;
 		left: -30px;
-		background: transparent url('../img/close-dark.png') left top no-repeat;
+		background: {
+			color: transparent;
+			position: left top;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/close-dark', 'png', 20px, 40px);
 		&:hover {
 			background-position: left -20px;
 		}
@@ -169,7 +176,12 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		top: 0;
 		height: 100%;
 		width: 100%;
-		background: #fff url('../img/searching.gif') center center no-repeat;
+		background: {
+			color: #fff;
+			position: center center;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/searching', 'gif', 121px, 11px);
 		border: solid 1px #aaa;
 		opacity: 0.85; filter: alpha(opacity=85);
 		display: none;
@@ -286,7 +298,12 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		position: absolute;
 		right: 25px;
 		top: 25px;
-		background: transparent url('../img/close-dark.png') left top no-repeat;
+		background: {
+			color: transparent;
+			position: left top;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/close-dark', 'png', 20px, 40px);
 		&:hover {
 			background-position: left -20px;
 		}

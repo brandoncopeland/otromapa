@@ -117,3 +117,15 @@ $size-mapcommand: 24px;
 		background-position: left (-1 * $size-mapcommand);
 	}
 }
+
+// Retina
+
+@mixin retinabackground($file, $type, $width, $height) {
+  background-image: url($file + '.' + $type);
+  @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+    & {
+      background-image: url($file + '_@2x.' + $type);
+      -webkit-background-size: $width $height;
+    }
+  }
+}

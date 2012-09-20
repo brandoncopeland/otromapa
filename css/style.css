@@ -328,7 +328,12 @@ html {
     height: 100%; }
   html body {
     padding: 20px;
-    background: transparent url("../img/bright_squares.png"); }
+    background-color: transparent;
+    background-image: url("../img/bright_squares.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      html body {
+        background-image: url("../img/bright_squares_@2x.png");
+        -webkit-background-size: 297px 297px; } }
 
 .pagecontent {
   position: relative;
@@ -340,8 +345,13 @@ html {
   height: 100%;
   margin-left: 34px;
   position: relative;
-  background: rgba(187, 187, 187, 0.5) url("../img/bg-map.png");
+  background-color: rgba(187, 187, 187, 0.5);
+  background-image: url("../img/bg-map.png");
   box-shadow: 0 0 10px -2px #555555; }
+  @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+    .mapbox {
+      background-image: url("../img/bg-map_@2x.png");
+      -webkit-background-size: 10px 10px; } }
   .mapbox .map {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -407,16 +417,40 @@ html {
       margin-top: 10px; }
     .toolbox .tools .zoomout {
       background-image: url("../img/zoomouttool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .zoomout {
+          background-image: url("../img/zoomouttool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomin {
       background-image: url("../img/zoomintool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .zoomin {
+          background-image: url("../img/zoomintool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoominitial {
       background-image: url("../img/hometool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .zoominitial {
+          background-image: url("../img/hometool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomback {
       background-image: url("../img/zoombacktool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .zoomback {
+          background-image: url("../img/zoombacktool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notisimplewithlink {
       background-image: url("../img/llamatool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .notisimplewithlink {
+          background-image: url("../img/llamatool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notigetchromeframe {
       background-image: url("../img/chrometool.png"); }
+      @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+        .toolbox .tools .notigetchromeframe {
+          background-image: url("../img/chrometool_@2x.png");
+          -webkit-background-size: 24px 24px; } }
 
 .basemapbox {
   zoom: 1;
@@ -479,9 +513,16 @@ html {
     position: absolute;
     top: 4px;
     left: -30px;
-    background: transparent url("../img/close-dark.png") left top no-repeat; }
+    background-color: transparent;
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-image: url("../img/close-dark.png"); }
     .searchbox .clearsearch br {
       display: none; }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      .searchbox .clearsearch {
+        background-image: url("../img/close-dark_@2x.png");
+        -webkit-background-size: 20px 40px; } }
     .searchbox .clearsearch:hover {
       background-position: left -20px; }
   .searchbox .workingoverlay {
@@ -490,13 +531,20 @@ html {
     top: 0;
     height: 100%;
     width: 100%;
-    background: white url("../img/searching.gif") center center no-repeat;
+    background-color: #fff;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("../img/searching.gif");
     border: solid 1px #aaa;
     opacity: 0.85;
     filter: alpha(opacity=85);
     display: none;
     -webkit-transition: opacity 1s linear;
     transition: opacity 1s linear; }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      .searchbox .workingoverlay {
+        background-image: url("../img/searching_@2x.gif");
+        -webkit-background-size: 121px 11px; } }
   .searchbox.searching {
     opacity: 0.7;
     filter: alpha(opacity=70); }
@@ -600,9 +648,16 @@ html {
     position: absolute;
     right: 25px;
     top: 25px;
-    background: transparent url("../img/close-dark.png") left top no-repeat; }
+    background-color: transparent;
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-image: url("../img/close-dark.png"); }
     .topbanner input br {
       display: none; }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      .topbanner input {
+        background-image: url("../img/close-dark_@2x.png");
+        -webkit-background-size: 20px 40px; } }
     .topbanner input:hover {
       background-position: left -20px; }
 
