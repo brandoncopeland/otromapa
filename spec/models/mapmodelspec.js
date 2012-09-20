@@ -70,8 +70,6 @@ define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri
 
 		});
 
-		// TODO. getScreenPointFromMapPoint. not sure if this is worth it. tough (not possible?) without actual
-
 		describe('on map widget\'s ExtentChange', function () {
 			it('should add current extent to internal _pastExtents array', function () {
 				var expectedExtent = new esriGeometry.Extent({
@@ -258,6 +256,22 @@ define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri
 			it('should return the ESRI map widget\'s infoWindow', function () {
 				var infoWindow = this.model.getInfoWindow();
 				expect(infoWindow).toBe(this.model._widget.infoWindow);
+			});
+		});
+
+		describe('on getScreenPointFromMapPoint', function () {
+			it('should return result of map widget\'s toScreenGeometry function with expected parameters', function () {
+				var expectedExtent = 'theExtent';
+				var expectedWidth = 'theWidth';
+				var expectedHeight = 'theHeight';
+				var expectedPoint = 'thePoint';
+				var expectedResult = 'theResult';
+				this.model._widget.extent = expectedExtent;
+				this.model._widget.width = expectedWidth;
+				this.model._widget.height = expectedHeight;
+				sinon.stub(esriGeometry, 'toScreenGeometry').withArgs(expectedExtent, expectedWidth, expectedHeight, expectedPoint).returns(expectedResult);
+				var result = this.model.getScreenPointFromMapPoint(expectedPoint);
+				expect(result).toBe(expectedResult);
 			});
 		});
 
