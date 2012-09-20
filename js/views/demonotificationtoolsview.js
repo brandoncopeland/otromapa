@@ -62,7 +62,7 @@ define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', '
 			text.append(link);
 			contentWrapper.append(text);
 
-			this._bannerView.addItem(contentWrapper.html(), {
+			this._bannerView.addItem(contentWrapper.html(), false, {
 				additionalClasses: 'notisimple somesecondclass'
 			});
 		},
@@ -73,7 +73,7 @@ define('views/demonotificationtoolsview', ['jquery', 'underscore', 'backbone', '
 			}
 			require(['text!templates/getchromeframetemplate.html'], function (getChromeFrameTemplate) {
 				html = html + _.template(getChromeFrameTemplate, {});
-				view._bannerView.addItem(html);
+				view._bannerView.addItem(html, true);
 			});
 		}
 	});

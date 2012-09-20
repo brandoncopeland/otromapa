@@ -1,34 +1,43 @@
 // topbanneritemview.js
 // individual top banner item used by topbannerview
+// options... showDuration = number of milliseconds to show before hiding. Do not set to leave permenantly
 define('views/topbanneritemview', ['jquery', 'underscore', 'backbone', 'text!templates/topbanneritemtemplate.html', 'ready!'], function ($, _, Backbone, topBannerItemTemplate) {
+	'use strict';
 	var TopBannerItemView = Backbone.View.extend({
 		tagName: 'div',
 		className: 'topbanner',
-		initialize: function () {
-			this.render();
-		},
 		events: {
 			'click input.close': 'close'
 		},
 		template: _.template(topBannerItemTemplate),
 		render: function () {
-			if (this.options.additionalClasses) {
-				this.$el.addClass(this.options.additionalClasses);
+			var self = this;
+			if (self.options.additionalClasses) {
+				self.$el.addClass(self.options.additionalClasses);
 			}
 
-			this.$el.hide();
+			self.$el.hide();
 
-			this.$el.html(this.template({
-				additionalClasses: this.options.additionalClasses,
-				htmlContent: this.options.htmlContent
+			self.$el.html(self.template({
+				additionalClasses: self.options.additionalClasses,
+				htmlContent: self.options.htmlContent
 			}));
 
 			var inDuration = 500;
-			this.$el.fadeIn(500);
+			self.$el.fadeIn(500);
 
-			return this;
+			if (self.options.showDuration) {
+				self._hideTimeout = setTimeout(function () {
+					self.close();
+				}, self.options.showDuration);
+			}
+
+			return self;
 		},
 		close: function () {
+			if (this._hideTimeout) {
+				clearTimeout(this._hideTimeout);
+			}
 			this.$el.fadeOut(400, function () {
 				$(this).remove();
 			});
