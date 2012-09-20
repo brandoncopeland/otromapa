@@ -29,15 +29,21 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 					id: 'Aerial'
 				}),
 				isBasemap: true
-			}),
-			new LayerModel({
-				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer', {
-					visible: false,
-					id: 'Atlas'
-				}),
-				isBasemap: true
 			})
 		]);
+
+		require(['esri', 'esri/layers/osm'], function (esri) {
+			map.get('layers').add([
+				new LayerModel({
+					esriLayer: new esri.layers.OpenStreetMapLayer({
+						tileServers: ['http://a.tiles.mapbox.com/v3/colemanm.blue-marble-8bit'],
+						id: 'Zelda',
+						visible: false
+					}),
+					isBasemap: true
+				})
+			]);
+		});
 
 		// navigation tools
 		var toolsView = new MapToolsView({
