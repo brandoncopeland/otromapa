@@ -450,8 +450,10 @@ html {
         line-height: 1.8;
         margin-top: 0;
         margin-left: 10px; }
+        .basemapbox .basemaps ul li input {
+          color: #b3c6ff; }
         .basemapbox .basemaps ul li.selected input {
-          color: #99b3ff; }
+          color: #3366ff; }
 
 .searchbox {
   position: absolute;

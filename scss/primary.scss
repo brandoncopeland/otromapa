@@ -130,8 +130,11 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 					top: 0;
 					left: 10px;
 				}
+				input {
+					color: lighten($color-base-anchor, 25%);					
+				}
 				&.selected input {
-					color: lighten($color-base-anchor, 20%);
+					color: $color-base-anchor;
 				}
 			}
 		}
