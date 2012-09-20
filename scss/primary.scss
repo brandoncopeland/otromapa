@@ -31,7 +31,7 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	height: 100%;
 	margin-left: $width-toolbox;
 	position: relative;
-	background-color: $color-aerialback;
+	background: $color-aerialback url('../img/bg-map.png');
 	box-shadow: 0 0 10px -2px #555;
 
 	.map {
