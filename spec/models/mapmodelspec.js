@@ -7,9 +7,12 @@ define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri
 			this.mapStub = sinon.stub(esri, 'Map');
 			this.mapStub.returns({
 				infoWindow: {},
+				layerIds: [],
 				resize: function () {},
 				reposition: function () {},
 				addLayer: function () {},
+				removeLayer: function () {},
+				reorderLayer: function () {},
 				getLevel: function () {},
 				setLevel: function () {},
 				setExtent: function () {},
@@ -67,8 +70,6 @@ define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri
 
 		});
 
-		// TODO. add, remove, reset layers
-
 		// TODO. getScreenPointFromMapPoint. not sure if this is worth it. tough (not possible?) without actual
 
 		describe('on map widget\'s ExtentChange', function () {
@@ -124,6 +125,132 @@ define(['jquery', 'esri', 'esri/geometry', 'models/mapmodel'], function ($, esri
 				expect(resizeSpy).toHaveBeenCalledOnce();
 				expect(repositionSpy).toHaveBeenCalledOnce();
 				clock.restore();
+			});
+		});
+
+		describe('on layers.add', function () {
+			it('should call map widget\'s addLayer with the esriLayer', function () {
+				var addLayerSpy = sinon.spy(this.model._widget, 'addLayer');
+				var expectedEsriLayer = new esri.layers.GraphicsLayer();
+				this.model.get('layers').add({
+					esriLayer: expectedEsriLayer
+				});
+				expect(addLayerSpy).toHaveBeenCalledWith(expectedEsriLayer);
+			});
+		});
+
+		describe('on layers.remove', function () {
+			it('should call map widget\'s removeLayer with the esriLayer', function () {
+				var removeLayerSpy = sinon.spy(this.model._widget, 'removeLayer');
+				var expectedEsriLayer = new esri.layers.GraphicsLayer();
+				this.model.get('layers').add([{
+					esriLayer: new esri.layers.GraphicsLayer()
+				}, {
+					esriLayer: expectedEsriLayer
+				}, {
+					esriLayer: new esri.layers.GraphicsLayer()
+				}]);
+				this.model.get('layers').remove(this.model.get('layers').at(1)); // remove middle model
+				expect(removeLayerSpy).toHaveBeenCalledWith(expectedEsriLayer);
+			});
+		});
+
+		describe('on layers.reset', function () {
+			// reset will completely remove/add everything in LayerModelCollection
+			// we want to add and remove only necessary layers on map. esri has issues with removing then adding same layer instance
+			beforeEach(function () {
+				this.model._widget.addLayer = function (layer) {
+					this.layerIds.push(layer.id); // mimic esri add layer
+				};
+				this.model._widget.getLayer = function (layerId) {
+					// we're testing against ids, just give back new layer with expected id
+					return new esri.layers.GraphicsLayer({
+						id: layerId
+					});
+				};
+			});
+			it('should only add necessary layers to map layers when 2 additional layer models added via reset', function () {
+				// collection with 1 layer
+				// reset with that same layer plus 2 others
+				var addLayerSpy = sinon.spy(this.model._widget, 'addLayer');
+				var removeLayerSpy = sinon.spy(this.model._widget, 'removeLayer');
+				var model1 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model1'
+					})
+				}, model2 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model2'
+					})
+				}, model3 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model3'
+					})
+				};
+				var layers = this.model.get('layers');
+				layers.add(model1);
+				layers.reset([ model1, model2, model3 ]); // should only be adding 2 additional to map here
+				expect(addLayerSpy).toHaveBeenCalledThrice(); // addLayer should have been called 3 times only, 1 for each layer
+				expect(removeLayerSpy.called).toBe(false); // should not have called removeLayer at all
+			});
+			it('should only remove necessary layers from map layers when 2 orginal layer models removed via reset', function () {
+				// collection with 3 layer
+				// reset with only 1st of 3
+				var addLayerSpy = sinon.spy(this.model._widget, 'addLayer');
+				var removeLayerSpy = sinon.spy(this.model._widget, 'removeLayer');
+				var model1 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model1'
+					})
+				}, model2 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model2'
+					})
+				}, model3 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model3'
+					})
+				};
+				var layers = this.model.get('layers');
+				layers.add([ model1, model2, model3 ]);
+				addLayerSpy.reset(); // reset add spy to start tracking adds from here on
+				layers.reset(model1); // should only be removing model2 and model3 from map here
+				expect(addLayerSpy.called).toBe(false); // addLayer after reset
+				expect(removeLayerSpy).toHaveBeenCalledTwice(); // removeLayer called twice - model2, model3
+			});
+			it('should reorder', function () {
+				var reorderSpy = sinon.spy(this.model._widget, 'reorderLayer');
+				var model1 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model1'
+					})
+				}, model2 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model2'
+					})
+				}, model3 = {
+					esriLayer: new esri.layers.GraphicsLayer({
+						id: 'model3'
+					})
+				};
+				var layers = this.model.get('layers');
+				layers.add([ model1, model2, model3 ]);
+				layers.reset([ model3, model1, model2 ]);
+
+				var modelOneSpy = reorderSpy.withArgs(sinon.match({ id: 'model1' }), 1);
+				var modelTwoSpy = reorderSpy.withArgs(sinon.match({ id: 'model2' }), 2);
+				var modelThreeSpy = reorderSpy.withArgs(sinon.match({ id: 'model3' }), 0);
+
+				expect(reorderSpy).toHaveBeenCalledThrice(); // only 3 reorders total
+
+				// each one called once
+				expect(modelOneSpy).toHaveBeenCalledOnce();
+				expect(modelTwoSpy).toHaveBeenCalledOnce();
+				expect(modelThreeSpy).toHaveBeenCalledOnce();
+
+				// order matters, should start from lower indexes and move up
+				expect(modelThreeSpy).toHaveBeenCalledBefore(modelOneSpy);
+				expect(modelOneSpy).toHaveBeenCalledBefore(modelTwoSpy);
 			});
 		});
 
