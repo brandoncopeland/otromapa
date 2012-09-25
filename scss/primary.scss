@@ -44,8 +44,8 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 			position: center center;
 			repeat: no-repeat;
 		}
-		.esriSimpleSlider, .bingLogo-lg {
-			display: none;
+		.esriSimpleSlider, .esriControlsBR, .bingLogo-lg {
+			@include hidden;
 		}
 	}
 }
@@ -196,32 +196,6 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	}
 }
 
-// esri overrides
-#map_infowindow {
-	height: auto !important;
-	width: auto !important;
-	&.simpleInfoWindow {
-		position: absolute;
-		padding: 0;
-		color: inherit;
-		background-color: transparent;
-		border: 0;
-		-moz-border-radius: 0;
-		-webkit-border-radius: 0;
-		-o-border-radius: 0;
-		border-radius: 0;
-		font-size: 1em;
-		font-family: inherit;
-		-moz-box-shadow: none;
-		-webkit-box-shadow: none;
-	}
-	.content {
-		height: auto !important;
-		padding: 0;
-		overflow: visible;
-	}
-}
-
 .tooltip {
 	font-size: $type-smaller;
 	padding: 5px 8px;
@@ -238,18 +212,21 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	width: 238px; height: 24px;
 }
 
-#map_infowindow {
-	&.simpleInfoWindow {
-		padding: 0 5px;
-		.title, .close {
-			display:none;
-		}
-	}
+.simpleInfoWindow {
+	padding: 0 5px;
+	height: auto !important;
+	width: auto !important;
+
+	.title, .close {
+		@include hidden;
+	}	
 
 	.content {
 		@extend .tooltip;
 		font-size: 1em;
 		max-width: 350px;
+		height: auto !important;
+		overflow: visible;
 		opacity: .90; filter: alpha(opacity=90);
 	}
 }

@@ -43,8 +43,9 @@ html {
     border: solid 1px #888;
     background-position: center center;
     background-repeat: no-repeat; }
-    .mapbox .map .esriSimpleSlider, .mapbox .map .bingLogo-lg {
-      display: none; }
+    .mapbox .map .esriSimpleSlider, .mapbox .map .esriControlsBR, .mapbox .map .bingLogo-lg {
+      display: none !important;
+      visibility: hidden; }
 
 .toolbox {
   position: absolute;
@@ -229,29 +230,7 @@ html {
     .searchbox.searching .workingoverlay {
       display: block; }
 
-#map_infowindow {
-  height: auto !important;
-  width: auto !important; }
-  #map_infowindow.simpleInfoWindow {
-    position: absolute;
-    padding: 0;
-    color: inherit;
-    background-color: transparent;
-    border: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    -o-border-radius: 0;
-    border-radius: 0;
-    font-size: 1em;
-    font-family: inherit;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none; }
-  #map_infowindow .content {
-    height: auto !important;
-    padding: 0;
-    overflow: visible; }
-
-.tooltip, #map_infowindow .content {
+.tooltip, .simpleInfoWindow .content {
   font-size: 0.9em;
   padding: 5px 8px;
   background-color: #222;
@@ -266,15 +245,20 @@ html {
   width: 238px;
   height: 24px; }
 
-#map_infowindow.simpleInfoWindow {
-  padding: 0 5px; }
-  #map_infowindow.simpleInfoWindow .title, #map_infowindow.simpleInfoWindow .close {
-    display: none; }
-#map_infowindow .content {
-  font-size: 1em;
-  max-width: 350px;
-  opacity: .90;
-  filter: alpha(opacity=90); }
+.simpleInfoWindow {
+  padding: 0 5px;
+  height: auto !important;
+  width: auto !important; }
+  .simpleInfoWindow .title, .simpleInfoWindow .close {
+    display: none !important;
+    visibility: hidden; }
+  .simpleInfoWindow .content {
+    font-size: 1em;
+    max-width: 350px;
+    height: auto !important;
+    overflow: visible;
+    opacity: .90;
+    filter: alpha(opacity=90); }
 
 .hidden {
   display: none !important;
