@@ -19,6 +19,7 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 		}
 	};
 
+	// options... searchExtent
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
 			this.model.on('change:isWorking', this.updateSearching, this);
@@ -61,8 +62,14 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 		search: function (evt) {
 			var self = this;
 			evt.preventDefault();
+
+			var searchOptions = {};
+			if (this.options.searchExtent) {
+				searchOptions = _.extend(searchOptions, { searchExtent: this.options.searchExtent });
+			}
+
 			if (self._input.val()) {
-				self.model.locateAddress(self._input.val());
+				self.model.locateAddress(self._input.val(), searchOptions);
 				$(self._input).blur();
 			}
 		},

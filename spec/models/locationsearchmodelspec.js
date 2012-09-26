@@ -138,6 +138,56 @@ define(['underscore', 'esri', 'esri/geometry', 'models/locationsearchmodel'], fu
 				this.model.locateAddress('fake address');
 				expect(spy).toHaveBeenCalled(); // should also test time called (after results)
 			});
+
+			describe('with searchExtent option', function () {
+				it('should pass searchExtent to locator\'s addressToLocations', function () {
+					var searchExtent = new esriGeometry.Extent({
+						xmin: -10685400,
+						ymin: 3343200,
+						xmax: -10570600,
+						ymax: 3454800,
+						spatialReference: { wkid: '3857' }
+					});
+					this.model.locateAddress('fake address', { searchExtent: searchExtent });
+					expect(this.locator.addressToLocations).toHaveBeenCalledWith(sinon.match({ searchExtent: searchExtent }));
+				});
+				it('should filter candidates for only those within extent', function () {
+					// first candidate is inside, second is outside
+					// test that result only has 1 item and is equivalent to first candidate
+
+					var searchExtent = new esriGeometry.Extent({
+						xmin: -10685400,
+						ymin: 3343200,
+						xmax: -10570600,
+						ymax: 3454800,
+						spatialReference: { wkid: '3857' }
+					});
+
+					var candidates = [{
+						attributes: {},
+						location: {
+							x: -10600000,
+							y: 3400000,
+							spatialReference: { wkid: '3857' }
+						}
+					}, {
+						attributes: {},
+						location: {
+							x: -10700000,
+							y: 3500000,
+							spatialReference: { wkid: '3857' }
+						}
+					}];
+
+					this.locator.addressToLocations.callsArgWith(1, candidates);
+					this.model.locateAddress('fake address', { searchExtent: searchExtent });
+
+					var feature = this.model.get('featureResults').first();
+					expect(this.model.get('featureResults').length).toBe(1);
+					expect(feature.get('geometry').x).toBe(-10600000); // use x prop to make sure this is the expected candidate
+				});
+			});
+
 		});
 
 		describe('on clearResults', function () {

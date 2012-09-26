@@ -14,7 +14,13 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 
 	// bool if candidate matches good address requirements
 	var isGoodAddress = function (candidate) {
-		return true; // candidate.attributes.MatchLevel && candidate.attributes.MatchLevel === 'PointAddress'; // TODO. find out more about these fields. dups?
+		// maybe use attributes.MatchLevel to filter? also may look for essentially duplicates (different MatchLevel but same address)?
+		var params = this;
+		if (params.searchExtent) {
+			return params.searchExtent.contains(new esriGeometry.Point(candidate.location.x, candidate.location.y, new esri.SpatialReference(candidate.location.spatialReference)));
+		} else {
+			return true;
+		}
 	};
 
 	var LocationSearchModel = Backbone.Model.extend({
@@ -30,6 +36,7 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 			});
 		},
 		// options: searchExtent
+		// searchExtent will be used in query for 10.1 services and also used for filter on returned candidates
 		// featureResults populated with results after via reset
 		locateAddress: function (address, options) {
 			var self = this;
@@ -44,7 +51,7 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 			self._locator.outSpatialReference = new esri.SpatialReference(outputWkid);
 
 			self._locator.addressToLocations(params, function (candidates) {
-				var results = _.chain(candidates).filter(isGoodAddress).map(function (item) {
+				var results = _.chain(candidates).filter(isGoodAddress, params).map(function (item) {
 					// TODO. These fields (West_Lon, etc...) are service specific. Define better specs on how to construct this.
 					var zoomExtent = esriGeometry.geographicToWebMercator(new esriGeometry.Extent(item.attributes.West_Lon, item.attributes.South_Lat, item.attributes.East_Lon, item.attributes.North_Lat, new esri.SpatialReference(4326)));
 					return new MapFeatureModel({
