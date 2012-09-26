@@ -11,7 +11,6 @@ define('app/app', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models
 
 	var init = function () {
 
-		// a couple options for app specific config... can just create custom app.js for each project (current winner) or load from some config.json
 		var map = new MapModel({
 			fullExtent: defaultExtent
 		});
