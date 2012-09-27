@@ -26,10 +26,10 @@ define('models/locationsearchmodel', ['jquery', 'underscore', 'backbone', 'esri'
 	var LocationSearchModel = Backbone.Model.extend({
 		defaults: {
 			serviceUrl: 'http://tasks.arcgis.com/ArcGIS/rest/services/WorldLocator/GeocodeServer',
-			isWorking: false,
-			featureResults: new MapFeatureModelCollection()
+			isWorking: false
 		},
 		initialize: function () {
+			this.set('featureResults', new MapFeatureModelCollection());
 			this._locator = createLocator(this.get('serviceUrl'));
 			this.on('change:serviceUrl', function (model, value) {
 				this._locator = createLocator(value);
