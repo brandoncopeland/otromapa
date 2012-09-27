@@ -75,8 +75,8 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 	// doNorthSouthSort
 	// zoomOnRender
 	var MapFeatureRenderer = Backbone.View.extend({
-		_graphics: new esri.layers.GraphicsLayer(),
 		initialize: function () {
+			this._graphics = new esri.layers.GraphicsLayer();
 			this._graphics.setOpacity(this.options.opacity || defaultOpacity);
 
 			if ('infoTemplate' in this.options) {
