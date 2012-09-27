@@ -260,6 +260,11 @@ html {
     opacity: .90;
     filter: alpha(opacity=90); }
 
+.simpleInfoWindow .floodmessage {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: solid 1px #333; }
+
 .hidden {
   display: none !important;
   visibility: hidden; }

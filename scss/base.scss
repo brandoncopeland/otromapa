@@ -36,7 +36,10 @@ body, button, input, select, textarea {
 }
 
 p {
-	margin: 0;  text-align: left; line-height: 1.5;
+	margin: 0;
+	text-align: left;
+	line-height: 1.5;
+	display: block;
 }
 
 /* Selection */

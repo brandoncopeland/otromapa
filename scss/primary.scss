@@ -231,6 +231,13 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 	}
 }
 
+.simpleInfoWindow {
+	.floodmessage {
+		margin-top: 5px; padding-top: 5px;
+		border-top: solid 1px #333;
+	}
+}
+
 .hidden {
 	@include hidden;
 }
