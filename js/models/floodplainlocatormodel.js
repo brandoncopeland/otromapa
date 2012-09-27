@@ -7,8 +7,8 @@ define('models/floodplainlocatormodel', ['jquery', 'underscore', 'backbone', 'es
 
 	var FloodplainLocatorModel = Backbone.Model.extend({
 		defaults: {
-			floodMessageAttributeField: 'floodMessage',
-			floodZoneField: 'FLD_ZONE'
+			floodMessageAttributeField: 'floodMessage', // field to add to MapFeatureModel.props with new flood message
+			floodZoneField: 'FLD_ZONE' // field in GIS dataset with floodzone value
 		},
 		initialize: function () {
 			var self = this;
@@ -33,17 +33,20 @@ define('models/floodplainlocatormodel', ['jquery', 'underscore', 'backbone', 'es
 				var query = new esri.tasks.Query();
 				query.geometry = feature.get('geometry');
 				query.returnGeometry = false;
-				query.outFields = ['*'];
+				query.outFields = [self.get('floodZoneField')];
 				task.execute(query, function (result) {
-					var zoneMessage;
-					if (result.features.length === 0) {
-						zoneMessage = 'Flood Zone could not be determined for this location.';
-					} else if (result.features.length === 1) {
+					var zoneMessage = 'Flood Zone could not be determined for this location';
+					if (result.features.length === 1) {
 						var featureZone = result.features[0].attributes[self.get('floodZoneField')];
-						zoneMessage = 'Located in Flood Zone ' + featureZone;
-						if (self._zoneData[featureZone]) {
-							zoneMessage = zoneMessage + '. ' + self._zoneData[featureZone].sfhaDescription;
+						var zone = self._zoneData[featureZone];
+						if (zone) {
+							zoneMessage = 'Located in ' + zone.name;
+							zoneMessage = zoneMessage + '. ' + zone.sfhaDescription;
+						} else {
+							zoneMessage = 'Located in Flood Zone ' + featureZone;
 						}
+					} else if (result.features.length > 1) {
+						zoneMessage = 'Multiple Flood Zones for this location';
 					}
 					feature.get('props')[self.get('floodMessageAttributeField')] = zoneMessage;
 				});

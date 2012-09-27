@@ -10,13 +10,13 @@
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/floodway"
 	},
 	"AE": {
-		"name": "Zone AE and A1-30",
+		"name": "Zone AE/A1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. Base Flood Elevations (BFEs) are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone-ae-and-a1-30",
 		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
 	},
 	"AE(C)": {
-		"name": "Zone AE and A1-30",
+		"name": "Zone AE/A1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. Base Flood Elevations (BFEs) are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone-ae-and-a1-30",
 		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
@@ -34,10 +34,14 @@
 		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
 	},
 	"VE": {
-		"name": "Zone VE and V1-30",
+		"name": "Zone VE/V1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event with additional hazards due to storm-induced velocity wave action. Base Flood Elevations (BFEs) derived from detailed hydraulic analyses are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-1/zone-ve-and-v1-30",
 		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+	},
+	"0.2 PCT ACFH": {
+		"name": "Zone 0.2% ACFH",
+		"sfhaDescription": "This location is outside of a Special Flood Hazard Area (SFHA)."
 	},
 	"X": {
 		"name": "Zone X",
