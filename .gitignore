@@ -167,9 +167,8 @@ pip-log.txt
 #############
 
 .sass-cache
-basicmap.html
 
-data/floodzones.json
+basicmap.html
 
 floodplainmap.html
 
