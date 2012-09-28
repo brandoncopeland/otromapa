@@ -2,8 +2,17 @@
 // listens for new features added to MapFeatureModelCollection, queries floodplain feature service, and appends floodplain attributes
 // features - MapFeatureModelCollection
 // floodplainServiceUrl - url to ESRI feature layer
+// example usage...
+// var floodplainLocator = new FloodplainLocatorModel({
+//   features: someCollectionOfMapFeaturesToAppendFloodplainStatus,
+//   floodplainServiceUrl: 'http://myserver/ArcGIS/rest/services/floodplain/MapServer/0',
+//   floodMessageAttributeField: myFloodMessage,
+//   floodZoneField: fieldNameDescribingZoneOnServer
+// });	
 define('models/floodplainlocatormodel', ['jquery', 'underscore', 'backbone', 'esri', 'text!data/floodzones.json', 'esri/tasks/query'], function ($, _, Backbone, esri, zoneData) {
 	'use strict';
+
+	var noMatchMessage = 'Flood Zone could not be determined for this location';
 
 	var FloodplainLocatorModel = Backbone.Model.extend({
 		defaults: {
@@ -35,18 +44,17 @@ define('models/floodplainlocatormodel', ['jquery', 'underscore', 'backbone', 'es
 				query.returnGeometry = false;
 				query.outFields = [self.get('floodZoneField')];
 				task.execute(query, function (result) {
-					var zoneMessage = 'Flood Zone could not be determined for this location';
+					var zoneMessage = noMatchMessage;
 					if (result.features.length === 1) {
 						var featureZone = result.features[0].attributes[self.get('floodZoneField')];
 						var zone = self._zoneData[featureZone];
 						if (zone) {
-							zoneMessage = 'Located in ' + zone.name;
-							zoneMessage = zoneMessage + '. ' + zone.sfhaDescription;
+							zoneMessage = 'Located in ' + zone.name + '. ' + zone.sfhaDescription; // may later pull in full html template here
 						} else {
 							zoneMessage = 'Located in Flood Zone ' + featureZone;
 						}
 					} else if (result.features.length > 1) {
-						zoneMessage = 'Multiple Flood Zones for this location';
+						zoneMessage = 'Multiple Flood Zones for this location'; // final implementation should construct message listing zones
 					}
 					feature.get('props')[self.get('floodMessageAttributeField')] = zoneMessage;
 				});

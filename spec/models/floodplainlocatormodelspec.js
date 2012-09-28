@@ -16,7 +16,7 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 
 		describe('on features .add', function () {
 			beforeEach(function () {
-				this.model.set('floodplainServiceUrl', 'someurl');
+				this.model.set('floodplainServiceUrl', 'someurl'); // have to have url to perform locate
 				this.queryTaskStub = sinon.stub(esri.tasks, 'QueryTask');
 				this.queryTaskStub.returns({
 					execute: function () {}
@@ -31,7 +31,7 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 				var queryArgs;
 				this.queryTaskStub.returns({
 					execute: function (query) {
-						queryArgs = query;
+						queryArgs = query; // save out args to check against in expect
 					}
 				});
 				var expectedGeometry = new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }));
@@ -40,9 +40,9 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 				});
 				this.featureCollection.add(model);
 				expect(queryArgs).toBeDefined();
-				expect(queryArgs.geometry).toBe(expectedGeometry);
-				expect(queryArgs.returnGeometry).toBe(false);
-				expect(queryArgs.outFields).toEqual([this.model.get('floodZoneField')]);
+				expect(queryArgs.geometry).toBe(expectedGeometry); // features geometry
+				expect(queryArgs.returnGeometry).toBe(false); // never return geometry from query
+				expect(queryArgs.outFields).toEqual([this.model.get('floodZoneField')]); // only field we need is flood zone field, maybe floodway field later
 			});
 			describe('when no floodplain areas returned from query', function () {
 				it('should append expected "not determined" message to feature props', function () {
@@ -59,7 +59,62 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 					expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
 				});
 			});
+			describe('when 1 floodplain area is returned from query', function () {
+				describe('and zone data exists', function () {
+					it('should append expected message including zone name and sfha description to feature props', function () {
+						this.model._zoneData = {
+							sampleZone: {
+								name: 'Sample',
+								sfhaDescription: 'This is in SFHA'
+							}
+						};
+						var returnedFeature = {
+							attributes: {}
+						};
+						returnedFeature.attributes[this.model.get('floodZoneField')] = 'sampleZone'; // match zone data above
+						this.queryTaskStub.returns({
+							execute: sinon.stub().callsArgWith(1, { features: [returnedFeature] })
+						});
+						var feature = new MapFeatureModel({
+							geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
+						});
+						this.featureCollection.add(feature);
+						var expectedMessage = 'Located in Sample. This is in SFHA'; // 'Located in ' + name + '. ' + sfhaDescription
+						expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
+					});
+				});
+				describe('and no zone data exists', function () {
+					it('should append expected message from returned zone name to feature props', function () {
+						this.model._zoneData = {}; // no zone data
+						var returnedFeature = {
+							attributes: {}
+						};
+						returnedFeature.attributes[this.model.get('floodZoneField')] = 'sampleZone'; // match zone data above
+						this.queryTaskStub.returns({
+							execute: sinon.stub().callsArgWith(1, { features: [returnedFeature] })
+						});
+						var feature = new MapFeatureModel({
+							geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
+						});
+						this.featureCollection.add(feature);
+						var expectedMessage = 'Located in Flood Zone sampleZone'; // 'Located in Flood Zone' + zone name
+						expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
+					});
+				});
+			});
+			describe('when multiple floodplain areas are returned from query', function () {
+				it('should append expected message to feature props', function () {
+					this.queryTaskStub.returns({
+						execute: sinon.stub().callsArgWith(1, { features: [{}, {}] }) // 2 features returned
+					});
+					var feature = new MapFeatureModel({
+						geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
+					});
+					this.featureCollection.add(feature);
+					var expectedMessage = 'Multiple Flood Zones for this location'; // temporary message until better implementation in place
+					expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
+				});
+			});
 		});
-
 	});
 });
