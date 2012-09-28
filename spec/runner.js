@@ -6,6 +6,7 @@
   var localSpecs = local + '/spec';
   var localLib = localJs + '/lib';
   var localTemplates = local + '/templates';
+  var localData = local + '/data';
 
   window.require({
     async: true,
@@ -19,7 +20,8 @@
       'views': localJs + '/views',
       'models': localJs + '/models',
       'specs': localSpecs,
-      'templates': localTemplates
+      'templates': localTemplates,
+      'data': localData
     },
     packages: [
       {
@@ -41,6 +43,7 @@
   window.define.amd.jQuery = true;
 
 	var specs = [
+    'specs/models/floodplainlocatormodelspec',
 		'specs/models/layermodelspec',
 		'specs/models/layermodelcollectionspec',
 		'specs/models/locationsearchmodelspec',
