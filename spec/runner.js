@@ -19,6 +19,7 @@
       'app': localJs,
       'views': localJs + '/views',
       'models': localJs + '/models',
+      'utilities': localJs + '/utilities',
       'specs': localSpecs,
       'templates': localTemplates,
       'data': localData
@@ -48,7 +49,8 @@
 		'specs/models/layermodelcollectionspec',
 		'specs/models/locationsearchmodelspec',
     'specs/models/mapfeaturemodelcollectionspec',
-    'specs/models/mapmodelspec'
+    'specs/models/mapmodelspec',
+    'specs/utilities/geometryutilsspec'
 	];
 	window.require(specs, function () {
 		var jasmineEnv = jasmine.getEnv();
