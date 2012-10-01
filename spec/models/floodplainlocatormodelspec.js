@@ -59,32 +59,41 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 					expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
 				});
 			});
+
 			describe('when 1 floodplain area is returned from query', function () {
 				describe('and zone data exists', function () {
-					it('should append expected message including zone name and sfha description to feature props', function () {
-						this.model._zoneData = {
-							sampleZone: {
-								name: 'Sample',
-								sfhaDescription: 'This is in SFHA'
-							}
-						};
-						var returnedFeature = {
-							attributes: {}
-						};
-						returnedFeature.attributes[this.model.get('floodZoneField')] = 'sampleZone'; // match zone data above
-						this.queryTaskStub.returns({
-							execute: sinon.stub().callsArgWith(1, { features: [returnedFeature] })
+					// 3 situations... in SFHA, outside but near SFHA, outside and not near SFHA
+					describe('and inside SFHA area', function () {
+						it('should append expected message including zone name and sfha description to feature props', function () {
+							var inSfhaMessage = 'This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply.';
+							this.model._zoneData = {
+								sampleZone: {
+									name: 'Sample',
+									inSfha: true
+								}
+							};
+							var returnedFeature = {
+								attributes: {}
+							};
+							returnedFeature.attributes[this.model.get('floodZoneField')] = 'sampleZone'; // match zone data above
+							this.queryTaskStub.returns({
+								execute: sinon.stub().callsArgWith(1, { features: [returnedFeature] })
+							});
+							var feature = new MapFeatureModel({
+								geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
+							});
+							this.featureCollection.add(feature);
+							var expectedMessage = 'Located in Sample. ' + inSfhaMessage; // 'Located in ' + name + '. ' + static in SFHA message
+							expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
 						});
-						var feature = new MapFeatureModel({
-							geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
-						});
-						this.featureCollection.add(feature);
-						var expectedMessage = 'Located in Sample. This is in SFHA'; // 'Located in ' + name + '. ' + sfhaDescription
-						expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
 					});
+					// TODO... near
+					// TODO... outside
 				});
 				describe('and no zone data exists', function () {
-					it('should append expected message from returned zone name to feature props', function () {
+					it('should append expected "not determined" message to feature props', function () {
+						// case shouldn't occur typically,
+						// but if some reason data json file cannot be accessed or data doesn't included definition for located zone, return not determined
 						this.model._zoneData = {}; // no zone data
 						var returnedFeature = {
 							attributes: {}
@@ -97,11 +106,12 @@ define(['underscore', 'esri', 'esri/geometry', 'models/floodplainlocatormodel', 
 							geometry: new esriGeometry.Point(-118.15, 33.80, new esri.SpatialReference({ wkid: 4326 }))
 						});
 						this.featureCollection.add(feature);
-						var expectedMessage = 'Located in Flood Zone sampleZone'; // 'Located in Flood Zone' + zone name
+						var expectedMessage = 'Flood Zone could not be determined for this location';
 						expect(feature.get('props')[this.model.get('floodMessageAttributeField')]).toBe(expectedMessage);
 					});
 				});
 			});
+
 			describe('when multiple floodplain areas are returned from query', function () {
 				it('should append expected message to feature props', function () {
 					this.queryTaskStub.returns({

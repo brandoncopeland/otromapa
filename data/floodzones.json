@@ -13,38 +13,38 @@
 		"name": "Zone AE/A1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. Base Flood Elevations (BFEs) are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone-ae-and-a1-30",
-		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+		"inSfha": true
 	},
 	"AE(C)": {
 		"name": "Zone AE/A1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. Base Flood Elevations (BFEs) are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone-ae-and-a1-30",
-		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+		"inSfha": true
 	},
 	"A": {
 		"name": "Zone A",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event generally determined using approximate methodologies. Because detailed hydraulic analyses have not been performed, no Base Flood Elevations (BFEs) or flood depths are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone",
-		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+		"inSfha": true
 	},
 	"AO": {
 		"name": "Zone AO",
 		"description": "Areas subject to inundation by 1-percent-annual-chance shallow flooding (usually sheet flow on sloping terrain) where average depths are between one and three feet. Average flood depths derived from detailed hydraulic analyses are shown in this zone. Mandatory flood insurance purchase requirements and floodplain management standards apply. Some Zone AO have been designated in areas with high flood velocities such as alluvial fans and washes. Communities are encouraged to adopt more restrictive rquirements for these areas.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-2/zone-ao",
-		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+		"inSfha": true
 	},
 	"VE": {
 		"name": "Zone VE/V1-30",
 		"description": "Areas subject to inundation by the 1-percent-annual-chance flood event with additional hazards due to storm-induced velocity wave action. Base Flood Elevations (BFEs) derived from detailed hydraulic analyses are shown. Mandatory flood insurance purchase requirements and floodplain management standards apply.",
 		"femaUrl": "http://www.fema.gov/national-flood-insurance-program-1/zone-ve-and-v1-30",
-		"sfhaDescription": "This location is within a Special Flood Hazard Area (SFHA) and mandatory flood insurance purchase requirements and floodplain management standards apply."
+		"inSfha": true
 	},
 	"0.2 PCT ACFH": {
 		"name": "Zone 0.2% ACFH",
-		"sfhaDescription": "This location is outside of a Special Flood Hazard Area (SFHA)."
+		"inSfha": false
 	},
 	"X": {
 		"name": "Zone X",
-		"sfhaDescription": "This location is outside of a Special Flood Hazard Area (SFHA)."
+		"inSfha": false
 	}
 }
