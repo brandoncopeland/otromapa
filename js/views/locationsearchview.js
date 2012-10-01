@@ -1,5 +1,7 @@
-define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, _, Backbone, locationSearchTemplate) {
+define('views/locationsearchview', ['jquery', 'dojo', 'dojo/_base/window', 'dojo/window', 'underscore', 'backbone', 'text!templates/locationsearchtemplate.html'], function ($, dojo, baseWin, dojoWin, _, Backbone, locationSearchTemplate) {
 	'use strict';
+
+	var win = dojoWin.get(baseWin.doc);
 
 	var searchingClass = 'searching';
 
@@ -19,12 +21,26 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 		}
 	};
 
-	// options... searchExtent
+	var getParameterByName = function (name) {
+		var match = RegExp('[?&]' + name + '=([^&]*)').exec(win.location.search);
+		return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	};
+
+	// options...
+	// searchExtent
+	// locationUrlParam - url param to search on init if provided
 	var LocationSearchView = Backbone.View.extend({
 		initialize: function () {
 			this.model.on('change:isWorking', this.updateSearching, this);
 			this.model.get('featureResults').on('all', this.setClearVisibility, this);
 			this.render();
+
+			// check for locationUrlParam and do search if present
+			var paramLocation = getParameterByName(this.options.locationUrlParam);
+			if (paramLocation) {
+				this._input.val(paramLocation);
+				this.search();
+			}
 		},
 		template: _.template(locationSearchTemplate),
 		render: function () {
@@ -61,7 +77,9 @@ define('views/locationsearchview', ['jquery', 'underscore', 'backbone', 'text!te
 		},
 		search: function (evt) {
 			var self = this;
-			evt.preventDefault();
+			if (evt) {
+				evt.preventDefault();
+			}
 
 			var searchOptions = {};
 			if (this.options.searchExtent) {
