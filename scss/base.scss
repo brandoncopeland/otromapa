@@ -168,8 +168,11 @@ li {
 li:first-child {
 	margin-top: 0;
 }
+dl {
+	margin: 0;
+}
 dd {
-	margin: 0 0 0 40px;
+	margin: 0;
 }
 
 nav ul, nav ol {
