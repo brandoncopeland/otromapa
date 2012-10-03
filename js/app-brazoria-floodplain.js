@@ -11,6 +11,15 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 
 	var init = function () {
 
+		if ($('html').hasClass('lt-ie9')) {
+			require(['underscore', 'views/topbannerview', 'text!templates/getchromeframetemplate.html'], function (_, TopBannerView, getChromeFrameTemplate) {
+				var view = new TopBannerView();
+				view.addItem(_.template(getChromeFrameTemplate, {}), false, {
+					additionalClasses: 'getchromeframe'
+				});
+			});
+		}
+
 		var floodplainInfoView = new FloodplainInfoView({
 			el: $('#panelbox')
 		});

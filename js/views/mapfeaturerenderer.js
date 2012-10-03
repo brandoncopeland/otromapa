@@ -58,7 +58,7 @@ define('views/mapfeaturerenderer', ['jquery', 'dojo', 'underscore', 'backbone', 
 
 	// returns array graphics from MapFeatureModelCollection
 	var createGraphics = function (featureModels) {
-		var graphics = featureModels.map(function (model) {
+		var graphics = _.map(featureModels, function (model) {
 			var graphic = new esri.Graphic(model.get('geometry'));
 			graphic.setAttributes(model.get('props'));
 			return graphic;

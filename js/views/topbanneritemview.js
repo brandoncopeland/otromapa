@@ -19,7 +19,6 @@ define('views/topbanneritemview', ['jquery', 'underscore', 'backbone', 'text!tem
 			self.$el.hide();
 
 			self.$el.html(self.template({
-				additionalClasses: self.options.additionalClasses,
 				htmlContent: self.options.htmlContent
 			}));
 

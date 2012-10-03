@@ -417,6 +417,15 @@ html {
         -webkit-background-size: 20px 40px; } }
     .topbanner input:hover {
       background-position: left -20px; }
+  .topbanner.getchromeframe {
+    background-position: 25px center;
+    background-repeat: no-repeat;
+    background-image: url("../img/ie.png");
+    padding-left: 85px; }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      .topbanner.getchromeframe {
+        background-image: url("../img/ie_@2x.png");
+        -webkit-background-size: 40px 40px; } }
 
 .clearfix {
   zoom: 1; }

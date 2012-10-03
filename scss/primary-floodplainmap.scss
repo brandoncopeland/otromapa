@@ -394,6 +394,15 @@ $width-rightpanel: 300px;
 			background-position: left -20px;
 		}
 	}
+
+	&.getchromeframe {
+		background: {
+			position: 25px center;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/ie', 'png', 40px, 40px);
+		padding-left: 85px;
+	}
 }
 
 .clearfix {
