@@ -28,9 +28,9 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'text!da
 
 			var definitions = parseDefinitions($.parseJSON(zoneData));
 
-			this.$el.hide();
-			this.$el.append(this.template({definitions: definitions}));
-			this.$el.fadeIn(700);
+			var $content = $(this.template({definitions: definitions})).hide();
+			this.$el.append($content);
+			$content.fadeIn(700);
 
 			this.$allDefinitions = this.$('.flooplaininfo dd').hide();
 			this.$allDefinitionHeads = this.$('.flooplaininfo dt');
