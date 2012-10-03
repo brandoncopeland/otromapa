@@ -60,7 +60,7 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'views/f
 			var detailView = new FloodplainInfoItemView({
 				model: detailModel
 			});
-			this.$detailContainer.html(detailView.render().$el.html()).slideDown(200);
+			this.$detailContainer.html(detailView.render().$el.html()).slideDown(100);
 
 			// TODO. stop any previous close animations. NOTE. $.stop doesn't seem to stop fully.
 
