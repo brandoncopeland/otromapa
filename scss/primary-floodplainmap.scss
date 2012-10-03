@@ -88,7 +88,7 @@ $width-rightpanel: 300px;
 			li {
 				margin: 0;
 				position: relative;
-				color: lighten(#222, 80%);
+				color: lighten(#222, 75%);
 				font-size: 1.2em;
 				padding: 8px 24px 8px 0;
 				&.hasSymbol {
@@ -367,4 +367,8 @@ $width-rightpanel: 300px;
 			background-position: left -20px;
 		}
 	}
+}
+
+.clearfix {
+	@include clearfix;
 }

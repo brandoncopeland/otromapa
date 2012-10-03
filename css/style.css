@@ -691,4 +691,12 @@ html {
     .topbanner input:hover {
       background-position: left -20px; }
 
+.clearfix {
+  zoom: 1; }
+  .clearfix:before, .clearfix:after {
+    content: "";
+    display: table; }
+  .clearfix:after {
+    clear: both; }
+
 /* mediaqueries.scss */

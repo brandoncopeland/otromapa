@@ -443,7 +443,7 @@ html {
       .panelbox .floodplaininfo ul li {
         margin: 0;
         position: relative;
-        color: #eeeeee;
+        color: #e1e1e1;
         font-size: 1.2em;
         padding: 8px 24px 8px 0;
         border-top: solid 1px #C5C5C5;
@@ -758,5 +758,13 @@ html {
         -webkit-background-size: 20px 40px; } }
     .topbanner input:hover {
       background-position: left -20px; }
+
+.clearfix {
+  zoom: 1; }
+  .clearfix:before, .clearfix:after {
+    content: "";
+    display: table; }
+  .clearfix:after {
+    clear: both; }
 
 /* mediaqueries.scss */
