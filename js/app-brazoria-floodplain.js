@@ -1,4 +1,4 @@
-define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview', 'views/floodplaininfoview', 'views/mapfeaturerenderer', 'models/floodplainlocatormodel', 'esri/virtualearth/vetiledlayer'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView, FloodplainInfoView, MapFeatureRenderer, FloodplainLocatorModel) {
+define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'models/mapmodel', 'models/layermodel', 'models/locationsearchmodel', 'views/maptoolsview', 'views/basemappickerview', 'views/locationsearchview', 'views/bcfloodplaincontactview', 'views/floodplaininfoview', 'views/mapfeaturerenderer', 'models/floodplainlocatormodel', 'esri/virtualearth/vetiledlayer'], function ($, esri, esriGeometry, MapModel, LayerModel, LocationSearchModel, MapToolsView, BasemapPickerView, LocationSearchView, BcFloodplainContactView, FloodplainInfoView, MapFeatureRenderer, FloodplainLocatorModel) {
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
@@ -20,6 +20,9 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 			});
 		}
 
+		var contactView = new BcFloodplainContactView({
+			el: $('#panelbox')
+		});
 		var floodplainInfoView = new FloodplainInfoView({
 			el: $('#panelbox')
 		});

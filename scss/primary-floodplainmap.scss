@@ -70,13 +70,22 @@ $width-rightpanel: 300px;
 		box-shadow: 0 0 10px -2px #555;
 		background-color: darken($color-aerialback, 20%);
 		margin-top: 10px;
+		padding: 10px;
 	}
 	> div:first-child {
 		margin-top: 0;
 	}
 
+	.floodplaincontact {
+		background: {
+			position: right bottom;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/mailsent', 'png', 82px, 55px);
+	}
 	.floodplaininfo {
 		overflow: hidden;
+		padding: 0;
 		.list, .details {
 			padding: 10px;
 		}

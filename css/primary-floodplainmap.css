@@ -63,11 +63,21 @@ html {
     border: solid 1px #888;
     box-shadow: 0 0 10px -2px #555555;
     background-color: rgba(136, 136, 136, 0.5);
-    margin-top: 10px; }
+    margin-top: 10px;
+    padding: 10px; }
   .panelbox > div:first-child {
     margin-top: 0; }
+  .panelbox .floodplaincontact {
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-image: url("../img/mailsent.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+      .panelbox .floodplaincontact {
+        background-image: url("../img/mailsent_@2x.png");
+        -webkit-background-size: 82px 55px; } }
   .panelbox .floodplaininfo {
-    overflow: hidden; }
+    overflow: hidden;
+    padding: 0; }
     .panelbox .floodplaininfo .list, .panelbox .floodplaininfo .details {
       padding: 10px; }
     .panelbox .floodplaininfo .list {
