@@ -25,33 +25,52 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'text!da
 		},
 		template: _.template(floodplainInfoTemplate),
 		render: function () {
-
 			var definitions = parseDefinitions($.parseJSON(zoneData));
 
 			var $content = $(this.template({definitions: definitions})).hide();
 			this.$el.append($content);
+
+			this.$('.floodplaininfo').css('position', 'relative');
+			this.$('.floodplaininfo .wrapper').addClass('clearfix').css({
+				'width': '200%'
+			});
+			this.$('.floodplaininfo .wrapper > div').css({
+				'width': '50%',
+				'float': 'left'
+			});
+
 			$content.fadeIn(700);
 
 			this.$allDefinitions = this.$('.floodplaininfo dd').hide();
-			this.$allDefinitionHeads = this.$('.floodplaininfo dt');
 
 			return this;
 		},
 		events: {
-			'click dt': 'expandDefinition'
+			'click li': 'expandDefinition',
+			'click .closedef': 'backToList'
 		},
 		expandDefinition: function (evt) {
-			var $dt = $(evt.target);
-			var $toExpand = $dt.next();
-			if (!$dt.hasClass(activeClassName)) {
-				this.$allDefinitionHeads.removeClass(activeClassName);
-				this.$allDefinitions.slideUp(slideSpeed);
-				$dt.addClass(activeClassName);
-				$toExpand.slideDown(slideSpeed);
-			} else {
-				$dt.removeClass(activeClassName);
-				$toExpand.slideUp(slideSpeed);
-			}
+			// construct new item view here...
+			$(evt.target).addClass(activeClassName).animate({
+				'margin-right': '-100%',
+				'margin-left': '100%',
+				'opacity': '0'
+			}, 800);
+			this.$('.floodplaininfo .wrapper').animate({
+				'margin-left': '-100%'
+			}, 800);
+		},
+		backToList: function () {
+			var self = this;
+			this.$('.' + activeClassName).animate({
+				'margin-left': '0',
+				'margin-right': '0',
+				'opacity': '1'
+			}, 800);
+			this.$('.floodplaininfo .wrapper').animate({
+				'margin-left': '0'
+			}, 800);
+			// clear detail content here...
 		}
 	});
 

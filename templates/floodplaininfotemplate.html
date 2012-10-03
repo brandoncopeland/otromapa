@@ -1,20 +1,18 @@
 <div class="floodplaininfo">
-	<div class="list">
-		<h2>Common Floodplain Management Zones</h2>
-		<div>
-			<dl>
-				<% _.each(definitions, function(def) { %>
-				<dt <% if (def.legendColor) { %>class="hasSymbol"<% } %>>
-					<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %>
-					<%= def.name %>
-				</dt>
-				<dd>
-					<p><%= def.definition %></p>
-					<% if (def.url) { %><p><a href="<%= def.url %>" target="_blank">More information on <%= def.name %> at fema.gov</a></p><% } %>
-				</dd>
-				<% }); %>
-			</dl>
+	<div class='wrapper'>
+		<div class="list">
+			<h2>Common Floodplain Management Zones</h2>
+			<div>
+				<ul>
+					<% _.each(definitions, function(def) { %>
+					<li <% if (def.legendColor) { %>class="hasSymbol"<% } %>><% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %><%= def.name %></li>
+					<% }); %>
+				</ul>
+			</div>
+		</div>
+		<div class="details">
+			<input type="button" class="closedef" value="back"/>
+			<div class="detailcontent"></div>
 		</div>
 	</div>
-	<div class="details">some details</div>
 </div>
