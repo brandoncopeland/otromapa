@@ -32,8 +32,8 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'text!da
 			this.$el.append($content);
 			$content.fadeIn(700);
 
-			this.$allDefinitions = this.$('.flooplaininfo dd').hide();
-			this.$allDefinitionHeads = this.$('.flooplaininfo dt');
+			this.$allDefinitions = this.$('.floodplaininfo dd').hide();
+			this.$allDefinitionHeads = this.$('.floodplaininfo dt');
 
 			return this;
 		},
