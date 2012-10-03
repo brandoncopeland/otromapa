@@ -2,16 +2,14 @@
 	<div class='wrapper'>
 		<div class="list">
 			<h2>Common Floodplain Management Zones</h2>
-			<div>
-				<ul>
-					<% _.each(definitions, function(def, key) { %>
-					<li data-definitionkey="<%= key %>" <% if (def.legendColor) { %>class="hasSymbol"<% } %>>
-						<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %>
-						<h3><%= def.name %></h3>
-					</li>
-					<% }); %>
-				</ul>
-			</div>
+			<ul>
+				<% _.each(definitions, function(def, key) { %>
+				<li data-definitionkey="<%= key %>" <% if (def.legendColor) { %>class="hasSymbol"<% } %>>
+					<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %>
+					<h3><%= def.name %></h3>
+				</li>
+				<% }); %>
+			</ul>
 		</div>
 		<div class="details">
 			<input type="button" class="closedef" value="Back to Zones"/>

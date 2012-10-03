@@ -411,6 +411,9 @@ html {
       display: none !important;
       visibility: hidden; }
 
+.lt-ie9 .mapbox {
+  background-color: #d1d1d1; }
+
 .panelbox {
   height: 100%;
   position: absolute;
@@ -472,7 +475,7 @@ html {
       .panelbox .floodplaininfo li.hasSymbol {
         padding-left: 22px; }
     .panelbox .floodplaininfo .detailcontent {
-      margin-top: 8px;
+      margin-top: 11px;
       padding-top: 8px;
       border-top: solid 1px #C5C5C5; }
       .panelbox .floodplaininfo .detailcontent div.hasSymbol {
@@ -497,6 +500,9 @@ html {
         .panelbox .floodplaininfo .closedef {
           background-image: url("../img/backcollapsed_@2x.png");
           -webkit-background-size: 13px 13px; } }
+
+.lt-ie9 .panelbox > div {
+  background-color: #b7b7b7; }
 
 .toolbox {
   position: absolute;

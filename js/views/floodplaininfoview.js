@@ -2,7 +2,7 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'views/f
 	'use strict';
 
 	var activeClassName = 'active';
-	var slideSpeed = 'fast';
+	var slideSpeed = 500;
 
 	// pull zone definition models from floodzones.json
 	// only use items with description property
@@ -60,19 +60,19 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'views/f
 			var detailView = new FloodplainInfoItemView({
 				model: detailModel
 			});
-			this.$detailContainer.html(detailView.render().$el.html()).slideDown(300);
+			this.$detailContainer.html(detailView.render().$el.html()).slideDown(200);
 
 			// TODO. stop any previous close animations. NOTE. $.stop doesn't seem to stop fully.
 
 			// move from left to right panel but keep target li somewhat in place and fade out
 			$target.addClass(activeClassName).animate({
-				'margin-right': '-100%',
-				'margin-left': '100%',
+				'margin-right': '-90%',
+				'margin-left': '90%',
 				'opacity': '0'
-			}, 800);
+			}, slideSpeed);
 			this.$('.floodplaininfo .wrapper').animate({
 				'margin-left': '-100%'
-			}, 800);
+			}, slideSpeed);
 		},
 		backToList: function () {
 			var self = this;
@@ -85,10 +85,10 @@ define('views/floodplaininfoview', ['jquery', 'underscore', 'backbone', 'views/f
 				'margin-left': '0',
 				'margin-right': '0',
 				'opacity': '1'
-			}, 800);
+			}, slideSpeed);
 			self.$('.floodplaininfo .wrapper').animate({
 				'margin-left': '0'
-			}, 800, function () {
+			}, slideSpeed, function () {
 				self.$detailContainer.slideUp(300);
 			});
 		}
