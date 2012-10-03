@@ -43,11 +43,15 @@
 		"legendColor": "#8591D0"
 	},
 	"0.2 PCT ACFH": {
-		"name": "Zone 0.2% ACFH",
-		"inSfha": false
+		"name": "Zone 0.2 Percent ACFH",
+		"description": "Areas of moderate flood hazard outside of the Special Flood Hazard Area (SFHA), usually the area between the limits of the 100-year and 500-year floods. Can also be used to designate base floodplains of lesser hazards, such as areas protected by levees from 100-year flood, or shallow flooding areas with average depths of less than one foot or drainage areas less than 1 square mile.",
+		"inSfha": false,
+		"legendColor": "#B2BADC"
 	},
 	"X": {
 		"name": "Zone X",
-		"inSfha": false
+		"inSfha": false,
+		"description": "Area of minimal flood hazard, usually depicted on FIRMs as above the 500-year flood level.",
+		"legendColor": "tranparent"
 	}
 }
