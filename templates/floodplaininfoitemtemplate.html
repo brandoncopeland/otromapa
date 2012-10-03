@@ -1,0 +1,8 @@
+<div<% if (legendColor) { %>class="hasSymbol"<% } %>>
+	<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= legendColor %>;">&nbsp;</div><% } %>
+	<%= name %>
+</div>
+<div>
+	<p><%= definition %></p>
+	<% if (url) { %><p><a href="<%= url %>" target="_blank">More information on <%= name %> at fema.gov</a></p><% } %>
+</div>

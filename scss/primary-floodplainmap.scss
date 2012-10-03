@@ -1,0 +1,370 @@
+/* primary-floodplainmap.scss */
+
+@import "resources.scss";
+
+$color-aerialback: rgba(187, 187, 187, 0.5); // TODO. not full rgba support
+$color-aerialborder: darken($color-aerialback, 40%);
+
+$height-header: 32px; // just put things up here absolutely for now
+
+html {
+	overflow: hidden;
+	&, body {
+		height: 100%;
+	}
+	body {
+		padding: 20px;
+		background-color: transparent;
+		@include retinabackground('../img/bright_squares', 'png', 297px, 297px);
+	}
+}
+
+.pagecontent {
+	position: relative;
+	height: 100%; width: 100%;
+	padding-top: $height-header;
+}
+
+$width-toolbox: $size-mapcommand + 10px; // 10 padding right
+$height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
+
+$width-rightpanel: 300px;
+
+.mapbox {
+	height: 100%;
+	margin-left: $width-toolbox;
+	margin-right: $width-rightpanel + 10px;
+	position: relative;
+	background-color: $color-aerialback;
+	@include retinabackground('../img/bg-map', 'png', 10px, 10px);
+	box-shadow: 0 0 10px -2px #555;
+
+	.map {
+		@include noselection;
+		height: 100%; width: 100%;
+		border: solid 1px #888;
+		background: {
+			position: center center;
+			repeat: no-repeat;
+		}
+		.esriSimpleSlider, .esriControlsBR, .bingLogo-lg {
+			@include hidden;
+		}
+	}
+}
+
+.panelbox {
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: $width-rightpanel;
+	padding: $height-header 0 0;
+	> div {
+		color: #222;
+		border: solid 1px #888;
+		box-shadow: 0 0 10px -2px #555;
+		background-color: darken($color-aerialback, 20%);
+		margin-top: 10px;
+	}
+	> div:first-child {
+		margin-top: 0;
+	}
+	.floodplaininfo {
+		overflow: hidden;
+		.list, .details {
+			padding: 10px;
+		}
+		.list {
+			padding-bottom: 2px;
+		}
+		h2 {
+			font-size: 1.1em;
+			color: lighten(#222, 20%);
+		}
+		ul {
+			@include list-unpadded;
+			margin-top: 10px;			
+			li {
+				margin: 0;
+				position: relative;
+				color: lighten(#222, 80%);
+				font-size: 1.2em;
+				padding: 8px 24px 8px 0;
+				&.hasSymbol {
+					padding-left: 22px;
+				}
+				border-top: solid 1px #C5C5C5;
+				cursor: default;
+				@include noselection;
+				background: {
+					position: right center;
+					repeat: no-repeat;
+					color: transparent;
+				}
+				@include retinabackground('../img/collapsed', 'png', 16px, 16px);
+				.symbol {
+					position: absolute;
+					width: 14px;
+					height: 14px;
+					top: 50%;
+					left: 0;
+					margin-top: -8px;
+					border: solid 1px #5D6284;
+				}
+				&:hover {
+					color: lighten(#222, 95%);
+				}
+			}
+			dd {
+				padding-bottom: 8px;
+				p {
+					margin-top: 5px;
+				}
+				p:first-child {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+}
+
+.toolbox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%; width: $width-toolbox;
+	padding: $height-header 0 10px;
+	
+	.tools {
+		height: 100%; width: 100%;
+
+		ul {
+			@include list-unpadded;
+			li {
+				height: $height-toolbox;
+				width: 100%;
+				margin-top: 0;
+			}
+		}
+
+		input.tool {
+			@include imagereplace;
+			height: 100%; width: 100%;
+			opacity: 0.4; filter:alpha(opacity=40);
+			background: {
+				color: transparent;
+				position: left center;
+				repeat: no-repeat;
+			}
+			&:hover {
+				opacity: 0.7; filter:alpha(opacity=70);
+			}
+			&:active {
+				opacity: 1; filter:alpha(opacity=100);
+			}
+			&:disabled {
+				opacity: 0.1; filter:alpha(opacity=10);
+			}
+		}
+
+		.toolgroup {
+			margin-top: 10px;
+		}
+		.zoomout {
+			@include retinabackground('../img/zoomouttool', 'png', 24px, 24px);
+		}
+		.zoomin {
+			@include retinabackground('../img/zoomintool', 'png', 24px, 24px);
+		}
+		.zoominitial {
+			@include retinabackground('../img/hometool', 'png', 24px, 24px);
+		}
+		.zoomback {
+			@include retinabackground('../img/zoombacktool', 'png', 24px, 24px);
+		}
+		.notisimplewithlink {
+			@include retinabackground('../img/llamatool', 'png', 24px, 24px);
+		}
+		.notigetchromeframe {
+			@include retinabackground('../img/chrometool', 'png', 24px, 24px);
+		}
+	}
+}
+
+.basemapbox {
+	@include clearfix;
+	position: absolute;
+	top: 0;
+	right: $width-rightpanel + 10px;
+	h2, .basemaps {
+		float: left;
+		margin: 0;
+	}
+	.basemaps {
+		margin-left: 5px; // 15 total on left, but li adds 10
+		ul {
+			@include list-horizontal;
+			li {
+				line-height: 1.8;
+				margin: {
+					top: 0;
+					left: 10px;
+				}
+				input {
+					color: lighten($color-base-anchor, 25%);					
+				}
+				&.selected input {
+					color: $color-base-anchor;
+				}
+			}
+		}
+	}
+}
+
+.searchbox {
+	position: absolute;
+	top: -2px; // keep text in line with basemap text
+	left: $width-toolbox;
+	line-height: 1.8;
+	input[type="text"] {
+		padding: 5px 33px 5px 8px;
+		width: 300px;
+		background-color: #fff;
+		border: solid 1px #aaa;
+	}
+	.clearsearch {
+		@include imagereplace;
+		height: 20px; width: 20px;
+		position: absolute;
+		top: 4px;
+		right: 5px;
+		background: {
+			color: transparent;
+			position: left top;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/close-dark', 'png', 20px, 40px);
+		&:hover {
+			background-position: left -20px;
+		}
+	}
+	.workingoverlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background: {
+			color: #fff;
+			position: center center;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/searching', 'gif', 121px, 11px);
+		border: solid 1px #aaa;
+		opacity: 0.85; filter: alpha(opacity=85);
+		display: none;
+		-webkit-transition: opacity 1s linear;
+		transition: opacity 1s linear;
+	}
+	&.searching {
+		opacity: 0.7; filter: alpha(opacity=70);
+		.workingoverlay {
+			display: block;
+		}
+	}
+}
+
+.tooltip {
+	font-size: $type-smaller;
+	padding: 5px 8px;
+	background-color: #222;
+	color: #ccc;
+	box-shadow: 0 0 5px #444;
+}
+
+.tipsearchclose {
+	@include hidden;
+}
+
+.simpleInfoWindow {
+	padding: 0 5px;
+	height: auto !important;
+	width: auto !important;
+
+	.title, .close {
+		@include hidden;
+	}	
+
+	.content {
+		@extend .tooltip;
+		font-size: 1em;
+		max-width: 350px;
+		height: auto !important;
+		overflow: visible;
+		opacity: .90; filter: alpha(opacity=90);
+	}
+}
+
+.simpleInfoWindow {
+	.floodmessage {
+		margin-top: 5px; padding-top: 5px;
+		border-top: solid 1px #333;
+	}
+}
+
+.hidden {
+	@include hidden;
+}
+
+// top banner
+.bannercontainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+}
+.topbanner {
+	@include clearfix;
+	opacity: 0.95; filter: alpha(opacity=95);
+	padding: 25px 70px 25px 25px;
+	line-height: 20px;
+	background-color: #333;
+	text-align: center;
+	color: #fff;
+	box-shadow: 0 0 6px #333;
+	position: relative;
+	border: {
+		bottom: solid 1px #000;
+	}
+	a {
+		color: #A0BAF9;
+	}
+	p {
+		margin-top: 10px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+	.subtle {
+		color: #999;
+	}
+	input {
+		@include imagereplace;
+		height: 20px;
+		width: 20px;
+		position: absolute;
+		right: 25px;
+		top: 25px;
+		background: {
+			color: transparent;
+			position: left top;
+			repeat: no-repeat;
+		}
+		@include retinabackground('../img/close-dark', 'png', 20px, 40px);
+		&:hover {
+			background-position: left -20px;
+		}
+	}
+}
