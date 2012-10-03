@@ -2,10 +2,10 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 	'use strict';
 
 	var defaultExtent = new esriGeometry.Extent({
-		xmin: -10685400,
-		ymin: 3343200,
-		xmax: -10570600,
-		ymax: 3454800,
+		xmin: -10673004,
+		ymin: 3352900,
+		xmax: -10581244,
+		ymax: 3452202,
 		spatialReference: { wkid: '3857' }
 	});
 
