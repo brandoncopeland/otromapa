@@ -1,0 +1,17 @@
+<div class="flooplaininfo">
+	<h2>Common Floodplain Management Zones</h2>
+	<div>
+		<dl>
+			<% _.each(definitions, function(def) { %>
+			<dt <% if (def.legendColor) { %>class="hasSymbol"<% } %>>
+				<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %>
+				<%= def.name %>
+			</dt>
+			<dd>
+				<p><%= def.definition %></p>
+				<% if (def.url) { %><p><a href="<%= def.url %>" target="_blank">More Information on <%= def.name %></a></p><% } %>
+			</dd>
+			<% }); %>
+		</dl>
+	</div>
+</div>
