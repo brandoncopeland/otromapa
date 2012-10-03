@@ -4,14 +4,17 @@
 			<h2>Common Floodplain Management Zones</h2>
 			<div>
 				<ul>
-					<% _.each(definitions, function(def) { %>
-					<li <% if (def.legendColor) { %>class="hasSymbol"<% } %>><% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %><%= def.name %></li>
+					<% _.each(definitions, function(def, key) { %>
+					<li data-definitionkey="<%= key %>" <% if (def.legendColor) { %>class="hasSymbol"<% } %>>
+						<% if (def.legendColor) { %><div class="symbol" style="background-color: <%= def.legendColor %>;">&nbsp;</div><% } %>
+						<h3><%= def.name %></h3>
+					</li>
 					<% }); %>
 				</ul>
 			</div>
 		</div>
 		<div class="details">
-			<input type="button" class="closedef" value="back"/>
+			<input type="button" class="closedef" value="Back to Zones"/>
 			<div class="detailcontent"></div>
 		</div>
 	</div>

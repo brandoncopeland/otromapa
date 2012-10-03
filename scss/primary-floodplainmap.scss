@@ -70,61 +70,81 @@ $width-rightpanel: 300px;
 	> div:first-child {
 		margin-top: 0;
 	}
+
 	.floodplaininfo {
 		overflow: hidden;
 		.list, .details {
 			padding: 10px;
 		}
 		.list {
-			padding-bottom: 2px;
+			padding-bottom: 2px; // internal list already has 8px bottom padding
 		}
-		h2 {
+		.list h2 {
 			font-size: 1.1em;
 			color: lighten(#222, 20%);
 		}
 		ul {
 			@include list-unpadded;
 			margin-top: 10px;			
-			li {
-				margin: 0;
-				position: relative;
-				color: lighten(#222, 75%);
+		}
+		li, .detailcontent > div:first-child {
+			margin: 0;
+			position: relative;
+			color: lighten(#222, 75%);
+			h2 {
 				font-size: 1.2em;
-				padding: 8px 24px 8px 0;
-				&.hasSymbol {
-					padding-left: 22px;
-				}
-				border-top: solid 1px #C5C5C5;
-				cursor: default;
-				@include noselection;
-				background: {
-					position: right center;
-					repeat: no-repeat;
-					color: transparent;
-				}
-				@include retinabackground('../img/collapsed', 'png', 16px, 16px);
-				.symbol {
-					position: absolute;
-					width: 14px;
-					height: 14px;
-					top: 50%;
-					left: 0;
-					margin-top: -8px;
-					border: solid 1px #5D6284;
-				}
-				&:hover {
-					color: lighten(#222, 95%);
-				}
+			}		
+			h3 {
+				font-size: 1.1em;
 			}
-			dd {
-				padding-bottom: 8px;
-				p {
-					margin-top: 5px;
-				}
-				p:first-child {
-					margin-top: 0;
-				}
+		}
+		$symbolSize: 14px;
+		li {
+			padding: 8px 21px 8px 0;	
+			border-top: solid 1px #C5C5C5;
+			cursor: default;
+			@include noselection;
+			background: {
+				position: right center;
+				repeat: no-repeat;
+				color: transparent;
 			}
+			@include retinabackground('../img/collapsed', 'png', 13px, 13px);				
+			&:hover {
+				color: lighten(#222, 95%);
+			}
+			&.hasSymbol {
+				padding-left: $symbolSize + 8px;
+			}
+		}
+		.detailcontent {
+			margin-top: 8px;	
+			padding-top: 8px;
+			border-top: solid 1px #C5C5C5;
+			div.hasSymbol {
+				padding-left: $symbolSize + 8px;
+			}
+			p {
+				margin-top: 8px;
+			}
+		}
+		.symbol {
+			position: absolute;
+			width: $symbolSize;
+			height: $symbolSize;
+			top: 50%;
+			left: 0;
+			margin-top: -1 * ($symbolSize/2) - 1px; // negative half margin for vertical center placement. for some reason looks 1 px off to eyes, so move up 1px
+			border: solid 1px #5D6284;
+		}
+		.closedef {
+			padding-left: 21px;
+			background: {
+				position: left center;
+				repeat: no-repeat;
+				color: transparent;
+			}
+			@include retinabackground('../img/backcollapsed', 'png', 13px, 13px);
 		}
 	}
 }
