@@ -701,7 +701,6 @@ html {
       display: block; }
 
 .tooltip, .simpleInfoWindow .content {
-  font-size: 0.9em;
   padding: 5px 8px;
   background-color: #222;
   color: #ccc;
