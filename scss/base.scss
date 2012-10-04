@@ -55,6 +55,7 @@ p {
 
 a {
 	text-decoration: none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 a, a:hover, a:focus {
 	cursor: default;
@@ -301,6 +302,7 @@ input[type="button"], input[type="submit"] {
 	white-space: normal;
 	text-align: left;
 	line-height: 1.5;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="button"]:focus, input[type="submit"]:focus {
 	color: $color-base-anchor;

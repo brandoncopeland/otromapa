@@ -49,7 +49,8 @@ p {
 
 /* Links */
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 a, a:hover, a:focus {
   cursor: default;
@@ -279,7 +280,8 @@ input[type="button"], input[type="submit"] {
   padding: 0;
   white-space: normal;
   text-align: left;
-  line-height: 1.5; }
+  line-height: 1.5;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 input[type="button"]:hover, input[type="submit"]:hover, input[type="button"]:focus, input[type="submit"]:focus {
   color: #3366ff;

@@ -117,6 +117,7 @@ $width-rightpanel: 300px;
 			border-top: solid 1px #C5C5C5;
 			cursor: default;
 			@include noselection;
+			-webkit-tap-highlight-color:rgba(0,0,0,0);
 			background: {
 				position: right center;
 				repeat: no-repeat;
