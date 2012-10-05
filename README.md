@@ -12,7 +12,7 @@ JavaScript source is organized into modules using the [Asynchronous Module Defin
 
 ## SASS
 
-Stylesheets for the otromapa application are written in [SASS](http://sass-lang.com/), and it is expected that additional styles will be written in SASS and translated to CSS via SASS tools `$ sass --watch scss:css`. All SASS stylesheets are in the `/scss` directory and translated CSS should be added to the `/css` directory.
+Stylesheets for the otromapa application are written in [SASS](http://sass-lang.com/), and it is expected that additional styles will be written in SASS and translated to CSS via SASS tools, `$ sass --watch scss:css`. All SASS stylesheets are in the `/scss` directory and translated CSS should be added to the `/css` directory.
 
 ## HTML Pages
 
