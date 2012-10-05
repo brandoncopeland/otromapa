@@ -25,7 +25,7 @@ Currently there are 2 HTML pages, defining 2 independent applications.
 
 The `/build` directory contains individual build scripts. Build using the [r.js](https://github.com/jrburke/r.js/) library included in `/build`. r.js is my opinionated preference over Dojo's build tools. r.js is much lighter than the Dojo tools and performs well for the needs of this application. Check out the [r.js GitHub page](https://github.com/jrburke/r.js/) for more information on usage. For the floodplainmap app, the node.js syntax would look something like:
 
-	node build/r.js -o brazoria-floodplain.build.js
+	$ node build/r.js -o brazoria-floodplain.build.js
 
 *Note on building with r.js vs. Dojo...*
 
