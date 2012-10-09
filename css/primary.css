@@ -178,6 +178,9 @@ html {
     width: 240px;
     background-color: #fff;
     border: solid 1px #aaa; }
+  .searchbox .searchbutton {
+    display: none !important;
+    visibility: hidden; }
   .searchbox .clearsearch {
     display: block;
     border: 0;

@@ -154,6 +154,9 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 		background-color: #fff;
 		border: solid 1px #aaa;
 	}
+	.searchbutton {
+		@include hidden;
+	}
 	.clearsearch {
 		@include imagereplace;
 		height: 20px; width: 20px;
