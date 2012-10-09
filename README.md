@@ -18,8 +18,12 @@ Stylesheets for the otromapa application are written in [SASS](http://sass-lang.
 
 Currently there are 2 HTML pages, defining 2 independent applications.
 
-- index.html: demo application presenting common use of the majority of modules. index.html loads `main.js/app.js` and relies on the `style.css` stylesheet
-- floodplainmap.html: early stage prototype of a real world project that helps demonstrate additional components, delivering a more final product, and including multiple apps in the same project. floodplainmap.html also includes a build script under `/build` - index.html does not. floodplainmap.html loads `main-brazoria-floodplain.js/app-brazoria-floodplain.js` and relies on the `style-floodplainmap.css`
+- index.html (http://brandoncopeland.github.com/otromapa/index.html): demo application presenting common use of the majority of modules. index.html loads `main.js/app.js` and relies on the `style.css` stylesheet
+- floodplainmap.html (http://brandoncopeland.github.com/otromapa/floodplainmap.html): early stage prototype of a real world project that helps demonstrate additional components, delivering a more final product, and including multiple apps in the same project. floodplainmap.html also includes a build script under `/build` - index.html does not. floodplainmap.html loads `main-brazoria-floodplain.js/app-brazoria-floodplain.js` and relies on the `style-floodplainmap.css`
+
+## Specs
+
+(http://brandoncopeland.github.com/otromapa/specrunner.html)
 
 ## Build
 
