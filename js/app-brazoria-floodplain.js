@@ -34,14 +34,14 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 		map.get('layers').add([
 			new LayerModel({
 				esriLayer: new esri.layers.ArcGISTiledMapServiceLayer('http://gisdemo.ljaengineering.com/ArcGIS/rest/services/brazoria/standardbasemap/MapServer', {
-					id: 'Standard'
+					id: 'Standard Map'
 				}),
 				isBasemap: true
 			}), new LayerModel({
 				esriLayer: new esri.virtualearth.VETiledLayer({
 					bingMapsKey: 'AiY7AwSxrYKtsiTIcgzEtqNA932v5vJcyqjTVRfm_eoaYTAdFOm-fYEuanVZreIn',
 					mapStyle: esri.virtualearth.VETiledLayer.MAP_STYLE_AERIAL,
-					id: 'Aerial',
+					id: 'Aerial Map',
 					visible: false
 				}),
 				isBasemap: true
