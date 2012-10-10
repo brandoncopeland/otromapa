@@ -236,10 +236,10 @@ $width-rightpanel: 300px;
 	@include clearfix;
 	position: absolute;
 	top: 0;
-	right: $width-rightpanel + 15px;
+	right: $width-rightpanel + 10px;
 	ul {
 		@include list-unpadded;
-		padding-top: $height-header + 5px;
+		padding-top: $height-header;
 		min-width: 140px;
 		li {
 			line-height: 1;
@@ -252,7 +252,8 @@ $width-rightpanel: 300px;
 				width: 100%;
 				background-color: #222;
 				opacity: .90; filter: alpha(opacity=90);
-				text-align: center;
+				text-align: right;
+				padding-right: 35px;
 			}
 			input:hover, input:focus {
 				color: #fff;
@@ -261,22 +262,18 @@ $width-rightpanel: 300px;
 			&.selected {
 				display: block;
 				input {
-					color: #fff;
+					color: $color-base-text;
 					position: absolute;
-					right: 0;
+					width: auto;
+					right: 5px;
 					left: 0;
 					top: 0;
-					padding: 6px 10px 6px 34px;
-					text-align: left;
-					border: {
-						left: solid 1px #888;
-						top: solid 1px #888;
-						right: solid 1px #888;
-					}
-					background-color: darken($color-aerialback, 20%);
+					padding: 6px 30px 6px 0px;
+					border: 0;
+					background-color: transparent;
 					opacity: 1; filter: alpha(opacity=100);
 					background: {
-						position: 6px center;
+						position: right center;
 						repeat: no-repeat;
 					}
 					@include retinabackground('../img/globe', 'png', 40px, 40px);
@@ -292,9 +289,6 @@ $width-rightpanel: 300px;
 			color: #fff;
 		}
 	}
-}
-.lt-ie9 .basemapbox ul li.selected input {
-	background-color: darken($color-aerialbackie, 10%);
 }
 
 .searchbox {
