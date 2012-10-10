@@ -52,13 +52,12 @@ $height-toolbox: $size-mapcommand + 6px; // 3 padding top/bottom
 
 .toolbox {
 	position: absolute;
-	top: 0;
+	top: $height-header; bottom: 0;
 	left: 0;
-	height: 100%; width: $width-toolbox;
-	padding: $height-header 0 10px;
+	width: $width-toolbox;
 	
 	.tools {
-		height: 100%; width: 100%;
+		width: 100%;
 
 		ul {
 			@include list-unpadded;

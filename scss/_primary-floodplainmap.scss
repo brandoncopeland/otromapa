@@ -17,6 +17,7 @@ html {
 		padding: 20px;
 		background-color: transparent;
 		@include retinabackground('../img/bright_squares', 'png', 297px, 297px);
+		min-width: 820px;
 	}
 }
 
@@ -53,17 +54,20 @@ $width-rightpanel: 300px;
 		}
 	}
 }
+.mapbox, .map {
+	min-height: 570px; // keep min page height
+}
+
 .lt-ie9 .mapbox {
 	background-color: $color-aerialbackie;
 }
 
 .panelbox {
-	height: 100%;
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: $height-header;
+	bottom: 0;
 	width: $width-rightpanel;
-	padding: $height-header 0 0;
 	> div {
 		color: #222;
 		border: solid 1px #888;
@@ -168,13 +172,12 @@ $width-rightpanel: 300px;
 
 .toolbox {
 	position: absolute;
-	top: 0;
+	top: $height-header; bottom: 0;
 	left: 0;
-	height: 100%; width: $width-toolbox;
-	padding: $height-header 0 10px;
+	width: $width-toolbox;
 	
 	.tools {
-		height: 100%; width: 100%;
+		width: 100%;
 
 		ul {
 			@include list-unpadded;
@@ -234,26 +237,19 @@ $width-rightpanel: 300px;
 	position: absolute;
 	top: 0;
 	right: $width-rightpanel + 10px;
-	h2, .basemaps {
-		float: left;
-		margin: 0;
-	}
-	.basemaps {
-		margin-left: 5px; // 15 total on left, but li adds 10
-		ul {
-			@include list-horizontal;
-			li {
-				line-height: 1.8;
-				margin: {
-					top: 0;
-					left: 10px;
-				}
-				input {
-					color: lighten($color-base-anchor, 25%);					
-				}
-				&.selected input {
-					color: $color-base-anchor;
-				}
+	ul {
+		@include list-horizontal;
+		li {
+			line-height: 1.8;
+			margin: {
+				top: 0;
+				left: 10px;
+			}
+			input {
+				color: lighten($color-base-anchor, 25%);					
+			}
+			&.selected input {
+				color: $color-base-anchor;
 			}
 		}
 	}

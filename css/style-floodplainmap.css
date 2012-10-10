@@ -372,7 +372,8 @@ html {
   html body {
     padding: 20px;
     background-color: transparent;
-    background-image: url("../img/bright_squares.png"); }
+    background-image: url("../img/bright_squares.png");
+    min-width: 820px; }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       html body {
         background-image: url("../img/bright_squares_@2x.png");
@@ -413,16 +414,18 @@ html {
       display: none !important;
       visibility: hidden; }
 
+.mapbox, .map {
+  min-height: 570px; }
+
 .lt-ie9 .mapbox {
   background-color: #d1d1d1; }
 
 .panelbox {
-  height: 100%;
   position: absolute;
   right: 0;
-  top: 0;
-  width: 300px;
-  padding: 32px 0 0; }
+  top: 32px;
+  bottom: 0;
+  width: 300px; }
   .panelbox > div {
     color: #222;
     border: solid 1px #888;
@@ -519,13 +522,11 @@ html {
 
 .toolbox {
   position: absolute;
-  top: 0;
+  top: 32px;
+  bottom: 0;
   left: 0;
-  height: 100%;
-  width: 34px;
-  padding: 32px 0 10px; }
+  width: 34px; }
   .toolbox .tools {
-    height: 100%;
     width: 100%; }
     .toolbox .tools ul {
       list-style: none;
@@ -611,32 +612,27 @@ html {
     display: table; }
   .basemapbox:after {
     clear: both; }
-  .basemapbox h2, .basemapbox .basemaps {
-    float: left;
-    margin: 0; }
-  .basemapbox .basemaps {
-    margin-left: 5px; }
-    .basemapbox .basemaps ul {
-      list-style: none;
-      list-style-image: none;
-      padding: 0;
-      zoom: 1; }
-      .basemapbox .basemaps ul:before, .basemapbox .basemaps ul:after {
-        content: "";
-        display: table; }
-      .basemapbox .basemaps ul:after {
-        clear: both; }
-      .basemapbox .basemaps ul > li {
-        float: left;
-        margin-top: 0; }
-      .basemapbox .basemaps ul li {
-        line-height: 1.8;
-        margin-top: 0;
-        margin-left: 10px; }
-        .basemapbox .basemaps ul li input {
-          color: #b3c6ff; }
-        .basemapbox .basemaps ul li.selected input {
-          color: #3366ff; }
+  .basemapbox ul {
+    list-style: none;
+    list-style-image: none;
+    padding: 0;
+    zoom: 1; }
+    .basemapbox ul:before, .basemapbox ul:after {
+      content: "";
+      display: table; }
+    .basemapbox ul:after {
+      clear: both; }
+    .basemapbox ul > li {
+      float: left;
+      margin-top: 0; }
+    .basemapbox ul li {
+      line-height: 1.8;
+      margin-top: 0;
+      margin-left: 10px; }
+      .basemapbox ul li input {
+        color: #b3c6ff; }
+      .basemapbox ul li.selected input {
+        color: #3366ff; }
 
 .searchbox {
   position: absolute;

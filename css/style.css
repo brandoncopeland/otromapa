@@ -414,13 +414,11 @@ html {
 
 .toolbox {
   position: absolute;
-  top: 0;
+  top: 32px;
+  bottom: 0;
   left: 0;
-  height: 100%;
-  width: 34px;
-  padding: 32px 0 10px; }
+  width: 34px; }
   .toolbox .tools {
-    height: 100%;
     width: 100%; }
     .toolbox .tools ul {
       list-style: none;

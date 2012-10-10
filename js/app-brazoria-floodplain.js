@@ -65,7 +65,7 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 
 		// basemap picker
 		var basemapPickerView = new BasemapPickerView({
-			el: $('#basemapbox > .basemaps'),
+			el: $('#basemapbox'),
 			collection: map.get('layers')
 		});
 
