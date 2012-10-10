@@ -655,7 +655,7 @@ html {
     text-align: left;
     direction: ltr;
     height: 24px;
-    width: 24px;
+    width: 30px;
     background-position: center center;
     background-repeat: no-repeat;
     background-image: url("../img/search.png");
@@ -669,7 +669,7 @@ html {
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       .searchbox .searchbutton {
         background-image: url("../img/search_@2x.png");
-        -webkit-background-size: 24px 24px; } }
+        -webkit-background-size: 30px 24px; } }
     .searchbox .searchbutton:hover {
       opacity: 0.7;
       filter: alpha(opacity=70); }

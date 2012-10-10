@@ -271,12 +271,12 @@ $width-rightpanel: 300px;
 	}
 	.searchbutton {
 		@include imagereplace;
-		height: 24px; width: 24px;
+		height: 24px; width: 30px;
 		background: {
 			position: center center;
 			repeat: no-repeat;
 		}
-		@include retinabackground('../img/search', 'png', 24px, 24px);
+		@include retinabackground('../img/search', 'png', 30px, 24px);
 		position: absolute;
 		top: 2px; left: 0;
 		opacity: 0.4; filter:alpha(opacity=40);
