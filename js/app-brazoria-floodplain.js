@@ -45,6 +45,14 @@ define('app/app-brazoria-floodplain', ['jquery', 'esri', 'esri/geometry', 'model
 					visible: false
 				}),
 				isBasemap: true
+			}), new LayerModel({
+				esriLayer: new esri.virtualearth.VETiledLayer({
+					bingMapsKey: 'AiY7AwSxrYKtsiTIcgzEtqNA932v5vJcyqjTVRfm_eoaYTAdFOm-fYEuanVZreIn',
+					mapStyle: esri.virtualearth.VETiledLayer.MAP_STYLE_AERIAL,
+					id: 'Other Map',
+					visible: false
+				}),
+				isBasemap: true
 			})
 		]);
 
