@@ -276,7 +276,7 @@ $width-rightpanel: 300px;
 						position: right center;
 						repeat: no-repeat;
 					}
-					@include retinabackground('../img/globe', 'png', 40px, 40px);
+					@include retinabackground('../img/globe', 'png', 20px, 20px);
 				}
 			}
 		}

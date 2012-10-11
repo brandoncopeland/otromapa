@@ -655,7 +655,7 @@ html {
           @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
             .basemapbox ul li.selected input {
               background-image: url("../img/globe_@2x.png");
-              -webkit-background-size: 40px 40px; } }
+              -webkit-background-size: 20px 20px; } }
   .basemapbox:hover li {
     display: block; }
   .basemapbox:hover li:hover {
