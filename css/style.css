@@ -373,7 +373,7 @@ html {
     padding: 20px;
     background-color: transparent;
     background-image: url("../img/bright_squares.png"); }
-    @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+    @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
       html body {
         background-image: url("../img/bright_squares_@2X.png");
         -webkit-background-size: 297px 297px; } }
@@ -391,7 +391,7 @@ html {
   background-color: rgba(187, 187, 187, 0.5);
   background-image: url("../img/bg-map.png");
   box-shadow: 0 0 10px -2px #555555; }
-  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+  @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
     .mapbox {
       background-image: url("../img/bg-map_@2X.png");
       -webkit-background-size: 10px 10px; } }
@@ -459,37 +459,37 @@ html {
       margin-top: 10px; }
     .toolbox .tools .zoomout {
       background-image: url("../img/zoomouttool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .zoomout {
           background-image: url("../img/zoomouttool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomin {
       background-image: url("../img/zoomintool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .zoomin {
           background-image: url("../img/zoomintool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoominitial {
       background-image: url("../img/hometool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .zoominitial {
           background-image: url("../img/hometool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomback {
       background-image: url("../img/zoombacktool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .zoomback {
           background-image: url("../img/zoombacktool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notisimplewithlink {
       background-image: url("../img/llamatool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .notisimplewithlink {
           background-image: url("../img/llamatool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notigetchromeframe {
       background-image: url("../img/chrometool.png"); }
-      @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+      @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
         .toolbox .tools .notigetchromeframe {
           background-image: url("../img/chrometool_@2X.png");
           -webkit-background-size: 24px 24px; } }
@@ -564,7 +564,7 @@ html {
     background-image: url("../img/close-dark.png"); }
     .searchbox .clearsearch br {
       display: none; }
-    @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+    @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
       .searchbox .clearsearch {
         background-image: url("../img/close-dark_@2X.png");
         -webkit-background-size: 20px 40px; } }
@@ -586,7 +586,7 @@ html {
     display: none;
     -webkit-transition: opacity 1s linear;
     transition: opacity 1s linear; }
-    @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+    @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
       .searchbox .workingoverlay {
         background-image: url("../img/searching_@2X.gif");
         -webkit-background-size: 121px 11px; } }
@@ -687,7 +687,7 @@ html {
     background-image: url("../img/close-dark.png"); }
     .topbanner input br {
       display: none; }
-    @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+    @media (min--moz-device-pixel-ratio: 1.3), (moz-min-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
       .topbanner input {
         background-image: url("../img/close-dark_@2X.png");
         -webkit-background-size: 20px 40px; } }
