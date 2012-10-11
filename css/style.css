@@ -375,7 +375,7 @@ html {
     background-image: url("../img/bright_squares.png"); }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       html body {
-        background-image: url("../img/bright_squares_@2x.png");
+        background-image: url("../img/bright_squares_@2X.png");
         -webkit-background-size: 297px 297px; } }
 
 .pagecontent {
@@ -393,7 +393,7 @@ html {
   box-shadow: 0 0 10px -2px #555555; }
   @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
     .mapbox {
-      background-image: url("../img/bg-map_@2x.png");
+      background-image: url("../img/bg-map_@2X.png");
       -webkit-background-size: 10px 10px; } }
   .mapbox .map {
     -webkit-touch-callout: none;
@@ -461,37 +461,37 @@ html {
       background-image: url("../img/zoomouttool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .zoomout {
-          background-image: url("../img/zoomouttool_@2x.png");
+          background-image: url("../img/zoomouttool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomin {
       background-image: url("../img/zoomintool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .zoomin {
-          background-image: url("../img/zoomintool_@2x.png");
+          background-image: url("../img/zoomintool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoominitial {
       background-image: url("../img/hometool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .zoominitial {
-          background-image: url("../img/hometool_@2x.png");
+          background-image: url("../img/hometool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .zoomback {
       background-image: url("../img/zoombacktool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .zoomback {
-          background-image: url("../img/zoombacktool_@2x.png");
+          background-image: url("../img/zoombacktool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notisimplewithlink {
       background-image: url("../img/llamatool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .notisimplewithlink {
-          background-image: url("../img/llamatool_@2x.png");
+          background-image: url("../img/llamatool_@2X.png");
           -webkit-background-size: 24px 24px; } }
     .toolbox .tools .notigetchromeframe {
       background-image: url("../img/chrometool.png"); }
       @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
         .toolbox .tools .notigetchromeframe {
-          background-image: url("../img/chrometool_@2x.png");
+          background-image: url("../img/chrometool_@2X.png");
           -webkit-background-size: 24px 24px; } }
 
 .basemapbox {
@@ -566,7 +566,7 @@ html {
       display: none; }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       .searchbox .clearsearch {
-        background-image: url("../img/close-dark_@2x.png");
+        background-image: url("../img/close-dark_@2X.png");
         -webkit-background-size: 20px 40px; } }
     .searchbox .clearsearch:hover {
       background-position: left -20px; }
@@ -588,7 +588,7 @@ html {
     transition: opacity 1s linear; }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       .searchbox .workingoverlay {
-        background-image: url("../img/searching_@2x.gif");
+        background-image: url("../img/searching_@2X.gif");
         -webkit-background-size: 121px 11px; } }
   .searchbox.searching {
     opacity: 0.7;
@@ -689,7 +689,7 @@ html {
       display: none; }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
       .topbanner input {
-        background-image: url("../img/close-dark_@2x.png");
+        background-image: url("../img/close-dark_@2X.png");
         -webkit-background-size: 20px 40px; } }
     .topbanner input:hover {
       background-position: left -20px; }
